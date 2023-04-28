@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SignUp"
+    android:background="@drawable/font"
+    >
+    <TextView
+        android:id="@+id/signUp_Text"
+        android:layout_width="150dp"
+        android:layout_height="54dp"
+        android:layout_marginTop="40dp"
+        android:text="Sign Up"
+        android:textAlignment="center"
+        android:textColor="@color/green"
+        android:textSize="36sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints" />
+
+    <EditText
+        android:id="@+id/SignUp_username"
+        android:layout_width="331dp"
+        android:layout_height="57dp"
+        android:layout_marginTop="96dp"
+
+        android:background="@drawable/custo_editext"
+        android:drawableLeft="@drawable/baseline_person_24"
+        android:drawablePadding="8dp"
+        android:hint="username"
+        android:padding="8dp"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
+        app:layout_constraintEnd_toEndOf="@+id/signUp_Text"
+        app:layout_constraintHorizontal_bias="0.436"
+        app:layout_constraintStart_toStartOf="@+id/signUp_Text"
+        app:layout_constraintTop_toTopOf="@+id/signUp_Text"
+        tools:ignore="MissingConstraints" />
+
+    <EditText
+        android:id="@+id/SignUp_email"
+        android:layout_width="331dp"
+        android:layout_height="57dp"
+        android:layout_marginTop="68dp"
+        android:background="@drawable/custo_editext"
+
+        android:drawableLeft="@drawable/baseline_email_24"
+        android:drawablePadding="8dp"
+        android:hint="email"
+        android:padding="8dp"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
+        app:layout_constraintEnd_toEndOf="@+id/SignUp_username"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/SignUp_username"
+        app:layout_constraintTop_toTopOf="@+id/SignUp_username" />
+
+    <EditText
+        android:id="@+id/SignUp_password"
+        android:layout_width="331dp"
+        android:layout_height="57dp"
+        android:layout_marginTop="72dp"
+        android:background="@drawable/custo_editext"
+        android:drawableLeft="@drawable/baseline_lock_24"
+        android:drawablePadding="8dp"
+        android:hint="Password"
+        android:inputType="textPassword"
+        android:padding="8dp"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
+        app:layout_constraintEnd_toEndOf="@+id/SignUp_email"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/SignUp_email"
+        app:layout_constraintTop_toTopOf="@+id/SignUp_email"
+        app:passwordToggleEnabled="true"
+        app:passwordToggleTint="@color/green" />
+
+    <EditText
+
+        android:id="@+id/SignUp_Conf_password"
+        android:layout_width="331dp"
+        android:layout_height="57dp"
+        android:layout_marginTop="68dp"
+        android:background="@drawable/custo_editext"
+        android:drawablePadding="8dp"
+        android:drawableLeft="@drawable/baseline_lock_24"
+
+        app:startIconDrawable="@drawable/baseline_lock_24"
+        android:inputType="textPassword"
+        android:padding="8dp"
+        android:textColor="@color/white"
+        app:passwordToggleEnabled="true"
+        app:passwordToggleTint="@color/green"
+
+        android:textColorHint="@color/white"
+        app:layout_constraintEnd_toEndOf="@+id/SignUp_password"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/SignUp_password"
+        app:layout_constraintTop_toTopOf="@+id/SignUp_password"
+
+        android:hint="confirm"/>
+
+
+
+    <Button
+        android:id="@+id/SignUp_Button"
+        android:layout_width="205dp"
+        android:layout_height="53dp"
+        android:layout_marginTop="76dp"
+        android:backgroundTint="@color/green"
+        android:text="Sign up"
+
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="@+id/SignUp_Conf_password"
+        app:layout_constraintHorizontal_bias="0.468"
+        app:layout_constraintStart_toStartOf="@+id/SignUp_Conf_password"
+        app:layout_constraintTop_toTopOf="@+id/SignUp_Conf_password" />
+
+    <TextView
+        android:id="@+id/tv_signup_phone_forgotpwd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_marginTop="84dp"
+        android:text="Already have an account?"
+        android:textColor="@color/white"
+        android:textSize="22sp"
+        app:layout_constraintEnd_toEndOf="@+id/SignUp_Button"
+        app:layout_constraintHorizontal_bias="0.673"
+        app:layout_constraintStart_toStartOf="@+id/SignUp_Button"
+        app:layout_constraintTop_toTopOf="@+id/SignUp_Button" />
+
+    <TextView
+        android:id="@+id/bt_Signup_phone_Signin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="52dp"
+
+        android:text="sign_in"
+        android:textAlignment="center"
+        android:textColor="@color/green"
+        android:textSize="23sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/tv_signup_phone_forgotpwd"
+        app:layout_constraintStart_toStartOf="@+id/tv_signup_phone_forgotpwd"
+        app:layout_constraintTop_toTopOf="@+id/tv_signup_phone_forgotpwd" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
