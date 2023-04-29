@@ -3,6 +3,8 @@ package com.example.nutfit
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.View
 import android.widget.Button
 
@@ -27,6 +29,10 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent3)
         }
 
-
+        Handler(Looper.getMainLooper()).postDelayed({
+            val intent =Intent(this, SignUp::class.java)
+            startActivity(intent)
+            finish()
+        },3000)
     }
 }
