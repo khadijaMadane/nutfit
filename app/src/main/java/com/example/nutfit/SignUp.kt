@@ -5,18 +5,25 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.util.Patterns
+import android.view.LayoutInflater
 import android.view.View
+import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import com.example.nutfit.databinding.ActivitySignUpBinding
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import java.util.regex.Pattern
 
 class SignUp : AppCompatActivity() {
-    private lateinit var auth : FirebaseAuth
-    private lateinit var binding : ActivitySignUpBinding
+    private lateinit var auth: FirebaseAuth
+    private lateinit var binding: ActivitySignUpBinding
+    private lateinit var etEmail: TextView
+    private lateinit var etPassword: TextView
+    private lateinit var etConfirm: TextView
+    private lateinit var btVerify: Button
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -24,10 +31,10 @@ class SignUp : AppCompatActivity() {
         supportActionBar?.hide()
 
 
-        setContentView(R.layout.activity_sign_up)
 
-        auth=Firebase.auth
-        binding= ActivitySignUpBinding.inflate(layoutInflater)
+
+        auth = Firebase.auth
+        binding = ActivitySignUpBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         var btSignUpSignIn = findViewById<TextView>(R.id.bt_Signup_phone_Signin)
@@ -35,9 +42,85 @@ class SignUp : AppCompatActivity() {
             val intent = Intent(this, SignIn::class.java)
             startActivity(intent)
         }
+
+        // binding = ActivitySignUpBinding.inflate(LayoutInflater)
+        setContentView(binding.root)
+        etEmail = findViewById(R.id.SignUpEmail)
+        // etPhone = findViewById(R.id.et_signup_phone)
+        etPassword = findViewById(R.id.SignUpPassword)
+        etConfirm = findViewById(R.id.SignUpConfPassword)
+        btVerify = findViewById(R.id.SignUpButton)
+
+
+        btVerify.setOnClickListener {
+            performSignUpEmail()
+
+
+        }
+    }
+        private fun performSignUpEmail() {
+            if (etEmail.text.isEmpty() || etPassword.text.isEmpty()){
+                Toast.makeText(this,"please fill the fields",Toast.LENGTH_SHORT).show()
+                return
+            }
+            if(binding.SignUpPassword.text.toString() != binding.SignUpConfPassword.text.toString()){
+                binding.SignUpPassword.error="password do not match"
+                //  binding.SignUpPassword.errorIconDrawable =null
+
+                return
+            }
+            if(binding.SignUpPassword.length()<=6){
+                binding.SignUpPassword.error="password is too short"
+                //  binding.SignUpPassword.errorIconDrawable =null
+
+                return
+            }
+
+            val inputEmail = etEmail.text.toString().trim()
+            val inputPassword = etPassword.text.toString().trim()
+            auth.createUserWithEmailAndPassword(inputEmail, inputPassword)
+                .addOnCompleteListener(this) { task ->
+                    if (task.isSuccessful) {
+                        auth.currentUser?.sendEmailVerification()
+                            ?.addOnSuccessListener {
+                                Toast.makeText(this,"please verify your  email", Toast.LENGTH_SHORT).show()
+
+                            }
+                        // Sign in success, update UI with the signed-in user's information
+                        //  Log.d(TAG, "createUserWithEmail:success")
+                       val user = auth.currentUser
+                       updateUI(user)
+                    } else {
+                        // If sign in fails, display a message to the user.
+                        //   Log.w(TAG, "createUserWithEmail:failure", task.exception)
+                        Toast.makeText(
+                            baseContext,
+                            "Authentication failed.",
+                            Toast.LENGTH_SHORT,
+                        ).show()
+                        // updateUI(null)
+                    }
+                }
+
+
+        }
+
+
+
+
+
+    private fun updateUI(user: FirebaseUser?) {
+            val intent = Intent(this, DashboardMainActivity::class.java)
+            startActivity(intent)
+        }
+
+}
+/*
         binding.SignUpButton.setOnClickListener {
             val email =binding.SignUpEmail.text.toString()
             val password =binding.SignUpPassword.text.toString()
+            //email= findViewById(R.id.SignUpEmail)
+           // password= findViewById(R.id.SignUpPassword)
             if(checkAllField()){
                 auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener {
                     if(it.isSuccessful){
@@ -49,9 +132,9 @@ class SignUp : AppCompatActivity() {
                     }
                 }
             }
-        }
-    }
-    private fun checkAllField(): Boolean{
+        }*/
+
+    /*private fun checkAllField(): Boolean{
         val email= binding.SignUpEmail.text.toString()
         if(binding.SignUpEmail.text.toString()==""){
             binding.SignUpEmail.error="this is required field"
@@ -63,7 +146,7 @@ class SignUp : AppCompatActivity() {
         }
         if(binding.SignUpPassword.text.toString()==""){
             binding.SignUpPassword.error="this is required field"
-            //  binding.SignUpPassword.errorIconDrawable =null
+          //    binding.SignUpPassword.errorIconDrawable =null
 
             return false
         }
@@ -86,5 +169,4 @@ class SignUp : AppCompatActivity() {
             return false
         }
         return false
-    }
-}
+    }*/

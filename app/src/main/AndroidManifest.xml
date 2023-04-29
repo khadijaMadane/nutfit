@@ -12,6 +12,12 @@
         android:theme="@style/Theme.NutFit"
         tools:targetApi="31">
         <activity
+            android:name=".ResetPassword"
+            android:exported="false" />
+        <activity
+            android:name=".DashboardMainActivity"
+            android:exported="false" />
+        <activity
             android:name=".welcome"
             android:exported="false" />
         <activity
