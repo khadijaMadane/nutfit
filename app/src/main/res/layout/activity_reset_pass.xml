@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".reset_pass"
+    android:background="@drawable/reset_pass">
+
+    <EditText
+        android:id="@+id/resetEmail"
+        android:layout_width="331dp"
+        android:layout_height="57dp"
+        android:layout_marginTop="500dp"
+        android:background="@drawable/custom"
+        android:drawableLeft="@drawable/baseline_email"
+        android:drawablePadding="8dp"
+        android:hint="email"
+        android:padding="8dp"
+        android:textColor="@color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_signup_phone_forgotpwd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_marginTop="76dp"
+        android:text="Remember your password?"
+        android:textColor="@color/black"
+        android:textSize="19sp"
+        app:layout_constraintEnd_toEndOf="@+id/resetEmail"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/resetEmail"
+        app:layout_constraintTop_toTopOf="@+id/resetEmail" />
+
+    <TextView
+        android:id="@+id/bt_reset_pass"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+
+        android:layout_marginTop="16dp"
+        android:text="Sign Up"
+        android:textAlignment="center"
+        android:textColor="@color/blue"
+        android:textSize="23sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/resetEmail"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/tv_signup_phone_forgotpwd"
+        app:layout_constraintTop_toBottomOf="@+id/resetEmail" />
+
+    <Button
+        android:id="@+id/btnReset"
+        android:layout_width="299dp"
+        android:layout_height="54dp"
+        android:layout_marginTop="16dp"
+        android:backgroundTint="@color/blue"
+        android:text="Login"
+
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="@+id/bt_reset_pass"
+        app:layout_constraintStart_toStartOf="@+id/tv_signup_phone_forgotpwd"
+        app:layout_constraintTop_toBottomOf="@+id/bt_reset_pass" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
