@@ -3,9 +3,9 @@ package com.example.nutfit
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 
-class ResetPassword : AppCompatActivity() {
+class reset_pass : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_reset_password)
+        setContentView(R.layout.activity_reset_pass)
     }
 }
