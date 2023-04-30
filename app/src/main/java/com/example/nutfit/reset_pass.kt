@@ -43,7 +43,7 @@ class reset_pass : AppCompatActivity() {
 
             }
                 .addOnSuccessListener {
-                    Toast.makeText(this, it.toString(),Toast.LENGTH_SHORT).show()
+                   // Toast.makeText(this, it.toString(),Toast.LENGTH_SHORT).show()
                 }
         //}
 
