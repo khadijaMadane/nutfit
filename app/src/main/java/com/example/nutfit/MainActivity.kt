@@ -29,10 +29,5 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent3)
         }
 
-        /*Handler(Looper.getMainLooper()).postDelayed({
-            val intent =Intent(this, SignUp::class.java)
-            startActivity(intent)
-            finish()
-        },3000)*/
     }
 }
