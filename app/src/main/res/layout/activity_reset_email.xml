@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".resetEmail"
+    android:background="@drawable/check_email">
+
+    <Button
+        android:id="@+id/loginButtonEmail"
+        android:layout_width="352dp"
+        android:layout_height="58dp"
+        android:layout_marginTop="508dp"
+        android:backgroundTint="@color/blue"
+        android:text="Login"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_signup_phone_forgotpwd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_marginTop="24dp"
+        android:text="Didn't recieve the link?"
+        android:textColor="@color/black"
+        android:textSize="21sp"
+        app:layout_constraintEnd_toEndOf="@+id/loginButtonEmail"
+        app:layout_constraintHorizontal_bias="0.17"
+        app:layout_constraintStart_toStartOf="@+id/loginButtonEmail"
+        app:layout_constraintTop_toBottomOf="@+id/loginButtonEmail" />
+
+    <TextView
+        android:id="@+id/bt_resend_pass"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_marginTop="24dp"
+        android:text="Resend"
+        android:textAlignment="center"
+        android:textColor="@color/blue"
+        android:textSize="23sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/loginButtonEmail"
+        app:layout_constraintHorizontal_bias="0.333"
+        app:layout_constraintStart_toEndOf="@+id/tv_signup_phone_forgotpwd"
+        app:layout_constraintTop_toBottomOf="@+id/loginButtonEmail" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
