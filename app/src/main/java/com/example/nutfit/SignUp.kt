@@ -45,11 +45,11 @@ class SignUp : AppCompatActivity() {
 
         // binding = ActivitySignUpBinding.inflate(LayoutInflater)
         setContentView(binding.root)
-        etEmail = findViewById(R.id.SignUpEmail)
+        etEmail = findViewById(R.id.SignUp_email)
         // etPhone = findViewById(R.id.et_signup_phone)
-        etPassword = findViewById(R.id.SignUpPassword)
-        etConfirm = findViewById(R.id.SignUpConfPassword)
-        btVerify = findViewById(R.id.SignUpButton)
+        etPassword = findViewById(R.id.SignUp_password)
+        etConfirm = findViewById(R.id.SignUp_Conf_password)
+        btVerify = findViewById(R.id.SignUp_Button)
 
 
         btVerify.setOnClickListener {

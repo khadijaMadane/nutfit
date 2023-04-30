@@ -23,8 +23,13 @@ class SignIn : AppCompatActivity() {
         setContentView(R.layout.activity_sign_in)
         var btSignin = findViewById<Button>(R.id.loginButton)
         var btSignInSignUp = findViewById<TextView>(R.id.bt_SignIn_phone_SignUp)
+        var btnResetPassword = findViewById<TextView>(R.id.logintextForget)
         btSignInSignUp.setOnClickListener{
             val intent = Intent(this,SignUp::class.java)
+            startActivity(intent)
+        }
+        btnResetPassword.setOnClickListener{
+            val intent = Intent(this,reset_pass::class.java)
             startActivity(intent)
         }
         btSignin.setOnClickListener {
@@ -33,8 +38,8 @@ class SignIn : AppCompatActivity() {
 }
 
     private fun performSignIn() {
-        val email = findViewById<EditText>(R.id.loginEmail)
-        val password = findViewById<EditText>(R.id.loginPassword)
+        val email = findViewById<EditText>(R.id.login_email)
+        val password = findViewById<EditText>(R.id.login_password)
 
         if (email.text.isEmpty() || password.text.isEmpty()){
             Toast.makeText(this,"please fill the fields", Toast.LENGTH_SHORT).show()
