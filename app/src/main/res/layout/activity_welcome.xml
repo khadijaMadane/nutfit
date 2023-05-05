@@ -13,9 +13,9 @@
         android:layout_width="299dp"
         android:layout_height="54dp"
         android:layout_marginTop="396dp"
-        android:backgroundTint="@color/green"
-        android:text="create account"
         android:background="@drawable/btn_round"
+        android:backgroundTint="#25C998"
+        android:text="create account"
 
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
