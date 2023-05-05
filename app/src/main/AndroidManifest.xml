@@ -12,6 +12,12 @@
         android:theme="@style/Theme.NutFit"
         tools:targetApi="31">
         <activity
+            android:name=".IngregientsName"
+            android:exported="false" />
+        <activity
+            android:name=".NBRE_ing_nut"
+            android:exported="false" />
+        <activity
             android:name=".resetEmail"
             android:exported="false" />
         <activity

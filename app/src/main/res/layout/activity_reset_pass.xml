@@ -4,14 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".reset_pass"
-    android:background="@drawable/reset_pass">
+    android:background="@drawable/pw_forgot"
+    tools:context=".reset_pass">
 
     <EditText
         android:id="@+id/resetEmail"
         android:layout_width="331dp"
         android:layout_height="57dp"
-        android:layout_marginTop="500dp"
+        android:layout_marginTop="436dp"
         android:background="@drawable/custom"
         android:drawableLeft="@drawable/baseline_email"
         android:drawablePadding="8dp"
@@ -26,10 +26,9 @@
         android:id="@+id/tv_signup_phone_forgotpwd"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-
         android:layout_marginTop="76dp"
         android:text="Remember your password?"
-        android:textColor="@color/black"
+        android:textColor="@color/blue"
         android:textSize="19sp"
         app:layout_constraintEnd_toEndOf="@+id/resetEmail"
         app:layout_constraintHorizontal_bias="0.0"
