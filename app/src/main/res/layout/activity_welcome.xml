@@ -12,21 +12,21 @@
         android:id="@+id/bt_SignUp"
         android:layout_width="299dp"
         android:layout_height="54dp"
-        android:layout_marginTop="396dp"
+        android:layout_marginTop="52dp"
         android:background="@drawable/btn_round"
         android:backgroundTint="#25C998"
-        android:text="create account"
 
+        android:text="create account"
         android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toEndOf="@+id/textView2"
+        app:layout_constraintStart_toStartOf="@+id/textView2"
+        app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
     <Button
         android:id="@+id/bt_SignIn"
         android:layout_width="299dp"
         android:layout_height="54dp"
-        android:layout_marginTop="104dp"
+        android:layout_marginTop="76dp"
         android:background="@drawable/btn_round"
         android:backgroundTint="@color/green"
 
@@ -36,5 +36,20 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/bt_SignUp"
         app:layout_constraintTop_toTopOf="@+id/bt_SignUp" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="386dp"
+        android:layout_height="83dp"
+        android:layout_marginTop="324dp"
+        android:gravity="center"
+        android:text="NutFit can assist you in fulfilling your  your nutrient requirements while keeping costs at a minimum"
+        android:textColor="@color/green100"
+        android:textSize="22sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.48"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

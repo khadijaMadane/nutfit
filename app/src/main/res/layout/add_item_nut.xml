@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_margin="15dp"
-    android:background="@drawable/bg_add_item_ing"
+    android:background="@drawable/bg_add_item_nut"
     android:gravity="center"
     android:orientation="vertical">
 
@@ -26,13 +26,13 @@
             android:paddingTop="8dp"
             android:paddingRight="15dp"
             android:paddingBottom="8dp"
-            android:text="Add ingredients"
+            android:text="Add nutrients"
             android:textColor="@color/white"
             android:textSize="19sp"
             android:textStyle="bold" />
 
         <EditText
-            android:id="@+id/ingName"
+            android:id="@+id/nutName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="15dp"
@@ -41,7 +41,7 @@
             android:layout_marginRight="15dp"
             android:layout_marginBottom="5dp"
             android:background="@drawable/shape_bg_ing"
-            android:hint="Name of ingredient"
+            android:hint="Name of nutrient"
             android:inputType="textPersonName"
             android:padding="15dp"
             android:textSize="18sp"

@@ -13,15 +13,15 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.RecyclerView
 
-class UserAdapterIng (val c: Context, val userList: ArrayList<UserDataIng>): RecyclerView.Adapter<UserAdapterIng.UserViewHolder>(){
+class UserAdapterNut(val c: Context, val userList: ArrayList<UserDataNut>): RecyclerView.Adapter<UserAdapterNut.UserViewHolder>() {
 
     inner class UserViewHolder(val v: View):RecyclerView.ViewHolder(v){
-        var nameing: TextView
+        var namenut: TextView
 
-        /***/
+
         var mMenus: ImageView
         init {
-            nameing = v.findViewById<TextView>(R.id.mIng)
+            namenut = v.findViewById<TextView>(R.id.mNut)
             mMenus = v.findViewById(R.id.mMenus)
             mMenus.setOnClickListener{popupMenus(it)}
         }
@@ -30,17 +30,17 @@ class UserAdapterIng (val c: Context, val userList: ArrayList<UserDataIng>): Rec
         private fun popupMenus(v: View){
             val position = userList[adapterPosition]
             val popupMenus = PopupMenu(c,v)
-            popupMenus.inflate(R.menu.show_menu_ing)
+            popupMenus.inflate(R.menu.show_menu_nut)
             popupMenus.setOnMenuItemClickListener{
                 when(it.itemId){
                     R.id.editText->{
-                        val v = LayoutInflater.from(c).inflate(R.layout.add_item_ing,null)
-                        val nameing = v.findViewById<EditText>(R.id.ingName)
+                        val v = LayoutInflater.from(c).inflate(R.layout.add_item_nut,null)
+                        val namenut = v.findViewById<EditText>(R.id.nutName)
                         AlertDialog.Builder(c)
                             .setView(v)
                             .setPositiveButton("Ok"){
                                     dialog,_->
-                                position.ingName = nameing.text.toString()
+                                position.nutName = namenut.text.toString()
                                 notifyDataSetChanged()
                                 Toast.makeText(c,"User Information is Edited", Toast.LENGTH_SHORT).show()
                                 dialog.dismiss()
@@ -89,13 +89,13 @@ class UserAdapterIng (val c: Context, val userList: ArrayList<UserDataIng>): Rec
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        val v = inflater.inflate(R.layout.list_item,parent,false)
+        val v = inflater.inflate(R.layout.list_item_nut,parent,false)
         return UserViewHolder(v)
     }
 
     override fun onBindViewHolder(holder:UserViewHolder, position: Int) {
         val newList = userList[position]
-        holder.nameing.text = newList.ingName
+        holder.namenut.text = newList.nutName
     }
 
     override fun getItemCount(): Int {
