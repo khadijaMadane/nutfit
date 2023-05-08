@@ -12,21 +12,20 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
-class IngregientsName : AppCompatActivity() {
-
+class NutrientsName : AppCompatActivity() {
 
     private lateinit var addsBtn: FloatingActionButton
     private lateinit var recv: RecyclerView
-    private lateinit var userList: ArrayList<UserDataIng>
-    private lateinit var userAdapter: UserAdapterIng
+    private lateinit var userList: ArrayList<UserDataNut>
+    private lateinit var userAdapter: UserAdapterNut
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_ingregients_name)
+        setContentView(R.layout.activity_nutrients_name)
 
         val nextButton = findViewById<Button>(R.id.nextButton)
         nextButton.setOnClickListener {
-            val Intent = Intent(this,NutrientsName::class.java)
+            val Intent = Intent(this,DashboardMainActivity::class.java)
             startActivity(Intent)
         }
 
@@ -36,27 +35,26 @@ class IngregientsName : AppCompatActivity() {
         addsBtn = findViewById(R.id.addingBtn)
         recv = findViewById(R.id.mRecycler)
         /**set adapter*/
-        userAdapter = UserAdapterIng(this,userList)
+        userAdapter = UserAdapterNut(this,userList)
         /**setRecycler view adapter*/
         recv.layoutManager = LinearLayoutManager(this)
         recv.adapter = userAdapter
         /**set Dialog*/
         addsBtn.setOnClickListener{addInfo()}
     }
-
     private fun addInfo() {
         val inflter = LayoutInflater.from(this)
-        val v = inflter.inflate(R.layout.add_item_ing,null)
+        val v = inflter.inflate(R.layout.add_item_nut,null)
         /**set view*/
-        val ingName = v.findViewById<EditText>(R.id.ingName)
+        val nutName = v.findViewById<EditText>(R.id.nutName)
         val addDialog = AlertDialog.Builder(this)
 
         addDialog.setView(v)
 
         addDialog.setPositiveButton("Ok"){
                 dialog,_->
-            val nameing = ingName.text.toString()
-            userList.add(UserDataIng("$nameing"))
+            val namenut = nutName.text.toString()
+            userList.add(UserDataNut("$namenut"))
             userAdapter.notifyDataSetChanged()
             Toast.makeText(this,"Adding User Information Success", Toast.LENGTH_SHORT).show()
             dialog.dismiss()
@@ -71,5 +69,4 @@ class IngregientsName : AppCompatActivity() {
 
 
     }
-
 }

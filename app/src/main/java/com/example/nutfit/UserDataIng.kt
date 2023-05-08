@@ -1,5 +1,5 @@
 package com.example.nutfit
 
-data class UserData (
+data class UserDataIng (
     var ingName:String
 )
