@@ -62,6 +62,8 @@ class UserAdapterNut(val c: Context, val userList: ArrayList<UserDataNut>): Recy
                             .setPositiveButton("Yes"){
                                     dialog,_->
                                 userList.removeAt(adapterPosition)
+
+
                                 notifyDataSetChanged()
                                 Toast.makeText(c,"Deleted this Information", Toast.LENGTH_SHORT).show()
                                 dialog.dismiss()
@@ -100,6 +102,8 @@ class UserAdapterNut(val c: Context, val userList: ArrayList<UserDataNut>): Recy
 
     override fun getItemCount(): Int {
         return userList.size
+
+
     }
 
 }
