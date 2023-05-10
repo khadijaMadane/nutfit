@@ -3,6 +3,7 @@ package com.example.nutfit
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.widget.Button
 import android.widget.EditText
@@ -11,22 +12,31 @@ import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.example.nutfit.UserAdapterNut
 
 class NutrientsName : AppCompatActivity() {
+    private var nutrientCount = 0
+
 
     private lateinit var addsBtn: FloatingActionButton
     private lateinit var recv: RecyclerView
     private lateinit var userList: ArrayList<UserDataNut>
     private lateinit var userAdapter: UserAdapterNut
+    val nutrientNames = ArrayList<String>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_nutrients_name)
+        //val aa= UserAdapterNut()
 
         val nextButton = findViewById<Button>(R.id.nextButton)
         nextButton.setOnClickListener {
-            val Intent = Intent(this,DashboardMainActivity::class.java)
-            startActivity(Intent)
+            displayNutNameArray()
+            val Intent = Intent(this,DashboardMainActivity::class.java).also{
+                it.putExtra("nutrientCount", nutrientCount)
+                startActivity(it)
+            }
+
         }
 
         /**set List*/
@@ -40,7 +50,11 @@ class NutrientsName : AppCompatActivity() {
         recv.layoutManager = LinearLayoutManager(this)
         recv.adapter = userAdapter
         /**set Dialog*/
-        addsBtn.setOnClickListener{addInfo()}
+        addsBtn.setOnClickListener{
+
+            addInfo()
+
+        }
     }
     private fun addInfo() {
         val inflter = LayoutInflater.from(this)
@@ -53,8 +67,12 @@ class NutrientsName : AppCompatActivity() {
 
         addDialog.setPositiveButton("Ok"){
                 dialog,_->
+            nutrientCount++
             val namenut = nutName.text.toString()
+
+
             userList.add(UserDataNut("$namenut"))
+            nutrientNames.add(namenut)
             userAdapter.notifyDataSetChanged()
             Toast.makeText(this,"Adding User Information Success", Toast.LENGTH_SHORT).show()
             dialog.dismiss()
@@ -69,4 +87,25 @@ class NutrientsName : AppCompatActivity() {
 
 
     }
+
+
+    private fun displayNutNameArray(): ArrayList<String> {
+        // affichage des valeurs stockées dans le tableau
+        for (nutName in nutrientNames) {
+            Log.d("Nutrient Name", nutName)
+        }
+        return nutrientNames
+    }
+
+
+
+
+
+
+
+
+
+
+
+
 }
