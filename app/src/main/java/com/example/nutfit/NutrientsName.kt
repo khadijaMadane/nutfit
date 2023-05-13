@@ -32,7 +32,7 @@ class NutrientsName : AppCompatActivity() {
         val nextButton = findViewById<Button>(R.id.nextButton)
         nextButton.setOnClickListener {
             displayNutNameArray()
-            val Intent = Intent(this,DashboardMainActivity::class.java).also{
+            val Intent = Intent(this,nutValues::class.java).also{
                 it.putExtra("nutrientCount", nutrientCount)
                 startActivity(it)
             }
