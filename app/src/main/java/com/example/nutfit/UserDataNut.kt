@@ -1,5 +1,7 @@
 package com.example.nutfit
 
-class UserDataNut (
-    var nutName:String
+data class UserDataNut (
+    var nutName:String,
+    var nutObj:String,
+    var nutSym:String
         )

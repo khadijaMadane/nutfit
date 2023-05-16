@@ -17,11 +17,15 @@ class UserAdapterNut(val c: Context, val userList: ArrayList<UserDataNut>): Recy
 
     inner class UserViewHolder(val v: View):RecyclerView.ViewHolder(v){
         var namenut: TextView
+        var nobjectif: TextView
+        var nsymbole: TextView
 
 
         var mMenus: ImageView
         init {
             namenut = v.findViewById<TextView>(R.id.mNut)
+            nobjectif = v.findViewById<TextView>(R.id.objNut)
+            nsymbole = v.findViewById<TextView>(R.id.symNut)
             mMenus = v.findViewById(R.id.mMenus)
             mMenus.setOnClickListener{popupMenus(it)}
         }
@@ -36,11 +40,15 @@ class UserAdapterNut(val c: Context, val userList: ArrayList<UserDataNut>): Recy
                     R.id.editText->{
                         val v = LayoutInflater.from(c).inflate(R.layout.add_item_nut,null)
                         val namenut = v.findViewById<EditText>(R.id.nutName)
+                        val nobjectif = v.findViewById<EditText>(R.id.nutObj)
+                        val nsymbole = v.findViewById<EditText>(R.id.nutSym)
                         AlertDialog.Builder(c)
                             .setView(v)
                             .setPositiveButton("Ok"){
                                     dialog,_->
                                 position.nutName = namenut.text.toString()
+                                position.nutObj = nobjectif.text.toString()
+                                position.nutSym = nsymbole.text.toString()
                                 notifyDataSetChanged()
                                 Toast.makeText(c,"User Information is Edited", Toast.LENGTH_SHORT).show()
                                 dialog.dismiss()
@@ -98,6 +106,8 @@ class UserAdapterNut(val c: Context, val userList: ArrayList<UserDataNut>): Recy
     override fun onBindViewHolder(holder:UserViewHolder, position: Int) {
         val newList = userList[position]
         holder.namenut.text = newList.nutName
+        holder.nobjectif.text = newList.nutObj
+        holder.nsymbole.text = newList.nutSym
     }
 
     override fun getItemCount(): Int {

@@ -49,6 +49,8 @@ class IngregientsName : AppCompatActivity() {
         val v = inflter.inflate(R.layout.add_item_ing,null)
         /**set view*/
         val ingName = v.findViewById<EditText>(R.id.ingName)
+        val ingObj = v.findViewById<EditText>(R.id.ingObj)
+        val ingSym = v.findViewById<EditText>(R.id.ingSym)
         val addDialog = AlertDialog.Builder(this)
 
         addDialog.setView(v)
@@ -56,7 +58,9 @@ class IngregientsName : AppCompatActivity() {
         addDialog.setPositiveButton("Ok"){
                 dialog,_->
             val nameing = ingName.text.toString()
-            userList.add(UserDataIng("$nameing"))
+            val iobjectif = ingObj.text.toString()
+            val isymbole = ingSym.text.toString()
+            userList.add(UserDataIng("name: $nameing","objectif: $iobjectif","operateur: $isymbole"))
             userAdapter.notifyDataSetChanged()
             Toast.makeText(this,"Adding User Information Success", Toast.LENGTH_SHORT).show()
             dialog.dismiss()
