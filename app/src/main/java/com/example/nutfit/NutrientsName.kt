@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.example.nutfit.UserAdapterNut
+import com.example.nutfit.nutValues
 
 class NutrientsName : AppCompatActivity() {
     private var nutrientCount = 0

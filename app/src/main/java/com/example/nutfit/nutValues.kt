@@ -1,17 +1,19 @@
 package com.example.nutfit
 
-
-
 import android.app.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.InputType
+import android.util.Log
 import android.widget.Button
 import android.widget.EditText
+import android.widget.HorizontalScrollView
 import android.widget.LinearLayout
 import android.widget.TableLayout
 import android.widget.TableRow
+import android.widget.TextView
+import com.example.nutfit.R
 
 class nutValues : AppCompatActivity() {
     private lateinit var ingredientRowsLinearLayout: LinearLayout
@@ -29,15 +31,24 @@ class nutValues : AppCompatActivity() {
             val numIngredients = numIngredientsEditText.text.toString().toIntOrNull() ?: 0
             val numNutrients = numNutrientsEditText.text.toString().toIntOrNull() ?: 0
 
+            Log.d("IngredientsActivity", "Num Ingredients: $numIngredients")
+            Log.d("IngredientsActivity", "Num Nutrients: $numNutrients")
+
             createIngredientRows(numIngredients, numNutrients)
         }
     }
+
 
     private fun createIngredientRows(numIngredients: Int, numNutrients: Int) {
         ingredientRowsLinearLayout.removeAllViews()
 
         for (i in 1..numIngredients) {
-            val ingredientEditText = EditText(this).apply {
+            val horizontalScrollView = HorizontalScrollView(this)
+            val horizontalLayout = LinearLayout(this).apply {
+                orientation = LinearLayout.HORIZONTAL
+            }
+
+            val ingredientEditText = TextView(this).apply {
                 layoutParams = LinearLayout.LayoutParams(
                     LinearLayout.LayoutParams.MATCH_PARENT,
                     LinearLayout.LayoutParams.WRAP_CONTENT
@@ -46,40 +57,33 @@ class nutValues : AppCompatActivity() {
                 setPadding(16, 16, 16, 16)
             }
 
+            horizontalLayout.addView(ingredientEditText)
+
             val nutrientEditTexts = mutableListOf<EditText>()
 
             for (j in 1..numNutrients) {
                 val nutrientEditText = EditText(this).apply {
-                    layoutParams = TableRow.LayoutParams(
-                        TableRow.LayoutParams.MATCH_PARENT,
-                        TableRow.LayoutParams.WRAP_CONTENT,
-                        1f
+                    layoutParams = LinearLayout.LayoutParams(
+                        LinearLayout.LayoutParams.WRAP_CONTENT,
+                        LinearLayout.LayoutParams.WRAP_CONTENT
                     )
-                    inputType = InputType.TYPE_CLASS_NUMBER or InputType.TYPE_NUMBER_FLAG_DECIMAL
                     hint = "Nutrient $j"
                     setPadding(16, 16, 16, 16)
                 }
 
                 nutrientEditTexts.add(nutrientEditText)
+                horizontalLayout.addView(nutrientEditText)
             }
 
-            val tableRow = TableRow(this).apply {
-                layoutParams = TableLayout.LayoutParams(
-                    TableLayout.LayoutParams.MATCH_PARENT,
-                    TableLayout.LayoutParams.WRAP_CONTENT
-                )
-                addView(ingredientEditText)
-                nutrientEditTexts.forEach { addView(it) }
-            }
-
-            ingredientRowsLinearLayout.addView(tableRow)
+            horizontalScrollView.addView(horizontalLayout)
+            ingredientRowsLinearLayout.addView(horizontalScrollView)
         }
     }
+
+
 
     companion object {
         const val NUM_INGREDIENTS = "num_ingredients"
         const val NUM_NUTRIENTS = "num_nutrients"
     }
 }
-
-
