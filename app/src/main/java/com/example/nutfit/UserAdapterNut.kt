@@ -2,6 +2,8 @@ package com.example.nutfit
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,10 +13,11 @@ import android.widget.PopupMenu
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 
 class UserAdapterNut(val c: Context, val userList: ArrayList<UserDataNut>): RecyclerView.Adapter<UserAdapterNut.UserViewHolder>() {
-
+     var nutrientCountDelete = 0
     inner class UserViewHolder(val v: View):RecyclerView.ViewHolder(v){
         var namenut: TextView
         var nobjectif: TextView
@@ -30,7 +33,7 @@ class UserAdapterNut(val c: Context, val userList: ArrayList<UserDataNut>): Recy
             mMenus.setOnClickListener{popupMenus(it)}
         }
 
-        @SuppressLint("MissingInflatedId")
+        @SuppressLint("MissingInflatedId", "SuspiciousIndentation")
         private fun popupMenus(v: View){
             val position = userList[adapterPosition]
             val popupMenus = PopupMenu(c,v)
@@ -69,12 +72,13 @@ class UserAdapterNut(val c: Context, val userList: ArrayList<UserDataNut>): Recy
                             .setMessage("Are you sue delete this Information")
                             .setPositiveButton("Yes"){
                                     dialog,_->
+                                nutrientCountDelete++
                                 userList.removeAt(adapterPosition)
-
-
+                                println("indice supp $adapterPosition")
                                 notifyDataSetChanged()
                                 Toast.makeText(c,"Deleted this Information", Toast.LENGTH_SHORT).show()
                                 dialog.dismiss()
+
                             }
                             .setNegativeButton("No"){
                                     dialog,_->
@@ -96,6 +100,9 @@ class UserAdapterNut(val c: Context, val userList: ArrayList<UserDataNut>): Recy
                 .invoke(menu,true)
         }
     }
+
+
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserViewHolder {
         val inflater = LayoutInflater.from(parent.context)

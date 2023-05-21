@@ -3,6 +3,7 @@ package com.example.nutfit
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.widget.Button
 import android.widget.EditText
@@ -14,11 +15,15 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class IngregientsName : AppCompatActivity() {
 
+    private var ingredientCount=0
 
     private lateinit var addsBtn: FloatingActionButton
     private lateinit var recv: RecyclerView
     private lateinit var userList: ArrayList<UserDataIng>
     private lateinit var userAdapter: UserAdapterIng
+    val ingredientNames = ArrayList<String>()
+    val ingredientObj = ArrayList<String>()
+    val ingredientSym = ArrayList<String>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,8 +31,19 @@ class IngregientsName : AppCompatActivity() {
 
         val nextButton = findViewById<Button>(R.id.nextButton)
         nextButton.setOnClickListener {
-            val Intent = Intent(this,NutrientsName::class.java)
-            startActivity(Intent)
+            displayIngNameArray()
+            val ingredientCountDelete = userAdapter.ingredientCountDelete
+            val resultIng =ingredientCount-ingredientCountDelete
+            val it = Intent(this, NutrientsName::class.java).also {
+                it.putExtra("ingredientCount", ingredientCount)
+                it.putExtra("ingredientCountDelete", ingredientCountDelete)
+                it.putExtra("resultIng", resultIng)
+                startActivity(it)
+            }
+
+            //println("1*** nbre des ingredients est : $resultIng")
+            displayIngObjArray()
+            displayIngSymArray()
         }
 
         /**set List*/
@@ -57,10 +73,14 @@ class IngregientsName : AppCompatActivity() {
 
         addDialog.setPositiveButton("Ok"){
                 dialog,_->
+            ingredientCount++
             val nameing = ingName.text.toString()
             val iobjectif = ingObj.text.toString()
             val isymbole = ingSym.text.toString()
             userList.add(UserDataIng("name: $nameing","objectif: $iobjectif","operateur: $isymbole"))
+            ingredientNames.add(nameing)
+            ingredientObj.add(iobjectif)
+            ingredientSym.add(isymbole)
             userAdapter.notifyDataSetChanged()
             Toast.makeText(this,"Adding User Information Success", Toast.LENGTH_SHORT).show()
             dialog.dismiss()
@@ -72,8 +92,27 @@ class IngregientsName : AppCompatActivity() {
         }
         addDialog.create()
         addDialog.show()
-
-
     }
 
+    private fun displayIngNameArray(): ArrayList<String> {
+        // affichage des valeurs stockées dans le tableau
+        for (ingName in ingredientNames) {
+            Log.d("ingredient Name :", ingName)
+        }
+        return ingredientNames
+    }
+    private fun displayIngObjArray(): ArrayList<String> {
+        // affichage des valeurs stockées dans le tableau
+        for (ingObj in ingredientObj) {
+            Log.d("ingredient Objectif :", ingObj)
+        }
+        return ingredientObj
+    }
+    private fun displayIngSymArray(): ArrayList<String> {
+        // affichage des valeurs stockées dans le tableau
+        for (ingSym in ingredientSym) {
+            Log.d("ingredient operator :", ingSym)
+        }
+        return ingredientSym
+    }
 }
