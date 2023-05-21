@@ -14,7 +14,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.RecyclerView
 
 class UserAdapterIng (val c: Context, val userList: ArrayList<UserDataIng>): RecyclerView.Adapter<UserAdapterIng.UserViewHolder>(){
-
+    var ingredientCountDelete = 0
     inner class UserViewHolder(val v: View):RecyclerView.ViewHolder(v){
         var nameing: TextView
         var iobjectif: TextView
@@ -69,6 +69,7 @@ class UserAdapterIng (val c: Context, val userList: ArrayList<UserDataIng>): Rec
                             .setMessage("Are you sue delete this Information")
                             .setPositiveButton("Yes"){
                                     dialog,_->
+                                ingredientCountDelete++
                                 userList.removeAt(adapterPosition)
                                 notifyDataSetChanged()
                                 Toast.makeText(c,"Deleted this Information", Toast.LENGTH_SHORT).show()

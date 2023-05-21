@@ -7,6 +7,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.InputType
+import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.LinearLayout
@@ -19,6 +20,14 @@ class nutValues : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_nut_values)
+
+        val nutrientCount = intent.getIntExtra("nutrientCount", 0)
+        val nutrientCountDelete = intent.getIntExtra("nutrientCountDelete",0)
+        val resultIng = intent.getIntExtra("resultIng",0)
+        val resultNut =nutrientCount-nutrientCountDelete
+        println("nbre des nutriment est : $resultNut")
+        println("nbre des ingredient est : $resultIng")
+
         ingredientRowsLinearLayout = findViewById(R.id.ingredientRowsLinearLayout)
 
         val numIngredientsEditText = findViewById<EditText>(R.id.numIngredientsEditText)
