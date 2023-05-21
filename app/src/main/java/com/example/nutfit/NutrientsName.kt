@@ -1,8 +1,10 @@
 package com.example.nutfit
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Half.toFloat
 import android.util.Log
 import android.view.LayoutInflater
 import android.widget.Button
@@ -24,19 +26,27 @@ class NutrientsName : AppCompatActivity() {
     private lateinit var userList: ArrayList<UserDataNut>
     private lateinit var userAdapter: UserAdapterNut
     val nutrientNames = ArrayList<String>()
+    val nutrientObj = ArrayList<String>()
+    val nutrientSym = ArrayList<String>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_nutrients_name)
-        //val aa= UserAdapterNut()
 
+        val resultIng = intent.getIntExtra("resultIng",0)
         val nextButton = findViewById<Button>(R.id.nextButton)
         nextButton.setOnClickListener {
             displayNutNameArray()
-            val Intent = Intent(this,nutValues::class.java).also{
+            val nutrientCountDelete = userAdapter.nutrientCountDelete
+            val it = Intent(this,nutValues::class.java).also {
                 it.putExtra("nutrientCount", nutrientCount)
+                it.putExtra("nutrientCountDelete", nutrientCountDelete)
+                it.putExtra("resultIng", resultIng)
                 startActivity(it)
             }
+            //println("2*** nbre des ingredients est : $resultIng")
+            displayNutObjArray()
+            displayNutSymArray()
 
         }
 
@@ -57,11 +67,14 @@ class NutrientsName : AppCompatActivity() {
 
         }
     }
+
     private fun addInfo() {
         val inflter = LayoutInflater.from(this)
         val v = inflter.inflate(R.layout.add_item_nut,null)
         /**set view*/
         val nutName = v.findViewById<EditText>(R.id.nutName)
+        val nutObj = v.findViewById<EditText>(R.id.nutObj)
+        val nutSym = v.findViewById<EditText>(R.id.nutSym)
         val addDialog = AlertDialog.Builder(this)
 
         addDialog.setView(v)
@@ -70,10 +83,14 @@ class NutrientsName : AppCompatActivity() {
                 dialog,_->
             nutrientCount++
             val namenut = nutName.text.toString()
+            val nobjectif = nutObj.text.toString()
+            val nsymbole = nutSym.text.toString()
 
 
-            userList.add(UserDataNut("$namenut"))
+            userList.add(UserDataNut("name: $namenut","objectif: $nobjectif","operateur: $nsymbole"))
             nutrientNames.add(namenut)
+            nutrientObj.add(nobjectif)
+            nutrientSym.add(nsymbole)
             userAdapter.notifyDataSetChanged()
             Toast.makeText(this,"Adding User Information Success", Toast.LENGTH_SHORT).show()
             dialog.dismiss()
@@ -92,10 +109,26 @@ class NutrientsName : AppCompatActivity() {
 
     private fun displayNutNameArray(): ArrayList<String> {
         // affichage des valeurs stockées dans le tableau
-        for (nutName in nutrientNames) {
-            Log.d("Nutrient Name", nutName)
+        for ((index, nutName) in nutrientNames.withIndex()) {
+            Log.d("Nutrient Name :", nutName)
+            println("Index of $nutName is $index")
         }
+
         return nutrientNames
+    }
+    private fun displayNutObjArray(): ArrayList<String> {
+        // affichage des valeurs stockées dans le tableau
+        for (nutObj in nutrientObj) {
+            Log.d("Nutrient Objectif :", nutObj)
+        }
+        return nutrientObj
+    }
+    private fun displayNutSymArray(): ArrayList<String> {
+        // affichage des valeurs stockées dans le tableau
+        for (nutSym in nutrientSym) {
+            Log.d("Nutrient operator :", nutSym)
+        }
+        return nutrientSym
     }
 
 
