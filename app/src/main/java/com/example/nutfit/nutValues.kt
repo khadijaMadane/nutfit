@@ -51,6 +51,8 @@ class nutValues : AppCompatActivity() {
                     Log.d("Nutrient Matrix", "Ingredient $i, Nutrient $j: ${nutrientMatrix[i][j]}")
                 }
             }
+            val intent = Intent(this, menuuPage::class.java)
+            startActivity(intent)
 
         }
 

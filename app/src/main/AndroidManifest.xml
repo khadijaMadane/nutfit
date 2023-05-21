@@ -12,7 +12,10 @@
         android:theme="@style/Theme.NutFit"
         tools:targetApi="31">
         <activity
-            android:name="com.example.nutfit.nutValues"
+            android:name=".menuuPage"
+            android:exported="false" />
+        <activity
+            android:name=".nutValues"
             android:exported="false"
             tools:ignore="MissingClass" />
         <activity
