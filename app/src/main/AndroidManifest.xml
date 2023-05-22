@@ -12,9 +12,6 @@
         android:theme="@style/Theme.NutFit"
         tools:targetApi="31">
         <activity
-            android:name=".NextActivity"
-            android:exported="false" />
-        <activity
             android:name=".nutValues"
             android:exported="false" />
         <activity

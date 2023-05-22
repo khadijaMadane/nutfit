@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view" >
+
+    <item
+        android:id="@+id/home"
+        android:title="Home"/>
+    <item
+        android:id="@+id/sitting"
+        android:title="Sittings"/>
+    <item
+        android:id="@+id/aide"
+        android:title="aider"/>
+    <item
+        android:id="@+id/recommencer"
+        android:title="recommencer"/>
+    <item
+        android:id="@+id/signout"
+        android:title="SounOut"/>
+
+
+</menu>

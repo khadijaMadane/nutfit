@@ -9,34 +9,9 @@
         android:orientation="vertical"
         android:padding="16dp">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Number of ingredients:" />
 
-        <EditText
-            android:id="@+id/numIngredientsEditText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Enter number of ingredients"
-            android:inputType="number"
-            android:minWidth="48dp"
-            android:minHeight="48dp"/>
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="Number of nutrients per ingredient:" />
 
-        <EditText
-            android:id="@+id/numNutrientsEditText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Enter number of nutrients per ingredient"
-            android:inputType="number"
-            android:minWidth="48dp"
-            android:minHeight="48dp"/>
 
         <LinearLayout
             android:id="@+id/ingredientRowsLinearLayout"
