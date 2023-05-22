@@ -9,23 +9,52 @@ import android.text.Editable
 import android.text.InputType
 import android.text.TextWatcher
 import android.util.Log
-import android.widget.Button
-import android.widget.EditText
-import android.widget.HorizontalScrollView
-import android.widget.LinearLayout
-import android.widget.TableLayout
-import android.widget.TableRow
-import android.widget.TextView
+import android.view.MenuItem
+import android.widget.*
+import androidx.appcompat.app.ActionBarDrawerToggle
+
+import androidx.drawerlayout.widget.DrawerLayout
 import com.example.nutfit.R
+import com.google.android.material.navigation.NavigationView
 
 class nutValues : AppCompatActivity() {
     private lateinit var ingredientRowsLinearLayout: LinearLayout
     private lateinit var nutrientMatrix: Array<Array<String>>
-
-    @SuppressLint("MissingInflatedId")
+    lateinit var toggle: ActionBarDrawerToggle
+    @SuppressLint("MissingInflatedId", "WrongViewCast")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_nut_values)
+
+
+
+
+        val drawerLayout: DrawerLayout = findViewById(R.id.drawerLayoutId)
+        val navView: NavigationView =findViewById(R.id.nav_view)
+        toggle= ActionBarDrawerToggle(this, drawerLayout,R.string.open, R.string.close)
+        drawerLayout.addDrawerListener(toggle)
+        toggle.syncState()
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        navView.setNavigationItemSelectedListener {
+            when(it.itemId){
+                R.id.home -> Toast.makeText(applicationContext,"Clicked Home", Toast.LENGTH_SHORT).show()
+                R.id.sitting-> Toast.makeText(applicationContext,"Clicked Sittings", Toast.LENGTH_SHORT).show()
+                R.id.aide -> Toast.makeText(applicationContext,"Clicked aide", Toast.LENGTH_SHORT).show()
+                R.id.recommencer -> Toast.makeText(applicationContext,"Clicked recommencer", Toast.LENGTH_SHORT).show()
+                R.id.signout -> Toast.makeText(applicationContext,"Clicked signout", Toast.LENGTH_SHORT).show()
+
+            }
+            true
+
+        }
+
+
+
+
+
+
+
+
 
         val nutrientCount = intent.getIntExtra("nutrientCount", 0)
         val nutrientCountDelete = intent.getIntExtra("nutrientCountDelete", 0)
@@ -131,6 +160,13 @@ class nutValues : AppCompatActivity() {
     companion object {
         const val NUM_INGREDIENTS = "num_ingredients"
         const val NUM_NUTRIENTS = "num_nutrients"
+    }
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if(toggle.onOptionsItemSelected(item)){
+            return true
+        }
+
+        return super.onOptionsItemSelected(item)
     }
 
 }
