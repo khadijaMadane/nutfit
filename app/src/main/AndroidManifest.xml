@@ -12,6 +12,12 @@
         android:theme="@style/Theme.NutFit"
         tools:targetApi="31">
         <activity
+            android:name=".changePasswrord"
+            android:exported="false" />
+        <activity
+            android:name=".changeEmail"
+            android:exported="false" />
+        <activity
             android:name=".menuuPage"
             android:exported="false" />
         <activity

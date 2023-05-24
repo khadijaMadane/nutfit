@@ -53,7 +53,39 @@ class IngregientsName : AppCompatActivity() {
 
         }
 
-
+        navView.setNavigationItemSelectedListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.home -> {
+                    val intent = Intent(this, changePasswrord::class.java)
+                    startActivity(intent)
+                    true
+                }
+                R.id.sitting -> {
+                    // Handle "Settings" click
+                    val intent = Intent(this, changeEmail::class.java)
+                    startActivity(intent)
+                    true
+                }
+                R.id.aide -> {
+                    // Handle "Help" click
+                    val intent = Intent(this, IngregientsName::class.java)
+                    startActivity(intent)
+                    true
+                }
+                R.id.recommencer -> {
+                    val intent = Intent(this, IngregientsName::class.java)
+                    startActivity(intent)
+                    // Handle "Restart" click
+                    true
+                }
+                R.id.signout -> {
+                    showSignOutConfirmationDialog()
+                    // Handle "Sign Out" click
+                    true
+                }
+                else -> false
+            }
+        }
 
 
         val nextButton = findViewById<Button>(R.id.nextButton)
@@ -148,5 +180,27 @@ class IngregientsName : AppCompatActivity() {
         }
 
         return super.onOptionsItemSelected(item)
+    }
+    private fun performSignOut() {
+        // Perform sign out logic here
+        // For example, navigate to the login screen or clear user session
+        val intent = Intent(this, SignIn::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        startActivity(intent)
+        finish()
+    }
+    private fun showSignOutConfirmationDialog() {
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("Confirm Sign Out")
+            .setMessage("Are you sure you want to sign out?")
+            .setPositiveButton("Yes") { dialog, _ ->
+                // Handle sign out
+                performSignOut()
+                dialog.dismiss()
+            }
+            .setNegativeButton("No") { dialog, _ ->
+                dialog.dismiss()
+            }
+            .show()
     }
 }

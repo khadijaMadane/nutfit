@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/green"
+    tools:context=".changePasswrord">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:id="@+id/RL_Password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginBottom="15dp"
+            android:background="@color/white"
+            android:padding="15dp">
+
+            <TextView
+                android:id="@+id/textView_update_password_head"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="45dp"
+                android:text="you can update your Password now, Please enter your password "
+                android:textAlignment="center"
+                android:textSize="27sp" />
+
+            <TextView
+                android:id="@+id/textView_update_change_pwd_current"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/textView_update_password_head"
+                android:layout_marginTop="50dp"
+                android:padding="6dp"
+                android:text="Curent password"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+
+                />
+            <EditText
+                android:id="@+id/editext_change_psw_curr"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/textView_update_change_pwd_current"
+                android:background="@drawable/custo_editext"
+                android:hint="enter your current password"
+                android:inputType="textPassword"
+                android:minHeight="48dp"
+                android:padding="6dp"
+                android:textSize="16sp"
+                android:textColor="@color/black"
+                />
+
+
+            <Button
+                android:id="@+id/button_authenticate_pwd"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/editext_change_psw_curr"
+                android:layout_marginLeft="70dp"
+                android:layout_marginTop="42dp"
+                android:layout_marginRight="70dp"
+                android:text="authenticate"
+                android:background="@color/green"
+                />
+
+            <ProgressBar
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style ="?android:attr/progressBarStyleLarge"
+                android:layout_centerVertical="true"
+                android:id="@+id/progressBarr"
+                android:layout_centerHorizontal="true"
+                android:elevation="10dp"
+                android:visibility="gone"
+                />
+
+        </RelativeLayout>
+        <RelativeLayout
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginBottom="15dp"
+            android:background="@color/white"
+            android:padding="15dp"
+            android:layout_below="@id/RL_Password">
+
+            <TextView
+                android:id="@+id/textView_change_pwd_authentificated"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:layout_marginTop="30dp"
+                android:padding="6dp"
+                android:text="your profile is not authenticated/verified yet!"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+
+                />
+            <TextView
+                android:id="@+id/textView_change_pwd_new"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/textView_change_pwd_authentificated"
+                android:layout_marginTop="30dp"
+                android:padding="6dp"
+                android:text="new email*"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+
+                />
+            <EditText
+                android:id="@+id/editext_change_pwd_new"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/textView_change_pwd_new"
+                android:background="@drawable/custo_editext"
+                android:hint="enter your new email"
+                android:inputType="textEmailAddress"
+                android:minHeight="48dp"
+                android:padding="6dp"
+                android:textSize="16sp"
+                android:textColor="@color/black"
+                />
+            <TextView
+                android:id="@+id/textView_change_pwd_new_confirm"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/editext_change_pwd_new"
+                android:layout_marginTop="30dp"
+                android:padding="6dp"
+                android:text="confirmer email*"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+
+                />
+            <EditText
+                android:id="@+id/editext_change_pwd_new_confirm"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/textView_change_pwd_new_confirm"
+                android:background="@drawable/custo_editext"
+                android:hint="enter your new email"
+                android:inputType="textEmailAddress"
+                android:minHeight="48dp"
+                android:padding="6dp"
+                android:textSize="16sp"
+                android:textColor="@color/black"
+                />
+
+            <Button
+                android:id="@+id/button_update_pwd"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/editext_change_pwd_new_confirm"
+                android:layout_marginLeft="70dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="70dp"
+                android:text="update email"
+
+                />
+        </RelativeLayout>
+    </RelativeLayout>
+
+</ScrollView>
