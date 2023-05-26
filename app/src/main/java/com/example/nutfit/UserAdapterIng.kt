@@ -12,20 +12,17 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.RecyclerView
-
 class UserAdapterIng (val c: Context, val userList: ArrayList<UserDataIng>): RecyclerView.Adapter<UserAdapterIng.UserViewHolder>(){
     var ingredientCountDelete = 0
     inner class UserViewHolder(val v: View):RecyclerView.ViewHolder(v){
         var nameing: TextView
-        var iobjectif: TextView
-        var isymbole: TextView
+        var prxing: TextView
 
         /***/
         var mMenus: ImageView
         init {
             nameing = v.findViewById<TextView>(R.id.mIng)
-            iobjectif = v.findViewById<TextView>(R.id.objIng)
-            isymbole = v.findViewById<TextView>(R.id.symIng)
+            prxing = v.findViewById<TextView>(R.id.prixIng)
             mMenus = v.findViewById(R.id.mMenus)
             mMenus.setOnClickListener{popupMenus(it)}
         }
@@ -40,15 +37,13 @@ class UserAdapterIng (val c: Context, val userList: ArrayList<UserDataIng>): Rec
                     R.id.editText->{
                         val v = LayoutInflater.from(c).inflate(R.layout.add_item_ing,null)
                         val nameing = v.findViewById<EditText>(R.id.ingName)
-                        val iobjectif = v.findViewById<EditText>(R.id.ingObj)
-                        val isymbole = v.findViewById<EditText>(R.id.ingSym)
+                        val prxing = v.findViewById<EditText>(R.id.ingPrix)
                         AlertDialog.Builder(c)
                             .setView(v)
                             .setPositiveButton("Ok"){
                                     dialog,_->
                                 position.ingName = nameing.text.toString()
-                                position.ingObj = iobjectif.text.toString()
-                                position.ingSym = isymbole.text.toString()
+                                position.ingPrix = prxing.text.toString()
                                 notifyDataSetChanged()
                                 Toast.makeText(c,"User Information is Edited", Toast.LENGTH_SHORT).show()
                                 dialog.dismiss()
@@ -105,8 +100,7 @@ class UserAdapterIng (val c: Context, val userList: ArrayList<UserDataIng>): Rec
     override fun onBindViewHolder(holder:UserViewHolder, position: Int) {
         val newList = userList[position]
         holder.nameing.text = newList.ingName
-        holder.iobjectif.text = newList.ingObj
-        holder.isymbole.text = newList.ingSym
+        holder.prxing.text = newList.ingPrix
     }
 
     override fun getItemCount(): Int {

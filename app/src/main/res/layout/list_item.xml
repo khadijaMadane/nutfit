@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <androidx.cardview.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
@@ -28,15 +29,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
             <TextView
-                android:id="@+id/objIng"
-                android:text="objectif"
-                android:textColor="@color/black"
-                android:textSize="19sp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-            <TextView
-                android:id="@+id/symIng"
-                android:text="operateur"
+                android:id="@+id/prixIng"
+                android:text="price"
                 android:textColor="@color/black"
                 android:textSize="19sp"
                 android:layout_width="match_parent"

@@ -37,64 +37,110 @@ class NutrientsName : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_nutrients_name)
 
-        val drawerLayout: DrawerLayout = findViewById(R.id.drawerLayoutId)
-        val navView: NavigationView =findViewById(R.id.nav_view)
-        toggle= ActionBarDrawerToggle(this, drawerLayout,R.string.open, R.string.close)
-        drawerLayout.addDrawerListener(toggle)
-        toggle.syncState()
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        navView.setNavigationItemSelectedListener {
-            when(it.itemId){
-                R.id.home -> Toast.makeText(applicationContext,"Clicked Home", Toast.LENGTH_SHORT).show()
-                R.id.sitting-> Toast.makeText(applicationContext,"Clicked Sittings", Toast.LENGTH_SHORT).show()
-                R.id.aide -> Toast.makeText(applicationContext,"Clicked aide", Toast.LENGTH_SHORT).show()
-                R.id.recommencer -> Toast.makeText(applicationContext,"Clicked recommencer", Toast.LENGTH_SHORT).show()
-                R.id.signout -> Toast.makeText(applicationContext,"Clicked signout", Toast.LENGTH_SHORT).show()
 
-            }
-            true
+        val ingredientCount = intent.getIntExtra("ingredientCount", 0)
+        val ingredientCountDelete = intent.getIntExtra("ingredientCountDelete",0)
 
-        }
+        val nameIngArray = intent.getStringArrayListExtra("nameIngArray")
+        val prixIngArray = intent.getStringArrayListExtra("prixIngArray")
 
-
-
-
-
-
-        val resultIng = intent.getIntExtra("resultIng",0)
         val nextButton = findViewById<Button>(R.id.nextButton)
         nextButton.setOnClickListener {
-            displayNutNameArray()
+            //displayNutNameArray()
             val nutrientCountDelete = userAdapter.nutrientCountDelete
             val it = Intent(this,nutValues::class.java).also {
                 it.putExtra("nutrientCount", nutrientCount)
                 it.putExtra("nutrientCountDelete", nutrientCountDelete)
-                it.putExtra("resultIng", resultIng)
+                //name of nutrient
+                println("my user list" + userList)
+                val nameArray = mutableListOf<String>()
+                for (user in userList) {
+                    nameArray.add(user.nutName)
+                }
+                println("my user list new table$nameArray")
+                it.putStringArrayListExtra("nameArray", ArrayList(nameArray))
+                //objectif of nutrient
+                val objArray = mutableListOf<String>()
+                for (user in userList) {
+                    objArray.add(user.nutObj)
+                }
+                println("my user list new obj table$objArray")
+                it.putStringArrayListExtra("objArray", ArrayList(objArray))
+                //operateur of nutrient
+                val optArray = mutableListOf<String>()
+                for (user in userList) {
+                    optArray.add(user.nutSym)
+                }
+                println("my user list new opt table$optArray")
+                it.putStringArrayListExtra("optArray", ArrayList(optArray))
+
+                it.putStringArrayListExtra("nameIngArray", ArrayList(nameIngArray))
+                it.putStringArrayListExtra("prixIngArray", ArrayList(prixIngArray))
+
+                it.putExtra("ingredientCount", ingredientCount)
+                it.putExtra("ingredientCountDelete", ingredientCountDelete)
                 startActivity(it)
+            }}
+
+                val drawerLayout: DrawerLayout = findViewById(R.id.drawerLayoutId)
+                val navView: NavigationView = findViewById(R.id.nav_view)
+                toggle = ActionBarDrawerToggle(this, drawerLayout, R.string.open, R.string.close)
+                drawerLayout.addDrawerListener(toggle)
+                toggle.syncState()
+                supportActionBar?.setDisplayHomeAsUpEnabled(true)
+                navView.setNavigationItemSelectedListener {
+                    when (it.itemId) {
+                        R.id.home -> Toast.makeText(
+                            applicationContext,
+                            "Clicked Home",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        R.id.sitting -> Toast.makeText(
+                            applicationContext,
+                            "Clicked Sittings",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        R.id.aide -> Toast.makeText(
+                            applicationContext,
+                            "Clicked aide",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        R.id.recommencer -> Toast.makeText(
+                            applicationContext,
+                            "Clicked recommencer",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        R.id.signout -> Toast.makeText(
+                            applicationContext,
+                            "Clicked signout",
+                            Toast.LENGTH_SHORT
+                        ).show()
+
+                    }
+                    true
+
+                }
+
+
+
+
+                /**set List*/
+                userList = ArrayList()
+                /**set find Id*/
+                addsBtn = findViewById(R.id.addingBtn)
+                recv = findViewById(R.id.mRecycler)
+                /**set adapter*/
+                userAdapter = UserAdapterNut(this, userList)
+                /**setRecycler view adapter*/
+                recv.layoutManager = LinearLayoutManager(this)
+                recv.adapter = userAdapter
+                /**set Dialog*/
+                addsBtn.setOnClickListener {
+
+                    addInfo()
+
+                }
             }
-            //println("2*** nbre des ingredients est : $resultIng")
-            displayNutObjArray()
-            displayNutSymArray()
-
-        }
-
-        /**set List*/
-        userList = ArrayList()
-        /**set find Id*/
-        addsBtn = findViewById(R.id.addingBtn)
-        recv = findViewById(R.id.mRecycler)
-        /**set adapter*/
-        userAdapter = UserAdapterNut(this,userList)
-        /**setRecycler view adapter*/
-        recv.layoutManager = LinearLayoutManager(this)
-        recv.adapter = userAdapter
-        /**set Dialog*/
-        addsBtn.setOnClickListener{
-
-            addInfo()
-
-        }
-    }
 
     private fun addInfo() {
         val inflter = LayoutInflater.from(this)
@@ -135,29 +181,9 @@ class NutrientsName : AppCompatActivity() {
     }
 
 
-    private fun displayNutNameArray(): ArrayList<String> {
-        // affichage des valeurs stockées dans le tableau
-        for ((index, nutName) in nutrientNames.withIndex()) {
-            Log.d("Nutrient Name :", nutName)
-            println("Index of $nutName is $index")
-        }
 
-        return nutrientNames
-    }
-    private fun displayNutObjArray(): ArrayList<String> {
-        // affichage des valeurs stockées dans le tableau
-        for (nutObj in nutrientObj) {
-            Log.d("Nutrient Objectif :", nutObj)
-        }
-        return nutrientObj
-    }
-    private fun displayNutSymArray(): ArrayList<String> {
-        // affichage des valeurs stockées dans le tableau
-        for (nutSym in nutrientSym) {
-            Log.d("Nutrient operator :", nutSym)
-        }
-        return nutrientSym
-    }
+
+
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if(toggle.onOptionsItemSelected(item)){
