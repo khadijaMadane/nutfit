@@ -36,7 +36,7 @@ class NutrientsName : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_nutrients_name)
-
+//
 
         val ingredientCount = intent.getIntExtra("ingredientCount", 0)
         val ingredientCountDelete = intent.getIntExtra("ingredientCountDelete",0)
