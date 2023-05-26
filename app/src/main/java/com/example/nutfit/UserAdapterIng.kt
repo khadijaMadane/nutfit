@@ -12,7 +12,6 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.RecyclerView
-
 class UserAdapterIng (val c: Context, val userList: ArrayList<UserDataIng>): RecyclerView.Adapter<UserAdapterIng.UserViewHolder>(){
     var ingredientCountDelete = 0
     inner class UserViewHolder(val v: View):RecyclerView.ViewHolder(v){

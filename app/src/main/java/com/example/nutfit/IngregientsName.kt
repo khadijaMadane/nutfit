@@ -26,77 +26,27 @@ class IngregientsName : AppCompatActivity() {
     private lateinit var userList: ArrayList<UserDataIng>
     private lateinit var userAdapter: UserAdapterIng
     val ingredientNames = ArrayList<String>()
-    val ingredientPrix = ArrayList<String>()
+    val ingredientObj = ArrayList<String>()
+    val ingredientSym = ArrayList<String>()
 
-    //
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_ingregients_name)
 
-        val nextButton = findViewById<Button>(R.id.nextButton)
-        nextButton.setOnClickListener {
-
-            val ingredientCountDelete = userAdapter.ingredientCountDelete
-
-
-            val it = Intent(this, NutrientsName::class.java).also {
-                it.putExtra("ingredientCount", ingredientCount)
-                it.putExtra("ingredientCountDelete", ingredientCountDelete)
-
-                //name of ingredient
-                val nameIngArray = mutableListOf<String>()
-                for (user in userList) {
-                    nameIngArray.add(user.ingName)
-                }
-                println("new name table ing $nameIngArray")
-                it.putStringArrayListExtra("nameIngArray", ArrayList(nameIngArray))
-                //price of ingredient
-                val prixIngArray = mutableListOf<String>()
-                for (user in userList) {
-                    prixIngArray.add(user.ingPrix)
-                }
-                println("new price table ing $prixIngArray")
-                it.putStringArrayListExtra("prixIngArray", ArrayList(prixIngArray))
-
-                startActivity(it)
-            }
-
-        }
-
 
         val drawerLayout: DrawerLayout = findViewById(R.id.drawerLayoutId)
-        val navView: NavigationView = findViewById(R.id.nav_view)
-        toggle = ActionBarDrawerToggle(this, drawerLayout, R.string.open, R.string.close)
+        val navView: NavigationView =findViewById(R.id.nav_view)
+        toggle= ActionBarDrawerToggle(this, drawerLayout,R.string.open, R.string.close)
         drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         navView.setNavigationItemSelectedListener {
-            when (it.itemId) {
-                R.id.home -> Toast.makeText(
-                    applicationContext,
-                    "Clicked Home",
-                    Toast.LENGTH_SHORT
-                ).show()
-                R.id.sitting -> Toast.makeText(
-                    applicationContext,
-                    "Clicked Sittings",
-                    Toast.LENGTH_SHORT
-                ).show()
-                R.id.aide -> Toast.makeText(
-                    applicationContext,
-                    "Clicked aide",
-                    Toast.LENGTH_SHORT
-                ).show()
-                R.id.recommencer -> Toast.makeText(
-                    applicationContext,
-                    "Clicked recommencer",
-                    Toast.LENGTH_SHORT
-                ).show()
-                R.id.signout -> Toast.makeText(
-                    applicationContext,
-                    "Clicked signout",
-                    Toast.LENGTH_SHORT
-                ).show()
+            when(it.itemId){
+                R.id.home -> Toast.makeText(applicationContext,"Clicked Home", Toast.LENGTH_SHORT).show()
+                R.id.sitting-> Toast.makeText(applicationContext,"Clicked Sittings", Toast.LENGTH_SHORT).show()
+                R.id.aide -> Toast.makeText(applicationContext,"Clicked aide", Toast.LENGTH_SHORT).show()
+                R.id.recommencer -> Toast.makeText(applicationContext,"Clicked recommencer", Toast.LENGTH_SHORT).show()
+                R.id.signout -> Toast.makeText(applicationContext,"Clicked signout", Toast.LENGTH_SHORT).show()
 
             }
             true
@@ -138,7 +88,22 @@ class IngregientsName : AppCompatActivity() {
         }
 
 
+        val nextButton = findViewById<Button>(R.id.nextButton)
+        nextButton.setOnClickListener {
+            displayIngNameArray()
+            val ingredientCountDelete = userAdapter.ingredientCountDelete
+            val resultIng =ingredientCount-ingredientCountDelete
+            val it = Intent(this, NutrientsName::class.java).also {
+                it.putExtra("ingredientCount", ingredientCount)
+                it.putExtra("ingredientCountDelete", ingredientCountDelete)
+                it.putExtra("resultIng", resultIng)
+                startActivity(it)
+            }
 
+            //println("1*** nbre des ingredients est : $resultIng")
+            displayIngObjArray()
+            displayIngSymArray()
+        }
 
         /**set List*/
         userList = ArrayList()
@@ -146,20 +111,21 @@ class IngregientsName : AppCompatActivity() {
         addsBtn = findViewById(R.id.addingBtn)
         recv = findViewById(R.id.mRecycler)
         /**set adapter*/
-        userAdapter = UserAdapterIng(this, userList)
+        userAdapter = UserAdapterIng(this,userList)
         /**setRecycler view adapter*/
         recv.layoutManager = LinearLayoutManager(this)
         recv.adapter = userAdapter
         /**set Dialog*/
-        addsBtn.setOnClickListener { addInfo() }
-
+        addsBtn.setOnClickListener{addInfo()}
     }
+
     private fun addInfo() {
         val inflter = LayoutInflater.from(this)
         val v = inflter.inflate(R.layout.add_item_ing,null)
         /**set view*/
         val ingName = v.findViewById<EditText>(R.id.ingName)
-        val ingPrix = v.findViewById<EditText>(R.id.ingPrix)
+        val ingObj = v.findViewById<EditText>(R.id.ingObj)
+        val ingSym = v.findViewById<EditText>(R.id.ingSym)
         val addDialog = AlertDialog.Builder(this)
 
         addDialog.setView(v)
@@ -168,10 +134,12 @@ class IngregientsName : AppCompatActivity() {
                 dialog,_->
             ingredientCount++
             val nameing = ingName.text.toString()
-            val prxing = ingPrix.text.toString()
-            userList.add(UserDataIng("name: $nameing","price: $prxing"))
+            val iobjectif = ingObj.text.toString()
+            val isymbole = ingSym.text.toString()
+            userList.add(UserDataIng("name: $nameing","objectif: $iobjectif","operateur: $isymbole"))
             ingredientNames.add(nameing)
-            ingredientPrix.add(prxing)
+            ingredientObj.add(iobjectif)
+            ingredientSym.add(isymbole)
             userAdapter.notifyDataSetChanged()
             Toast.makeText(this,"Adding User Information Success", Toast.LENGTH_SHORT).show()
             dialog.dismiss()
@@ -185,12 +153,27 @@ class IngregientsName : AppCompatActivity() {
         addDialog.show()
     }
 
-
-
-
-
-
-
+    private fun displayIngNameArray(): ArrayList<String> {
+        // affichage des valeurs stockées dans le tableau
+        for (ingName in ingredientNames) {
+            Log.d("ingredient Name :", ingName)
+        }
+        return ingredientNames
+    }
+    private fun displayIngObjArray(): ArrayList<String> {
+        // affichage des valeurs stockées dans le tableau
+        for (ingObj in ingredientObj) {
+            Log.d("ingredient Objectif :", ingObj)
+        }
+        return ingredientObj
+    }
+    private fun displayIngSymArray(): ArrayList<String> {
+        // affichage des valeurs stockées dans le tableau
+        for (ingSym in ingredientSym) {
+            Log.d("ingredient operator :", ingSym)
+        }
+        return ingredientSym
+    }
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if(toggle.onOptionsItemSelected(item)){
             return true
