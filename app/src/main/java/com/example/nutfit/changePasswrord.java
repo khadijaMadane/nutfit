@@ -35,6 +35,7 @@ public class changePasswrord extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_change_passwrord);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle("Update password");
         progressBar1= findViewById(R.id.progressBarr);
         editTextPwdCurr= findViewById(R.id.editext_change_psw_curr);

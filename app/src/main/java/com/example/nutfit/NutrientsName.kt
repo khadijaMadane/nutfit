@@ -7,19 +7,24 @@ import android.os.Bundle
 import android.util.Half.toFloat
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AlertDialog
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.example.nutfit.UserAdapterNut
+import com.example.nutfit.nutValues
+import com.google.android.material.navigation.NavigationView
 
 class NutrientsName : AppCompatActivity() {
     private var nutrientCount = 0
 
-
+    lateinit var toggle: ActionBarDrawerToggle
     private lateinit var addsBtn: FloatingActionButton
     private lateinit var recv: RecyclerView
     private lateinit var userList: ArrayList<UserDataNut>
@@ -31,23 +36,93 @@ class NutrientsName : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_nutrients_name)
+//
 
-        val resultIng = intent.getIntExtra("resultIng",0)
+        val ingredientCount = intent.getIntExtra("ingredientCount", 0)
+        val ingredientCountDelete = intent.getIntExtra("ingredientCountDelete",0)
+
+        val nameIngArray = intent.getStringArrayListExtra("nameIngArray")
+        val prixIngArray = intent.getStringArrayListExtra("prixIngArray")
+
         val nextButton = findViewById<Button>(R.id.nextButton)
         nextButton.setOnClickListener {
-            displayNutNameArray()
+            //displayNutNameArray()
             val nutrientCountDelete = userAdapter.nutrientCountDelete
             val it = Intent(this,nutValues::class.java).also {
                 it.putExtra("nutrientCount", nutrientCount)
                 it.putExtra("nutrientCountDelete", nutrientCountDelete)
-                it.putExtra("resultIng", resultIng)
+                //name of nutrient
+                println("my user list" + userList)
+                val nameArray = mutableListOf<String>()
+                for (user in userList) {
+                    nameArray.add(user.nutName)
+                }
+                println("my user list new table$nameArray")
+                it.putStringArrayListExtra("nameArray", ArrayList(nameArray))
+                //objectif of nutrient
+                val objArray = mutableListOf<String>()
+                for (user in userList) {
+                    objArray.add(user.nutObj)
+                }
+                println("my user list new obj table$objArray")
+                it.putStringArrayListExtra("objArray", ArrayList(objArray))
+                //operateur of nutrient
+                val optArray = mutableListOf<String>()
+                for (user in userList) {
+                    optArray.add(user.nutSym)
+                }
+                println("my user list new opt table$optArray")
+                it.putStringArrayListExtra("optArray", ArrayList(optArray))
+
+                it.putStringArrayListExtra("nameIngArray", ArrayList(nameIngArray))
+                it.putStringArrayListExtra("prixIngArray", ArrayList(prixIngArray))
+
+                it.putExtra("ingredientCount", ingredientCount)
+                it.putExtra("ingredientCountDelete", ingredientCountDelete)
                 startActivity(it)
+            }}
+
+        val drawerLayout: DrawerLayout = findViewById(R.id.drawerLayoutId)
+        val navView: NavigationView = findViewById(R.id.nav_view)
+        toggle = ActionBarDrawerToggle(this, drawerLayout, R.string.open, R.string.close)
+        drawerLayout.addDrawerListener(toggle)
+        toggle.syncState()
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        navView.setNavigationItemSelectedListener {
+            when (it.itemId) {
+                R.id.home -> Toast.makeText(
+                    applicationContext,
+                    "Clicked Home",
+                    Toast.LENGTH_SHORT
+                ).show()
+                R.id.sitting -> Toast.makeText(
+                    applicationContext,
+                    "Clicked Sittings",
+                    Toast.LENGTH_SHORT
+                ).show()
+                R.id.aide -> Toast.makeText(
+                    applicationContext,
+                    "Clicked aide",
+                    Toast.LENGTH_SHORT
+                ).show()
+                R.id.recommencer -> Toast.makeText(
+                    applicationContext,
+                    "Clicked recommencer",
+                    Toast.LENGTH_SHORT
+                ).show()
+                R.id.signout -> Toast.makeText(
+                    applicationContext,
+                    "Clicked signout",
+                    Toast.LENGTH_SHORT
+                ).show()
+
             }
-            //println("2*** nbre des ingredients est : $resultIng")
-            displayNutObjArray()
-            displayNutSymArray()
+            true
 
         }
+
+
+
 
         /**set List*/
         userList = ArrayList()
@@ -55,12 +130,12 @@ class NutrientsName : AppCompatActivity() {
         addsBtn = findViewById(R.id.addingBtn)
         recv = findViewById(R.id.mRecycler)
         /**set adapter*/
-        userAdapter = UserAdapterNut(this,userList)
+        userAdapter = UserAdapterNut(this, userList)
         /**setRecycler view adapter*/
         recv.layoutManager = LinearLayoutManager(this)
         recv.adapter = userAdapter
         /**set Dialog*/
-        addsBtn.setOnClickListener{
+        addsBtn.setOnClickListener {
 
             addInfo()
 
@@ -106,39 +181,17 @@ class NutrientsName : AppCompatActivity() {
     }
 
 
-    private fun displayNutNameArray(): ArrayList<String> {
-        // affichage des valeurs stockées dans le tableau
-        for ((index, nutName) in nutrientNames.withIndex()) {
-            Log.d("Nutrient Name :", nutName)
-            println("Index of $nutName is $index")
+
+
+
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if(toggle.onOptionsItemSelected(item)){
+            return true
         }
 
-        return nutrientNames
+        return super.onOptionsItemSelected(item)
     }
-    private fun displayNutObjArray(): ArrayList<String> {
-        // affichage des valeurs stockées dans le tableau
-        for (nutObj in nutrientObj) {
-            Log.d("Nutrient Objectif :", nutObj)
-        }
-        return nutrientObj
-    }
-    private fun displayNutSymArray(): ArrayList<String> {
-        // affichage des valeurs stockées dans le tableau
-        for (nutSym in nutrientSym) {
-            Log.d("Nutrient operator :", nutSym)
-        }
-        return nutrientSym
-    }
-
-
-
-
-
-
-
-
-
-
 
 
 }

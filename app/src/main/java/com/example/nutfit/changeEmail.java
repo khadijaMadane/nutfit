@@ -39,6 +39,7 @@ public class changeEmail extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_change_email);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle("Update Email");
         progressBar= findViewById(R.id.progressBar);
         editTextPwd= findViewById(R.id.editext_update_email_verify_password);
