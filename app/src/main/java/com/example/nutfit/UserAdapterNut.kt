@@ -17,7 +17,8 @@ import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 
 class UserAdapterNut(val c: Context, val userList: ArrayList<UserDataNut>): RecyclerView.Adapter<UserAdapterNut.UserViewHolder>() {
-     var nutrientCountDelete = 0
+
+    var nutrientCountDelete = 0
     inner class UserViewHolder(val v: View):RecyclerView.ViewHolder(v){
         var namenut: TextView
         var nobjectif: TextView
@@ -74,7 +75,6 @@ class UserAdapterNut(val c: Context, val userList: ArrayList<UserDataNut>): Recy
                                     dialog,_->
                                 nutrientCountDelete++
                                 userList.removeAt(adapterPosition)
-                                println("indice supp $adapterPosition")
                                 notifyDataSetChanged()
                                 Toast.makeText(c,"Deleted this Information", Toast.LENGTH_SHORT).show()
                                 dialog.dismiss()
