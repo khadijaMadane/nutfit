@@ -5,18 +5,22 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AlertDialog
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.android.material.navigation.NavigationView
 
 class IngregientsName : AppCompatActivity() {
 
     private var ingredientCount=0
-
+    lateinit var toggle: ActionBarDrawerToggle
     private lateinit var addsBtn: FloatingActionButton
     private lateinit var recv: RecyclerView
     private lateinit var userList: ArrayList<UserDataIng>
@@ -28,6 +32,61 @@ class IngregientsName : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_ingregients_name)
+
+
+        val drawerLayout: DrawerLayout = findViewById(R.id.drawerLayoutId)
+        val navView: NavigationView =findViewById(R.id.nav_view)
+        toggle= ActionBarDrawerToggle(this, drawerLayout,R.string.open, R.string.close)
+        drawerLayout.addDrawerListener(toggle)
+        toggle.syncState()
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        navView.setNavigationItemSelectedListener {
+            when(it.itemId){
+                R.id.home -> Toast.makeText(applicationContext,"Clicked Home", Toast.LENGTH_SHORT).show()
+                R.id.sitting-> Toast.makeText(applicationContext,"Clicked Sittings", Toast.LENGTH_SHORT).show()
+                R.id.aide -> Toast.makeText(applicationContext,"Clicked aide", Toast.LENGTH_SHORT).show()
+                R.id.recommencer -> Toast.makeText(applicationContext,"Clicked recommencer", Toast.LENGTH_SHORT).show()
+                R.id.signout -> Toast.makeText(applicationContext,"Clicked signout", Toast.LENGTH_SHORT).show()
+
+            }
+            true
+
+        }
+
+        navView.setNavigationItemSelectedListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.home -> {
+                    val intent = Intent(this, changePasswrord::class.java)
+                    startActivity(intent)
+                    true
+                }
+                R.id.sitting -> {
+                    // Handle "Settings" click
+                    val intent = Intent(this, changeEmail::class.java)
+                    startActivity(intent)
+                    true
+                }
+                R.id.aide -> {
+                    // Handle "Help" click
+                    val intent = Intent(this, IngregientsName::class.java)
+                    startActivity(intent)
+                    true
+                }
+                R.id.recommencer -> {
+                    val intent = Intent(this, IngregientsName::class.java)
+                    startActivity(intent)
+                    // Handle "Restart" click
+                    true
+                }
+                R.id.signout -> {
+                    showSignOutConfirmationDialog()
+                    // Handle "Sign Out" click
+                    true
+                }
+                else -> false
+            }
+        }
+
 
         val nextButton = findViewById<Button>(R.id.nextButton)
         nextButton.setOnClickListener {
@@ -114,5 +173,34 @@ class IngregientsName : AppCompatActivity() {
             Log.d("ingredient operator :", ingSym)
         }
         return ingredientSym
+    }
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if(toggle.onOptionsItemSelected(item)){
+            return true
+        }
+
+        return super.onOptionsItemSelected(item)
+    }
+    private fun performSignOut() {
+        // Perform sign out logic here
+        // For example, navigate to the login screen or clear user session
+        val intent = Intent(this, SignIn::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        startActivity(intent)
+        finish()
+    }
+    private fun showSignOutConfirmationDialog() {
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("Confirm Sign Out")
+            .setMessage("Are you sure you want to sign out?")
+            .setPositiveButton("Yes") { dialog, _ ->
+                // Handle sign out
+                performSignOut()
+                dialog.dismiss()
+            }
+            .setNegativeButton("No") { dialog, _ ->
+                dialog.dismiss()
+            }
+            .show()
     }
 }
