@@ -15,6 +15,12 @@
             android:name=".menuuPage"
             android:exported="false" />
         <activity
+            android:name=".changeEmail"
+            android:exported="false" />
+        <activity
+            android:name=".changePasswrord"
+            android:exported="false" />
+        <activity
             android:name=".nutValues"
             android:exported="false"
             tools:ignore="MissingClass" />
