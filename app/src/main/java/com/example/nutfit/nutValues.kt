@@ -50,7 +50,7 @@ class nutValues : AppCompatActivity() {
 
         }
 
-//
+
 
         val nutrientCount = intent.getIntExtra("nutrientCount", 0)
         val nutrientCountDelete = intent.getIntExtra("nutrientCountDelete",0)
@@ -83,7 +83,7 @@ class nutValues : AppCompatActivity() {
 
         ingredientRowsLinearLayout = findViewById(R.id.ingredientRowsLinearLayout)
 
-        nutrientMatrix = createNutrientMatrix(resultIng, resultNut)
+         nutrientMatrix = createNutrientMatrix(resultIng, resultNut)
 
         createIngredientRows(resultIng, resultNut)
 
@@ -92,7 +92,7 @@ class nutValues : AppCompatActivity() {
 
         submitButton.setOnClickListener {
 
-            for (i in nutrientMatrix.indices) {
+           for (i in nutrientMatrix.indices) {
                 for (j in nutrientMatrix[i].indices) {
                     Log.d("Nutrient Matrix", "Ingredient $i, Nutrient $j: ${nutrientMatrix[i][j]}")
                 }
@@ -103,60 +103,60 @@ class nutValues : AppCompatActivity() {
         }
 
     }
-    private fun createIngredientRows(numIngredients: Int, numNutrients: Int) {
-        ingredientRowsLinearLayout.removeAllViews()
-        // val nutrientMatrix = Array(numIngredients) { Array(numNutrients) { "" } }
+        private fun createIngredientRows(numIngredients: Int, numNutrients: Int) {
+            ingredientRowsLinearLayout.removeAllViews()
+           // val nutrientMatrix = Array(numIngredients) { Array(numNutrients) { "" } }
 
-        for (i in 1..numIngredients) {
-            val horizontalScrollView = HorizontalScrollView(this)
-            val horizontalLayout = LinearLayout(this).apply {
-                orientation = LinearLayout.HORIZONTAL
-            }
+            for (i in 1..numIngredients) {
+                val horizontalScrollView = HorizontalScrollView(this)
+                val horizontalLayout = LinearLayout(this).apply {
+                    orientation = LinearLayout.HORIZONTAL
+                }
 
-            val ingredientEditText = TextView(this).apply {
-                layoutParams = LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.MATCH_PARENT,
-                    LinearLayout.LayoutParams.WRAP_CONTENT
-                )
-                hint = "Ingredient $i"
-                setPadding(16, 16, 16, 16)
-            }
-
-            horizontalLayout.addView(ingredientEditText)
-
-            val nutrientEditTexts = mutableListOf<EditText>()
-
-            for (j in 1..numNutrients) {
-                val nutrientEditText = EditText(this).apply {
+                val ingredientEditText = TextView(this).apply {
                     layoutParams = LinearLayout.LayoutParams(
-                        LinearLayout.LayoutParams.WRAP_CONTENT,
+                        LinearLayout.LayoutParams.MATCH_PARENT,
                         LinearLayout.LayoutParams.WRAP_CONTENT
                     )
-                    hint = "Nutrient $j"
+                    hint = "Ingredient $i"
                     setPadding(16, 16, 16, 16)
                 }
 
+                horizontalLayout.addView(ingredientEditText)
 
-                nutrientEditText.addTextChangedListener(object : TextWatcher {
-                    override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+                val nutrientEditTexts = mutableListOf<EditText>()
 
-                    override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
-
-                    override fun afterTextChanged(s: Editable?) {
-                        nutrientMatrix[i - 1][j - 1] = s.toString()
+                for (j in 1..numNutrients) {
+                    val nutrientEditText = EditText(this).apply {
+                        layoutParams = LinearLayout.LayoutParams(
+                            LinearLayout.LayoutParams.WRAP_CONTENT,
+                            LinearLayout.LayoutParams.WRAP_CONTENT
+                        )
+                        hint = "Nutrient $j"
+                        setPadding(16, 16, 16, 16)
                     }
-                })
 
-                nutrientEditTexts.add(nutrientEditText)
-                horizontalLayout.addView(nutrientEditText)
+
+                    nutrientEditText.addTextChangedListener(object : TextWatcher {
+                        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+                        override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+
+                        override fun afterTextChanged(s: Editable?) {
+                            nutrientMatrix[i - 1][j - 1] = s.toString()
+                        }
+                    })
+
+                    nutrientEditTexts.add(nutrientEditText)
+                    horizontalLayout.addView(nutrientEditText)
+                }
+
+                horizontalScrollView.addView(horizontalLayout)
+                ingredientRowsLinearLayout.addView(horizontalScrollView)
+
+
             }
-
-            horizontalScrollView.addView(horizontalLayout)
-            ingredientRowsLinearLayout.addView(horizontalScrollView)
-
-
         }
-    }
 
     private fun createNutrientMatrix(numIngredients: Int, numNutrients: Int): Array<Array<String>> {
         val nutrientMatrix = Array(numIngredients) { Array(numNutrients) { "" } }
@@ -187,4 +187,3 @@ class nutValues : AppCompatActivity() {
     }
 
 }
-

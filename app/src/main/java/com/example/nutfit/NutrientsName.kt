@@ -36,7 +36,7 @@ class NutrientsName : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_nutrients_name)
-//
+
 
         val ingredientCount = intent.getIntExtra("ingredientCount", 0)
         val ingredientCountDelete = intent.getIntExtra("ingredientCountDelete",0)
@@ -82,65 +82,65 @@ class NutrientsName : AppCompatActivity() {
                 startActivity(it)
             }}
 
-        val drawerLayout: DrawerLayout = findViewById(R.id.drawerLayoutId)
-        val navView: NavigationView = findViewById(R.id.nav_view)
-        toggle = ActionBarDrawerToggle(this, drawerLayout, R.string.open, R.string.close)
-        drawerLayout.addDrawerListener(toggle)
-        toggle.syncState()
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        navView.setNavigationItemSelectedListener {
-            when (it.itemId) {
-                R.id.home -> Toast.makeText(
-                    applicationContext,
-                    "Clicked Home",
-                    Toast.LENGTH_SHORT
-                ).show()
-                R.id.sitting -> Toast.makeText(
-                    applicationContext,
-                    "Clicked Sittings",
-                    Toast.LENGTH_SHORT
-                ).show()
-                R.id.aide -> Toast.makeText(
-                    applicationContext,
-                    "Clicked aide",
-                    Toast.LENGTH_SHORT
-                ).show()
-                R.id.recommencer -> Toast.makeText(
-                    applicationContext,
-                    "Clicked recommencer",
-                    Toast.LENGTH_SHORT
-                ).show()
-                R.id.signout -> Toast.makeText(
-                    applicationContext,
-                    "Clicked signout",
-                    Toast.LENGTH_SHORT
-                ).show()
+                val drawerLayout: DrawerLayout = findViewById(R.id.drawerLayoutId)
+                val navView: NavigationView = findViewById(R.id.nav_view)
+                toggle = ActionBarDrawerToggle(this, drawerLayout, R.string.open, R.string.close)
+                drawerLayout.addDrawerListener(toggle)
+                toggle.syncState()
+                supportActionBar?.setDisplayHomeAsUpEnabled(true)
+                navView.setNavigationItemSelectedListener {
+                    when (it.itemId) {
+                        R.id.home -> Toast.makeText(
+                            applicationContext,
+                            "Clicked Home",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        R.id.sitting -> Toast.makeText(
+                            applicationContext,
+                            "Clicked Sittings",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        R.id.aide -> Toast.makeText(
+                            applicationContext,
+                            "Clicked aide",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        R.id.recommencer -> Toast.makeText(
+                            applicationContext,
+                            "Clicked recommencer",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        R.id.signout -> Toast.makeText(
+                            applicationContext,
+                            "Clicked signout",
+                            Toast.LENGTH_SHORT
+                        ).show()
 
+                    }
+                    true
+
+                }
+
+
+
+
+                /**set List*/
+                userList = ArrayList()
+                /**set find Id*/
+                addsBtn = findViewById(R.id.addingBtn)
+                recv = findViewById(R.id.mRecycler)
+                /**set adapter*/
+                userAdapter = UserAdapterNut(this, userList)
+                /**setRecycler view adapter*/
+                recv.layoutManager = LinearLayoutManager(this)
+                recv.adapter = userAdapter
+                /**set Dialog*/
+                addsBtn.setOnClickListener {
+
+                    addInfo()
+
+                }
             }
-            true
-
-        }
-
-
-
-
-        /**set List*/
-        userList = ArrayList()
-        /**set find Id*/
-        addsBtn = findViewById(R.id.addingBtn)
-        recv = findViewById(R.id.mRecycler)
-        /**set adapter*/
-        userAdapter = UserAdapterNut(this, userList)
-        /**setRecycler view adapter*/
-        recv.layoutManager = LinearLayoutManager(this)
-        recv.adapter = userAdapter
-        /**set Dialog*/
-        addsBtn.setOnClickListener {
-
-            addInfo()
-
-        }
-    }
 
     private fun addInfo() {
         val inflter = LayoutInflater.from(this)
@@ -192,6 +192,14 @@ class NutrientsName : AppCompatActivity() {
 
         return super.onOptionsItemSelected(item)
     }
+
+
+
+
+
+
+
+
 
 
 }
