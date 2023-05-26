@@ -50,7 +50,7 @@ class nutValues : AppCompatActivity() {
 
         }
 
-
+//
 
         val nutrientCount = intent.getIntExtra("nutrientCount", 0)
         val nutrientCountDelete = intent.getIntExtra("nutrientCountDelete",0)
