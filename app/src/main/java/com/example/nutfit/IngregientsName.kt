@@ -28,7 +28,7 @@ class IngregientsName : AppCompatActivity() {
     val ingredientNames = ArrayList<String>()
     val ingredientPrix = ArrayList<String>()
 
-
+//
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_ingregients_name)
