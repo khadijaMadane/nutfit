@@ -28,15 +28,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
             <TextView
-                android:id="@+id/objIng"
-                android:text="objectif"
-                android:textColor="@color/black"
-                android:textSize="19sp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-            <TextView
-                android:id="@+id/symIng"
-                android:text="operateur"
+                android:id="@+id/prixIng"
+                android:text="price"
                 android:textColor="@color/black"
                 android:textSize="19sp"
                 android:layout_width="match_parent"

@@ -23,17 +23,32 @@ class nutValues : AppCompatActivity() {
 
         val nutrientCount = intent.getIntExtra("nutrientCount", 0)
         val nutrientCountDelete = intent.getIntExtra("nutrientCountDelete",0)
-        val resultIng = intent.getIntExtra("resultIng",0)
+        val ingredientCount = intent.getIntExtra("ingredientCount", 0)
+        val ingredientCountDelete = intent.getIntExtra("ingredientCountDelete",0)
+
+        val nameArray = intent.getStringArrayListExtra("nameArray")
+        val objArray = intent.getStringArrayListExtra("objArray")
+        val optArray = intent.getStringArrayListExtra("optArray")
+        val nameIngArray = intent.getStringArrayListExtra("nameIngArray")
+        val prixIngArray = intent.getStringArrayListExtra("prixIngArray")
+
+        val resultIng =ingredientCount-ingredientCountDelete
         val resultNut =nutrientCount-nutrientCountDelete
         println("nbre des nutriment est : $resultNut")
         println("nbre des ingredient est : $resultIng")
+
+        println("/*/* new table name :"+nameArray)
+        println("/*/* new table obj :"+objArray)
+        println("/*/* new table opt :"+optArray)
+        println("/*/* new table name ing :"+nameIngArray)
+        println("/*/* new table price ing :"+prixIngArray)
+
 
         ingredientRowsLinearLayout = findViewById(R.id.ingredientRowsLinearLayout)
 
         val numIngredientsEditText = findViewById<EditText>(R.id.numIngredientsEditText)
         val numNutrientsEditText = findViewById<EditText>(R.id.numNutrientsEditText)
         val submitButton = findViewById<Button>(R.id.submitButton)
-
         submitButton.setOnClickListener {
             val numIngredients = numIngredientsEditText.text.toString().toIntOrNull() ?: 0
             val numNutrients = numNutrientsEditText.text.toString().toIntOrNull() ?: 0
@@ -89,6 +104,5 @@ class nutValues : AppCompatActivity() {
         const val NUM_INGREDIENTS = "num_ingredients"
         const val NUM_NUTRIENTS = "num_nutrients"
     }
+
 }
-
-
