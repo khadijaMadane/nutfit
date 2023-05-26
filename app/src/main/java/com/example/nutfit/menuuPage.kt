@@ -14,7 +14,7 @@ class menuuPage : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_menuu_page)
-
+//
 
         val drawerLayout: DrawerLayout= findViewById(R.id.drawerLayout)
         val navView: NavigationView=findViewById(R.id.nav_view)
