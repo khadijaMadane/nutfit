@@ -16,9 +16,11 @@
             android:exported="false" />
         <activity
             android:name=".changeEmail"
+            android:theme="@style/AppTheme"
             android:exported="false" />
         <activity
             android:name=".changePasswrord"
+            android:theme="@style/AppTheme"
             android:exported="false" />
         <activity
             android:name=".nutValues"
