@@ -26,9 +26,9 @@ class IngregientsName : AppCompatActivity() {
     private lateinit var userList: ArrayList<UserDataIng>
     private lateinit var userAdapter: UserAdapterIng
     val ingredientNames = ArrayList<String>()
-    val ingredientPrix = ArrayList<String>()
+    val ingredientPrix = ArrayList<Double>()
 
-    //
+//
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_ingregients_name)
@@ -53,7 +53,7 @@ class IngregientsName : AppCompatActivity() {
                 //price of ingredient
                 val prixIngArray = mutableListOf<String>()
                 for (user in userList) {
-                    prixIngArray.add(user.ingPrix)
+                    prixIngArray.add(user.ingPrix.toString())
                 }
                 println("new price table ing $prixIngArray")
                 it.putStringArrayListExtra("prixIngArray", ArrayList(prixIngArray))
@@ -64,94 +64,94 @@ class IngregientsName : AppCompatActivity() {
         }
 
 
-        val drawerLayout: DrawerLayout = findViewById(R.id.drawerLayoutId)
-        val navView: NavigationView = findViewById(R.id.nav_view)
-        toggle = ActionBarDrawerToggle(this, drawerLayout, R.string.open, R.string.close)
-        drawerLayout.addDrawerListener(toggle)
-        toggle.syncState()
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        navView.setNavigationItemSelectedListener {
-            when (it.itemId) {
-                R.id.home -> Toast.makeText(
-                    applicationContext,
-                    "Clicked Home",
-                    Toast.LENGTH_SHORT
-                ).show()
-                R.id.sitting -> Toast.makeText(
-                    applicationContext,
-                    "Clicked Sittings",
-                    Toast.LENGTH_SHORT
-                ).show()
-                R.id.aide -> Toast.makeText(
-                    applicationContext,
-                    "Clicked aide",
-                    Toast.LENGTH_SHORT
-                ).show()
-                R.id.recommencer -> Toast.makeText(
-                    applicationContext,
-                    "Clicked recommencer",
-                    Toast.LENGTH_SHORT
-                ).show()
-                R.id.signout -> Toast.makeText(
-                    applicationContext,
-                    "Clicked signout",
-                    Toast.LENGTH_SHORT
-                ).show()
+            val drawerLayout: DrawerLayout = findViewById(R.id.drawerLayoutId)
+            val navView: NavigationView = findViewById(R.id.nav_view)
+            toggle = ActionBarDrawerToggle(this, drawerLayout, R.string.open, R.string.close)
+            drawerLayout.addDrawerListener(toggle)
+            toggle.syncState()
+            supportActionBar?.setDisplayHomeAsUpEnabled(true)
+            navView.setNavigationItemSelectedListener {
+                when (it.itemId) {
+                    R.id.home -> Toast.makeText(
+                        applicationContext,
+                        "Clicked Home",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    R.id.sitting -> Toast.makeText(
+                        applicationContext,
+                        "Clicked Sittings",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    R.id.aide -> Toast.makeText(
+                        applicationContext,
+                        "Clicked aide",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    R.id.recommencer -> Toast.makeText(
+                        applicationContext,
+                        "Clicked recommencer",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    R.id.signout -> Toast.makeText(
+                        applicationContext,
+                        "Clicked signout",
+                        Toast.LENGTH_SHORT
+                    ).show()
+
+                }
+                true
 
             }
-            true
 
-        }
-
-        navView.setNavigationItemSelectedListener { menuItem ->
-            when (menuItem.itemId) {
-                R.id.home -> {
-                    val intent = Intent(this, changePasswrord::class.java)
-                    startActivity(intent)
-                    true
+            navView.setNavigationItemSelectedListener { menuItem ->
+                when (menuItem.itemId) {
+                    R.id.home -> {
+                        val intent = Intent(this, changePasswrord::class.java)
+                        startActivity(intent)
+                        true
+                    }
+                    R.id.sitting -> {
+                        // Handle "Settings" click
+                        val intent = Intent(this, changeEmail::class.java)
+                        startActivity(intent)
+                        true
+                    }
+                    R.id.aide -> {
+                        // Handle "Help" click
+                        val intent = Intent(this, IngregientsName::class.java)
+                        startActivity(intent)
+                        true
+                    }
+                    R.id.recommencer -> {
+                        val intent = Intent(this, IngregientsName::class.java)
+                        startActivity(intent)
+                        // Handle "Restart" click
+                        true
+                    }
+                    R.id.signout -> {
+                        showSignOutConfirmationDialog()
+                        // Handle "Sign Out" click
+                        true
+                    }
+                    else -> false
                 }
-                R.id.sitting -> {
-                    // Handle "Settings" click
-                    val intent = Intent(this, changeEmail::class.java)
-                    startActivity(intent)
-                    true
-                }
-                R.id.aide -> {
-                    // Handle "Help" click
-                    val intent = Intent(this, IngregientsName::class.java)
-                    startActivity(intent)
-                    true
-                }
-                R.id.recommencer -> {
-                    val intent = Intent(this, IngregientsName::class.java)
-                    startActivity(intent)
-                    // Handle "Restart" click
-                    true
-                }
-                R.id.signout -> {
-                    showSignOutConfirmationDialog()
-                    // Handle "Sign Out" click
-                    true
-                }
-                else -> false
             }
-        }
 
 
 
 
-        /**set List*/
-        userList = ArrayList()
-        /**set find Id*/
-        addsBtn = findViewById(R.id.addingBtn)
-        recv = findViewById(R.id.mRecycler)
-        /**set adapter*/
-        userAdapter = UserAdapterIng(this, userList)
-        /**setRecycler view adapter*/
-        recv.layoutManager = LinearLayoutManager(this)
-        recv.adapter = userAdapter
-        /**set Dialog*/
-        addsBtn.setOnClickListener { addInfo() }
+            /**set List*/
+            userList = ArrayList()
+            /**set find Id*/
+            addsBtn = findViewById(R.id.addingBtn)
+            recv = findViewById(R.id.mRecycler)
+            /**set adapter*/
+            userAdapter = UserAdapterIng(this, userList)
+            /**setRecycler view adapter*/
+            recv.layoutManager = LinearLayoutManager(this)
+            recv.adapter = userAdapter
+            /**set Dialog*/
+            addsBtn.setOnClickListener { addInfo() }
 
     }
     private fun addInfo() {
@@ -168,8 +168,8 @@ class IngregientsName : AppCompatActivity() {
                 dialog,_->
             ingredientCount++
             val nameing = ingName.text.toString()
-            val prxing = ingPrix.text.toString()
-            userList.add(UserDataIng("name: $nameing","price: $prxing"))
+            val prxing = ingPrix.text.toString().toDouble()
+            userList.add(UserDataIng("name: $nameing", prxing))
             ingredientNames.add(nameing)
             ingredientPrix.add(prxing)
             userAdapter.notifyDataSetChanged()

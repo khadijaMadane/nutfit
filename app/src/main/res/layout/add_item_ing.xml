@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -58,9 +59,10 @@
             android:layout_marginBottom="5dp"
             android:background="@drawable/shape_bg_ing"
             android:hint="price"
-            android:inputType="text"
+
             android:padding="15dp"
             android:textSize="18sp"
+            android:inputType="numberDecimal"
             android:textStyle="bold" />
 
 

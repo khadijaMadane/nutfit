@@ -58,7 +58,7 @@
             android:layout_marginBottom="5dp"
             android:background="@drawable/shape_bg_ing"
             android:hint="your objectif"
-            android:inputType="text"
+            android:inputType="numberDecimal"
             android:padding="15dp"
             android:textSize="18sp"
             android:textStyle="bold" />

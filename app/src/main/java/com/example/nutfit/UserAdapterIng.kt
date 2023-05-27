@@ -12,7 +12,6 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.RecyclerView
-
 class UserAdapterIng (val c: Context, val userList: ArrayList<UserDataIng>): RecyclerView.Adapter<UserAdapterIng.UserViewHolder>(){
     var ingredientCountDelete = 0
     inner class UserViewHolder(val v: View):RecyclerView.ViewHolder(v){
@@ -44,7 +43,7 @@ class UserAdapterIng (val c: Context, val userList: ArrayList<UserDataIng>): Rec
                             .setPositiveButton("Ok"){
                                     dialog,_->
                                 position.ingName = nameing.text.toString()
-                                position.ingPrix = prxing.text.toString()
+                                position.ingPrix = prxing.text.toString().toDouble()
                                 notifyDataSetChanged()
                                 Toast.makeText(c,"User Information is Edited", Toast.LENGTH_SHORT).show()
                                 dialog.dismiss()
@@ -101,7 +100,7 @@ class UserAdapterIng (val c: Context, val userList: ArrayList<UserDataIng>): Rec
     override fun onBindViewHolder(holder:UserViewHolder, position: Int) {
         val newList = userList[position]
         holder.nameing.text = newList.ingName
-        holder.prxing.text = newList.ingPrix
+        holder.prxing.text = newList.ingPrix.toString()
     }
 
     override fun getItemCount(): Int {

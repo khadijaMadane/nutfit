@@ -30,7 +30,7 @@ class NutrientsName : AppCompatActivity() {
     private lateinit var userList: ArrayList<UserDataNut>
     private lateinit var userAdapter: UserAdapterNut
     val nutrientNames = ArrayList<String>()
-    val nutrientObj = ArrayList<String>()
+    val nutrientObj = ArrayList<Double>()
     val nutrientSym = ArrayList<String>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -62,7 +62,7 @@ class NutrientsName : AppCompatActivity() {
                 //objectif of nutrient
                 val objArray = mutableListOf<String>()
                 for (user in userList) {
-                    objArray.add(user.nutObj)
+                    objArray.add(user.nutObj.toString())
                 }
                 println("my user list new obj table$objArray")
                 it.putStringArrayListExtra("objArray", ArrayList(objArray))
@@ -82,65 +82,65 @@ class NutrientsName : AppCompatActivity() {
                 startActivity(it)
             }}
 
-        val drawerLayout: DrawerLayout = findViewById(R.id.drawerLayoutId)
-        val navView: NavigationView = findViewById(R.id.nav_view)
-        toggle = ActionBarDrawerToggle(this, drawerLayout, R.string.open, R.string.close)
-        drawerLayout.addDrawerListener(toggle)
-        toggle.syncState()
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        navView.setNavigationItemSelectedListener {
-            when (it.itemId) {
-                R.id.home -> Toast.makeText(
-                    applicationContext,
-                    "Clicked Home",
-                    Toast.LENGTH_SHORT
-                ).show()
-                R.id.sitting -> Toast.makeText(
-                    applicationContext,
-                    "Clicked Sittings",
-                    Toast.LENGTH_SHORT
-                ).show()
-                R.id.aide -> Toast.makeText(
-                    applicationContext,
-                    "Clicked aide",
-                    Toast.LENGTH_SHORT
-                ).show()
-                R.id.recommencer -> Toast.makeText(
-                    applicationContext,
-                    "Clicked recommencer",
-                    Toast.LENGTH_SHORT
-                ).show()
-                R.id.signout -> Toast.makeText(
-                    applicationContext,
-                    "Clicked signout",
-                    Toast.LENGTH_SHORT
-                ).show()
+                val drawerLayout: DrawerLayout = findViewById(R.id.drawerLayoutId)
+                val navView: NavigationView = findViewById(R.id.nav_view)
+                toggle = ActionBarDrawerToggle(this, drawerLayout, R.string.open, R.string.close)
+                drawerLayout.addDrawerListener(toggle)
+                toggle.syncState()
+                supportActionBar?.setDisplayHomeAsUpEnabled(true)
+                navView.setNavigationItemSelectedListener {
+                    when (it.itemId) {
+                        R.id.home -> Toast.makeText(
+                            applicationContext,
+                            "Clicked Home",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        R.id.sitting -> Toast.makeText(
+                            applicationContext,
+                            "Clicked Sittings",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        R.id.aide -> Toast.makeText(
+                            applicationContext,
+                            "Clicked aide",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        R.id.recommencer -> Toast.makeText(
+                            applicationContext,
+                            "Clicked recommencer",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        R.id.signout -> Toast.makeText(
+                            applicationContext,
+                            "Clicked signout",
+                            Toast.LENGTH_SHORT
+                        ).show()
 
+                    }
+                    true
+
+                }
+
+
+
+
+                /**set List*/
+                userList = ArrayList()
+                /**set find Id*/
+                addsBtn = findViewById(R.id.addingBtn)
+                recv = findViewById(R.id.mRecycler)
+                /**set adapter*/
+                userAdapter = UserAdapterNut(this, userList)
+                /**setRecycler view adapter*/
+                recv.layoutManager = LinearLayoutManager(this)
+                recv.adapter = userAdapter
+                /**set Dialog*/
+                addsBtn.setOnClickListener {
+
+                    addInfo()
+
+                }
             }
-            true
-
-        }
-
-
-
-
-        /**set List*/
-        userList = ArrayList()
-        /**set find Id*/
-        addsBtn = findViewById(R.id.addingBtn)
-        recv = findViewById(R.id.mRecycler)
-        /**set adapter*/
-        userAdapter = UserAdapterNut(this, userList)
-        /**setRecycler view adapter*/
-        recv.layoutManager = LinearLayoutManager(this)
-        recv.adapter = userAdapter
-        /**set Dialog*/
-        addsBtn.setOnClickListener {
-
-            addInfo()
-
-        }
-    }
 
     private fun addInfo() {
         val inflter = LayoutInflater.from(this)
@@ -157,11 +157,11 @@ class NutrientsName : AppCompatActivity() {
                 dialog,_->
             nutrientCount++
             val namenut = nutName.text.toString()
-            val nobjectif = nutObj.text.toString()
+            val nobjectif = nutObj.text.toString().toDouble()
             val nsymbole = nutSym.text.toString()
 
 
-            userList.add(UserDataNut("name: $namenut","objectif: $nobjectif","operateur: $nsymbole"))
+            userList.add(UserDataNut("name: $namenut",nobjectif,"operateur: $nsymbole"))
             nutrientNames.add(namenut)
             nutrientObj.add(nobjectif)
             nutrientSym.add(nsymbole)
@@ -186,7 +186,7 @@ class NutrientsName : AppCompatActivity() {
 
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if(toggle.onOptionsItemSelected(item)){
+        if (toggle.onOptionsItemSelected(item)) {
             return true
         }
 
