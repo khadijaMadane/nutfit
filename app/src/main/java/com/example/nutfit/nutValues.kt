@@ -1,7 +1,6 @@
 package com.example.nutfit
 
 import android.annotation.SuppressLint
-import android.app.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -14,13 +13,15 @@ import android.widget.*
 import androidx.appcompat.app.ActionBarDrawerToggle
 
 import androidx.drawerlayout.widget.DrawerLayout
-import com.example.nutfit.R
 import com.google.android.material.navigation.NavigationView
+
+
+
 
 class nutValues : AppCompatActivity() {
     private lateinit var ingredientRowsLinearLayout: LinearLayout
-    private lateinit var nutrientMatrix: Array<Array<String>>
-    private lateinit var transposedMatrix: Array<Array<String>>
+    private lateinit var nutrientMatrix: Array<Array<Double>>
+    private lateinit var transposedMatrix: Array<Array<Double>>
     lateinit var toggle: ActionBarDrawerToggle
 
     @SuppressLint("MissingInflatedId", "WrongViewCast")
@@ -87,15 +88,32 @@ class nutValues : AppCompatActivity() {
         println("/*/* new table price ing :" + prixIngArray)
 
 
+        nutrientMatrix = Array(resultIng) { Array(resultNut) { 0.0 } }
 
+        for (i in objArray!!.indices) {
+            Log.d("objectif array", "objectif $i,: ${objArray[i]}")
+        }
 
-
-
+        val objDoubleArray = objArray.map {
+            try {
+                it.toDouble()
+            } catch (e: NumberFormatException) {
+                0.0
+            }
+        }.toDoubleArray()
+        val prixDoubleArray = prixIngArray?.map {
+            try {
+                it.toDouble()
+            } catch (e: NumberFormatException) {
+                0.0
+            }
+        }?.toDoubleArray()
 
 
         ingredientRowsLinearLayout = findViewById(R.id.ingredientRowsLinearLayout)
 
-        nutrientMatrix = createNutrientMatrix(resultIng, resultNut)
+
+
 
 
         createIngredientRows(resultIng, resultNut)
@@ -104,6 +122,9 @@ class nutValues : AppCompatActivity() {
 
 
         submitButton.setOnClickListener {
+
+
+
             transposedMatrix = transposeMatrix(nutrientMatrix)
 
             for (i in transposedMatrix.indices) {
@@ -114,14 +135,41 @@ class nutValues : AppCompatActivity() {
                     )
                 }
             }
+            nutrientMatrix = createNutrientMatrix(
+                resultIng,
+                resultNut,
+                prixDoubleArray?.toList() as ArrayList<Any>,
+                objDoubleArray.toList() as ArrayList<Any>,
+                transposedMatrix
+            )
 
-             for (i in nutrientMatrix.indices) {
+
+            for (i in nutrientMatrix.indices) {
                 for (j in nutrientMatrix[i].indices) {
                     Log.d("Nutrient Matrix", "Ingredient $i, Nutrient $j: ${nutrientMatrix[i][j]}")
                 }
             }
-            val intent = Intent(this, menuuPage::class.java)
+
+             nutrientMatrix = createNutrientMatrix(resultIng, resultNut,
+                 prixIngArray as ArrayList<Double>,objArray as ArrayList<Double> , transposedMatrix)
+            for (i in nutrientMatrix.indices) {
+                for (j in nutrientMatrix[i].indices) {
+                    Log.d("Nutrient MatrixResultat", "Ingredient $i, Nutrient $j: ${nutrientMatrix[i][j]}")
+                }
+            }
+          //  numbIng(resultIng)
+           // numbNut(resultNut)
+
+
+
+            val intent = Intent(this, simplexe::class.java).apply {
+                putExtra("resultIng", resultIng)
+                putExtra("resultNut", resultNut)
+                putExtra("nutrientMatrix", nutrientMatrix)
+            }
             startActivity(intent)
+
+
 
         }
 
@@ -158,6 +206,8 @@ class nutValues : AppCompatActivity() {
                     )
                     hint = "Nutrient $j"
                     setPadding(16, 16, 16, 16)
+                    inputType = InputType.TYPE_CLASS_NUMBER or InputType.TYPE_NUMBER_FLAG_DECIMAL
+
                 }
 
 
@@ -179,7 +229,13 @@ class nutValues : AppCompatActivity() {
                     }
 
                     override fun afterTextChanged(s: Editable?) {
-                        nutrientMatrix[i - 1][j - 1] = s.toString()
+                       // nutrientMatrix[i - 1][j - 1] = s.toString().toDouble()
+                        val value = s.toString().toDoubleOrNull()
+                        if (value != null) {
+                            nutrientMatrix[i - 1][j - 1] = value
+                        } else {
+                            nutrientMatrix[i - 1][j - 1] = 0.0 // Ou une valeur par défaut appropriée
+                        }
                     }
                 })
 
@@ -224,11 +280,11 @@ class nutValues : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
-    private fun transposeMatrix(matrix: Array<Array<String>>): Array<Array<String>> {
+    private fun transposeMatrix(matrix: Array<Array<Double>>): Array<Array<Double>> {
         val numRows = matrix.size
         val numCols = matrix[0].size
 
-        val transposedMatrix = Array(numCols) { Array(numRows) { "" } }
+        val transposedMatrix = Array(numCols) { Array(numRows) { 0.0 } }
 
         for (i in 0 until numRows) {
             for (j in 0 until numCols) {
@@ -236,6 +292,39 @@ class nutValues : AppCompatActivity() {
             }
         }
 
+
         return transposedMatrix
     }
+
+    private fun createNutrientMatrix(
+        numIngredients: Int,
+        numNutrients: Int,
+        prixIngArray: List<Any>,
+        objArray: List<Any>,
+        transposedMatrix: Array<Array<Double>>
+    ): Array<Array<Double>> {
+        val nutrientMatrix = Array(numIngredients + 1) { Array(numNutrients + 1) { 0.0 } }
+        nutrientMatrix[numIngredients][numNutrients] = 0.0
+
+        for (i in 0 until numIngredients) {
+            for (j in 0 until numNutrients) {
+                nutrientMatrix[i][j] = transposedMatrix[i][j]
+            }
+            val convertedValue = objArray[i].toString().toDoubleOrNull() ?: 0.0
+            nutrientMatrix[i][numNutrients] = convertedValue
+           // nutrientMatrix[i][numNutrients]=objArray[i]
+
+        }
+
+        for (j in 0 until numNutrients) {
+            val convertedValuee = prixIngArray[j].toString().toDoubleOrNull() ?: 0.0
+            nutrientMatrix[numIngredients][j] = convertedValuee
+           // nutrientMatrix[numIngredients][j] = prixIngArray[j]
+        }
+
+        return nutrientMatrix
+    }
+
+
+
 }

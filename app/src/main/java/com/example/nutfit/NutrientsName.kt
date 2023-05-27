@@ -30,7 +30,7 @@ class NutrientsName : AppCompatActivity() {
     private lateinit var userList: ArrayList<UserDataNut>
     private lateinit var userAdapter: UserAdapterNut
     val nutrientNames = ArrayList<String>()
-    val nutrientObj = ArrayList<String>()
+    val nutrientObj = ArrayList<Double>()
     val nutrientSym = ArrayList<String>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -62,7 +62,7 @@ class NutrientsName : AppCompatActivity() {
                 //objectif of nutrient
                 val objArray = mutableListOf<String>()
                 for (user in userList) {
-                    objArray.add(user.nutObj)
+                    objArray.add(user.nutObj.toString())
                 }
                 println("my user list new obj table$objArray")
                 it.putStringArrayListExtra("objArray", ArrayList(objArray))
@@ -157,11 +157,11 @@ class NutrientsName : AppCompatActivity() {
                 dialog,_->
             nutrientCount++
             val namenut = nutName.text.toString()
-            val nobjectif = nutObj.text.toString()
+            val nobjectif = nutObj.text.toString().toDouble()
             val nsymbole = nutSym.text.toString()
 
 
-            userList.add(UserDataNut("name: $namenut","objectif: $nobjectif","operateur: $nsymbole"))
+            userList.add(UserDataNut("name: $namenut",nobjectif,"operateur: $nsymbole"))
             nutrientNames.add(namenut)
             nutrientObj.add(nobjectif)
             nutrientSym.add(nsymbole)
@@ -186,20 +186,12 @@ class NutrientsName : AppCompatActivity() {
 
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if(toggle.onOptionsItemSelected(item)){
+        if (toggle.onOptionsItemSelected(item)) {
             return true
         }
 
         return super.onOptionsItemSelected(item)
     }
-
-
-
-
-
-
-
-
 
 
 }

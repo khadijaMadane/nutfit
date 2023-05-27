@@ -33,7 +33,9 @@
                 android:text="price"
                 android:textColor="@color/black"
                 android:textSize="19sp"
+                android:inputType="numberDecimal"
                 android:layout_width="match_parent"
+
                 android:layout_height="wrap_content"/>
 
 

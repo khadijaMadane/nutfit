@@ -59,9 +59,10 @@
             android:layout_marginBottom="5dp"
             android:background="@drawable/shape_bg_ing"
             android:hint="price"
-            android:inputType="text"
+
             android:padding="15dp"
             android:textSize="18sp"
+            android:inputType="numberDecimal"
             android:textStyle="bold" />
 
 
