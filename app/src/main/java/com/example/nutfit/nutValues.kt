@@ -90,6 +90,7 @@ class nutValues : AppCompatActivity() {
 
         nutrientMatrix = Array(resultIng) { Array(resultNut) { 0.0 } }
 
+
         for (i in objArray!!.indices) {
             Log.d("objectif array", "objectif $i,: ${objArray[i]}")
         }
@@ -127,14 +128,7 @@ class nutValues : AppCompatActivity() {
 
             transposedMatrix = transposeMatrix(nutrientMatrix)
 
-            for (i in transposedMatrix.indices) {
-                for (j in transposedMatrix[i].indices) {
-                    Log.d(
-                        "transposed Matrix ",
-                        "Ingredient $i, Nutrient $j: ${transposedMatrix[i][j]}"
-                    )
-                }
-            }
+
             nutrientMatrix = createNutrientMatrix(
                 resultIng,
                 resultNut,
@@ -163,13 +157,13 @@ class nutValues : AppCompatActivity() {
 
 
             val intent = Intent(this, simplexe::class.java).apply {
-                putExtra("resultIng", resultIng)
+                putExtra("optArray", optArray)
+
                 putExtra("resultNut", resultNut)
-                putExtra("nutrientMatrix", nutrientMatrix)
+                putExtra("resultIng", resultIng)
+               putExtra("nutrientMatrix", nutrientMatrix)
             }
             startActivity(intent)
-
-
 
         }
 
@@ -324,7 +318,6 @@ class nutValues : AppCompatActivity() {
 
         return nutrientMatrix
     }
-
 
 
 }

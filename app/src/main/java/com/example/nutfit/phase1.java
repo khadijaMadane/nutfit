@@ -1,15 +1,23 @@
 package com.example.nutfit;
 
 public class phase1 {
-
     private static final double EPSILON = 1.0E-8;/**/
     double[][] table3; // tableaux
     int l2; // number of constraints
     int c2; // number of original variables
-    public phase1(double[][] table3, int l2,int c2) {
+    int nNut,nIng;
+    /*NEW*/int[] basis;
+    public phase1(double[][] table3, int l2,int c2,int nNut,int nIng) {
         this.l2 = l2;
         this.c2 = c2;
         this.table3 = table3;
+        this.nNut=nNut;
+        this.nIng=nIng;
+        /*NEW*/
+        basis = new int[nNut];
+        for (int i = 0; i < nNut; i++)
+            basis[i] = nIng + i;
+
         solve();
     }
     //solution optimal ou non
@@ -27,6 +35,10 @@ public class phase1 {
                 throw new ArithmeticException("Linear program is unbounded");
             // pivot
             pivot(p, q);
+
+            /*NEW*/
+            // update basis
+            basis[p] = q;
         }
         if (table3[l2-1][c2-1] > EPSILON) throw new ArithmeticException("Linear program is infeasible");/**/
     }
@@ -40,6 +52,14 @@ public class phase1 {
             }
             System.out.println();
         }
+
+        /*NEW*/
+        //System.out.println("value = " + table3[l2][c2]);
+        for (int i = 0; i < nNut; i++)
+            if (basis[i] < nIng)
+                System.out.println("x_"+ basis[i] + " = "+ table3[i][nNut+ nIng]);
+        System.out.println();
+
     }
     // index of a non-basic column with most positive cost
     public int dantzig() {
@@ -89,6 +109,19 @@ public class phase1 {
         table3[p][q] = 1.0;
     }
 
+    /*NEW*/
+    // return primal solution vector
+    public double[] primal() {
+        double[] x = new double[nIng];
+        for (int i = 0; i < nNut; i++)
+            if (basis[i] < nIng)
+                x[basis[i]] = table3[i][nNut+ nIng];
+        return x;
+    }
+    public int[] basis(){
+        return basis;
 
+    }
 
+//////////////////fin//////////////////////////////////////////////////
 }
