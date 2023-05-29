@@ -51,7 +51,7 @@ class UserAdapterNut(val c: Context, val userList: ArrayList<UserDataNut>): Recy
                             .setPositiveButton("Ok"){
                                     dialog,_->
                                 position.nutName = namenut.text.toString()
-                                position.nutObj = nobjectif.text.toString()
+                                position.nutObj = nobjectif.text.toString().toDouble()
                                 position.nutSym = nsymbole.text.toString()
                                 notifyDataSetChanged()
                                 Toast.makeText(c,"User Information is Edited", Toast.LENGTH_SHORT).show()
@@ -113,7 +113,7 @@ class UserAdapterNut(val c: Context, val userList: ArrayList<UserDataNut>): Recy
     override fun onBindViewHolder(holder:UserViewHolder, position: Int) {
         val newList = userList[position]
         holder.namenut.text = newList.nutName
-        holder.nobjectif.text = newList.nutObj
+        holder.nobjectif.text = newList.nutObj.toString()
         holder.nsymbole.text = newList.nutSym
     }
 
