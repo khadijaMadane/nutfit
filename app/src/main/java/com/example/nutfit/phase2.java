@@ -111,6 +111,10 @@ public class phase2 {
                 x[basis[i]] = table5[i][nNut+ nIng];
         return x;
     }
+    public int[] basis(){
+        return basis;
+
+    }
 
 /////////////////////////////fin/////////////////////////////////////////
 }

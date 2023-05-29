@@ -19,13 +19,17 @@ public class simplexe extends AppCompatActivity {
         Double[][] nutrientMatrix = (Double[][]) intent.getSerializableExtra("nutrientMatrix");
         //ArrayList<String> optArray = getIntent().getStringArrayListExtra("optArray");
         String[] optArray = getIntent().getStringArrayListExtra("optArray").toArray(new String[0]);
-
-        for (int i = 0; i < resultNut ; i++) {
+        String[] nameIngArray = getIntent().getStringArrayListExtra("nameIngArray").toArray(new String[0]);
+        for (int i = 0; i < resultIng ; i++) {
             System.out.print(optArray[i]+"  ");
         }
 
         System.out.println();
+        for (int i = 0; i < resultNut ; i++) {
+            System.out.print(nameIngArray[i]+"  ");
+        }
 
+        System.out.println();
 
 
         for (i=0;i<resultNut+1;i++) {
@@ -265,6 +269,8 @@ public class simplexe extends AppCompatActivity {
         System.out.println("//////////////////////////phase 2////////////////////");
         phase2 f2=new phase2(table5,new_l2,new_c2,resultNut,resultIng,basi);
         f2.solve();
+        f2.basis();
+
         //fin////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
