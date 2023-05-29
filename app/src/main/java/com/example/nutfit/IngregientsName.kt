@@ -26,7 +26,7 @@ class IngregientsName : AppCompatActivity() {
     private lateinit var userList: ArrayList<UserDataIng>
     private lateinit var userAdapter: UserAdapterIng
     val ingredientNames = ArrayList<String>()
-    val ingredientPrix = ArrayList<String>()
+    val ingredientPrix = ArrayList<Double>()
 
 //
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -53,7 +53,7 @@ class IngregientsName : AppCompatActivity() {
                 //price of ingredient
                 val prixIngArray = mutableListOf<String>()
                 for (user in userList) {
-                    prixIngArray.add(user.ingPrix)
+                    prixIngArray.add(user.ingPrix.toString())
                 }
                 println("new price table ing $prixIngArray")
                 it.putStringArrayListExtra("prixIngArray", ArrayList(prixIngArray))
@@ -168,8 +168,8 @@ class IngregientsName : AppCompatActivity() {
                 dialog,_->
             ingredientCount++
             val nameing = ingName.text.toString()
-            val prxing = ingPrix.text.toString()
-            userList.add(UserDataIng("name: $nameing","price: $prxing"))
+            val prxing = ingPrix.text.toString().toDouble()
+            userList.add(UserDataIng("name: $nameing", prxing))
             ingredientNames.add(nameing)
             ingredientPrix.add(prxing)
             userAdapter.notifyDataSetChanged()
