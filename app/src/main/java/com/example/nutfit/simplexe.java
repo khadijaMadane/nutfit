@@ -22,12 +22,12 @@ public class simplexe extends AppCompatActivity {
         //ArrayList<String> optArray = getIntent().getStringArrayListExtra("optArray");
         String[] optArray = getIntent().getStringArrayListExtra("optArray").toArray(new String[0]);
         String[] nameIngArray = getIntent().getStringArrayListExtra("nameIngArray").toArray(new String[0]);
-        for (int i = 0; i < resultIng; i++) {
+        for (int i = 0; i < resultNut; i++) {
             System.out.print(optArray[i] + "  ");
         }
 
         System.out.println();
-        for (int i = 0; i < resultNut; i++) {
+        for (int i = 0; i < resultIng; i++) {
             System.out.print(nameIngArray[i] + "  ");
         }
 
@@ -279,7 +279,7 @@ public class simplexe extends AppCompatActivity {
         System.out.println("le prix est= " + table5[new_l2 - 1][new_c2 - 1]);
         for (int i = 0; i < resultNut; i++)
             if (basi[i] < resultIng)
-                System.out.println("la quantité de " + nameIngArray[basi[i]] + " = " + table5[i][resultNut + resultIng - 1]);
+                System.out.println("la quantité de " + nameIngArray[basi[i]] + " = " + table5[i][resultNut + resultIng]);
         System.out.println();
 
 
@@ -288,7 +288,7 @@ public class simplexe extends AppCompatActivity {
 
         for (int i = 0; i < resultNut; i++) {
             if (basi[i] < resultIng) {
-                String message = "la quantité de " + nameIngArray[basi[i]] + " = " + table5[i][resultNut + resultIng - 1] + "\n";
+                String message = "la quantité de " + nameIngArray[basi[i]] + " = " + table5[i][resultNut + resultIng] + "\n";
                 outputTextView.append(message);
             }
         }
