@@ -269,25 +269,20 @@ public class simplexe extends AppCompatActivity {
         System.out.println("//////////////////////////phase 2////////////////////");
         phase2 f2=new phase2(table5,new_l2,new_c2,resultNut,resultIng,basi);
         f2.solve();
-        f2.basis();
+       basi= f2.basis();
+       table5=f2.dl();
 
         //fin////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+        System.out.println("value = " + table5[new_l2-1][new_c2-1]);
+        for (int i = 0; i < resultNut; i++)
+            if (basi[i] < resultIng)
+                System.out.println("la quantité de "+ nameIngArray[basi[i]] + " = "+ table5[i][resultNut+ resultIng-1]);
+        System.out.println();
+    }
 
 
     }
 
-}
+
+
