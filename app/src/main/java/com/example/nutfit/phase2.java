@@ -115,6 +115,10 @@ public class phase2 {
         return basis;
 
     }
+    public double[][] dl(){
+        return table5;
+
+    }
 
 /////////////////////////////fin/////////////////////////////////////////
 }
