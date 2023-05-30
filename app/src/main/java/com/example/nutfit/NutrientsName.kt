@@ -121,9 +121,6 @@ class NutrientsName : AppCompatActivity() {
 
                 }
 
-
-
-
                 /**set List*/
                 userList = ArrayList()
                 /**set find Id*/
@@ -161,7 +158,7 @@ class NutrientsName : AppCompatActivity() {
             val nsymbole = nutSym.text.toString()
 
 
-            userList.add(UserDataNut("name: $namenut",nobjectif,"operateur: $nsymbole"))
+            userList.add(UserDataNut("name: $namenut",nobjectif, nsymbole))
             nutrientNames.add(namenut)
             nutrientObj.add(nobjectif)
             nutrientSym.add(nsymbole)
@@ -179,12 +176,6 @@ class NutrientsName : AppCompatActivity() {
 
 
     }
-
-
-
-
-
-
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (toggle.onOptionsItemSelected(item)) {
             return true
