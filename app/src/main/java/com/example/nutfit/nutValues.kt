@@ -2,6 +2,7 @@ package com.example.nutfit
 
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
@@ -185,6 +186,7 @@ class nutValues : AppCompatActivity() {
                     LinearLayout.LayoutParams.WRAP_CONTENT
                 )
                 hint = "Ingredient $i"
+                setHintTextColor(Color.WHITE)
                 setPadding(16, 16, 16, 16)
             }
 
@@ -199,8 +201,11 @@ class nutValues : AppCompatActivity() {
                         LinearLayout.LayoutParams.WRAP_CONTENT
                     )
                     hint = "Nutrient $j"
+                    setHintTextColor(Color.WHITE)
                     setPadding(16, 16, 16, 16)
                     inputType = InputType.TYPE_CLASS_NUMBER or InputType.TYPE_NUMBER_FLAG_DECIMAL
+                    setTextColor(Color.WHITE) // Set text color to white
+
 
                 }
 
