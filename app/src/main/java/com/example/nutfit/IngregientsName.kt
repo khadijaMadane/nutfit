@@ -169,7 +169,7 @@ class IngregientsName : AppCompatActivity() {
             ingredientCount++
             val nameing = ingName.text.toString()
             val prxing = ingPrix.text.toString().toDouble()
-            userList.add(UserDataIng("name: $nameing", prxing))
+            userList.add(UserDataIng( nameing, prxing))
             ingredientNames.add(nameing)
             ingredientPrix.add(prxing)
             userAdapter.notifyDataSetChanged()
