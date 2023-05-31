@@ -98,7 +98,7 @@ public class phase2 {
         System.out.println("value = " + table5[new_l2-1][new_c2-1]);
         for (int i = 0; i < nNut; i++)
             if (basis[i] < nIng)
-                System.out.println("x_"+ basis[i] + " = "+ table5[i][nNut+ nIng-1]);
+                System.out.println("x_"+ basis[i] + " = "+ table5[i][nNut+ nIng]);
         System.out.println();
     }
 
