@@ -269,27 +269,48 @@ public class simplexe extends AppCompatActivity {
         System.out.println();
         ///////////////////////////////////////////////
         System.out.println("//////////////////////////phase 2////////////////////");
-        phase2 f2 = new phase2(table5, new_l2, new_c2, resultNut, resultIng, basi);
+        phase2 f2 = new phase2(table5, new_l2, new_c2, resultNut, resultIng, basi,optArray);
         f2.solve();
         basi = f2.basis();
         table5 = f2.dl();
-
+/*****************************************************************************************/
+        int cpt_opt=0;
+        for(i=0;i<resultNut;i++)
+            //System.out.println(optArray[i]+"     ");
+            if(optArray[i].compareTo("egal") == 0)
+                cpt_opt++;
         //fin////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         System.out.println("le prix est= " + table5[new_l2 - 1][new_c2 - 1]);
-        for (int i = 0; i < resultNut; i++)
-            if (basi[i] < resultIng)
-                System.out.println("la quantité de " + nameIngArray[basi[i]] + " = " + table5[i][resultNut + resultIng]);
+        if(cpt_opt == 0) {
+            for (int i = 0; i < resultNut; i++) {
+                if (basi[i] < resultIng)
+                    System.out.println("x_" + basi[i] + " = " + table5[i][resultNut + resultIng]);
+            }
+        }else if(cpt_opt != 0){
+            for (int i = 0; i < resultNut; i++) {
+                System.out.println("x_" + basi[i] + " = " + table5[i][resultNut + resultIng-cpt_opt]);
+            }
+        }
         System.out.println();
 
 
         TextView outputTextView = findViewById(R.id.outputTextView);
         outputTextView.setText("value = " + table5[new_l2 - 1][new_c2 - 1] + "\n");
 
-        for (int i = 0; i < resultNut; i++) {
-            if (basi[i] < resultIng) {
-                String message = "la quantité de " + nameIngArray[basi[i]] + " = " + table5[i][resultNut + resultIng] + "\n";
-                outputTextView.append(message);
+        if(cpt_opt==0){
+            for(i=0;i<resultNut;i++){
+                if (basi[i] < resultIng) {
+                    String message = "la quantité de " + nameIngArray[basi[i]] + " = " + table5[i][resultNut + resultIng] + "\n";
+                    outputTextView.append(message);
+                }
+            }
+        }else if(cpt_opt !=0){
+            for(i=0;i<resultNut;i++){
+                if (basi[i] < resultIng) {
+                    String messagee = "la quantité de " + nameIngArray[basi[i]] + " = " + table5[i][resultNut + resultIng-cpt_opt] + "\n";
+                    outputTextView.append(messagee);
+                }
             }
         }
 

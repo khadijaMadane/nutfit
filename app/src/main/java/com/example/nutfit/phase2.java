@@ -4,19 +4,21 @@ public class phase2 {
     double[][] table5; // tableaux
     int l2,new_l2; // number of constraints
     int c2,new_c2; // number of original variables
-    int nNut,nIng;
-    /*NEW*/int[] basis;
-    public phase2(double[][] table5, int new_l2,int new_c2,int nNut,int nIng,int[] basis) {
+    int nNut,nIng,i,cpt_opt=0;
+    int[] basis;
+    String[] optArray;
+    public phase2(double[][] table5, int new_l2,int new_c2,int nNut,int nIng,int[] basis,String[] optArray) {
         this.new_l2 = new_l2;
         this.new_c2 = new_c2;
         this.table5 = table5;
         this.nNut=nNut;
         this.nIng=nIng;
         this.basis=basis;
-        /*NEW*/
-       // basis = new int[nNut];
-     //   for (int i = 0; i < nNut; i++)
-        //    basis[i] = nIng + i;
+        this.optArray=optArray;
+
+        for(i=0;i<nNut;i++)
+            if(optArray[i].compareTo("egal") == 0)
+                cpt_opt++;
 
         solve();
     }
@@ -96,9 +98,17 @@ public class phase2 {
         }
         /*NEW*/
         System.out.println("value = " + table5[new_l2-1][new_c2-1]);
-        for (int i = 0; i < nNut; i++)
-            if (basis[i] < nIng)
-                System.out.println("x_"+ basis[i] + " = "+ table5[i][nNut+ nIng]);
+            if(cpt_opt == 0) {
+                for (int i = 0; i < nNut; i++) {
+                    if (basis[i] < nIng)
+                        System.out.println("x_" + basis[i] + " = " + table5[i][nNut + nIng]);
+                }
+            }else if(cpt_opt != 0){
+                for (int i = 0; i < nNut; i++) {
+                        System.out.println("x_" + basis[i] + " = " + table5[i][nNut + nIng-cpt_opt]);
+                }
+            }
+
         System.out.println();
     }
 
