@@ -52,6 +52,9 @@ public class changeEmail extends AppCompatActivity {
         firebaseUser= authProfile.getCurrentUser();
         //set old email on text view
         userOldEmail= firebaseUser.getEmail();
+
+
+
         TextView textViewOldEmail= findViewById(R.id.textView_update_email_old);
         textViewOldEmail.setText(userOldEmail);
         if(firebaseUser.equals("")){

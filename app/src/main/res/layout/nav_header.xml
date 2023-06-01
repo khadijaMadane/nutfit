@@ -22,15 +22,14 @@
         android:id="@+id/username"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="TextView"
 
         android:paddingTop="8dp"
         android:textSize="20dp"/>
     <TextView
-
+        android:id="@+id/email_nav"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="khadija@gmail.com"
+
 
         android:paddingTop="8dp"
         android:textSize="20dp"/>
