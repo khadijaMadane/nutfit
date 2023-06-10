@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.MenuItem
 import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AlertDialog
@@ -16,9 +17,14 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.navigation.NavigationView
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.firestore.FirebaseFirestore
 
 class IngregientsName : AppCompatActivity() {
+    private lateinit var authProfile: FirebaseAuth
 
+    private var firebaseUser: FirebaseUser? = null
     private var ingredientCount=0
     lateinit var toggle: ActionBarDrawerToggle
     private lateinit var addsBtn: FloatingActionButton
@@ -62,8 +68,36 @@ class IngregientsName : AppCompatActivity() {
             }
 
         }
+        val navigationView = findViewById<NavigationView>(R.id.nav_view)
+         val headerView = navigationView.getHeaderView(0)
+
+        val db = FirebaseFirestore.getInstance()
+        val userID = FirebaseAuth.getInstance().currentUser!!.uid
+        val userRef = db.collection("users").document(userID) // Remplacez "users" par le nom de votre collection et "userId" par l'ID de l'utilisateur
+
+        userRef.get().addOnSuccessListener { document ->
+            if (document != null) {
+                val usernam = document.getString("Name")
+                println("userName est : $usernam")// Remplacez "username" par le nom du champ contenant le nom d'utilisateur dans votre document Firestore
+                if (usernam != null) {
+                    val usernameTextView = headerView.findViewById<TextView>(R.id.username) // Remplacez "usernameTextView" par l'ID de votre TextView
+                    usernameTextView.text = usernam
+                    usernameTextView.setText(usernam)
+                }
+            }}
 
 
+     val authProfile = FirebaseAuth.getInstance()
+        val firebaseUser = authProfile.currentUser
+
+        val userEmail= firebaseUser?.getEmail()
+
+    println("email est : $userEmail")
+
+
+    val emailTextView = headerView.findViewById<TextView>(R.id.email_nav)
+   // emailTextView.text = userEmail
+    emailTextView.setText(userEmail)
             val drawerLayout: DrawerLayout = findViewById(R.id.drawerLayoutId)
             val navView: NavigationView = findViewById(R.id.nav_view)
             toggle = ActionBarDrawerToggle(this, drawerLayout, R.string.open, R.string.close)
@@ -118,7 +152,7 @@ class IngregientsName : AppCompatActivity() {
                     }
                     R.id.aide -> {
                         // Handle "Help" click
-                        val intent = Intent(this, IngregientsName::class.java)
+                        val intent = Intent(this, deleteAccount::class.java)
                         startActivity(intent)
                         true
                     }
