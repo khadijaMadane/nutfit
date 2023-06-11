@@ -6,16 +6,16 @@ xmlns:tools="http://schemas.android.com/tools"
 <group android:checkableBehavior="single">
     <item
         android:id="@+id/home"
-        android:title="Home"/>
+        android:title="Update Password"/>
     <item
         android:id="@+id/sitting"
-        android:title="Sittings"/>
+        android:title="Update Email"/>
     <item
         android:id="@+id/aide"
-        android:title="aider"/>
+        android:title="Delete Account"/>
     <item
         android:id="@+id/recommencer"
-        android:title="recommencer"/>
+        android:title="Restart"/>
     <item
         android:id="@+id/signout"
         android:title="SounOut"/>
