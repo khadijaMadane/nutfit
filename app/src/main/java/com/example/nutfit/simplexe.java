@@ -1,20 +1,118 @@
 package com.example.nutfit;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.drawerlayout.widget.DrawerLayout;
+
 import  com.example.nutfit.nutValues;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.content.Intent;
+import android.util.Log;
+import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 
 public class simplexe extends AppCompatActivity {
+    private ActionBarDrawerToggle toggle;
     int i,j,cpt1=0,l,c;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
         setContentView(R.layout.activity_simplexe);
+
+
+
+        NavigationView navigationView = findViewById(R.id.nav_view);
+        View headerView = navigationView.getHeaderView(0);
+
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        DocumentReference userRef = db.collection("users").document(userID);
+
+        userRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot document) {
+                if (document != null) {
+                    String username = document.getString("Name");
+                    Log.d("TAG", "Username: " + username);
+                    if (username != null) {
+                        TextView usernameTextView = headerView.findViewById(R.id.username);
+                        usernameTextView.setText(username);
+                    }
+                }
+            }
+        });
+
+        FirebaseAuth authProfile = FirebaseAuth.getInstance();
+        FirebaseUser firebaseUser = authProfile.getCurrentUser();
+        String userEmail = firebaseUser.getEmail();
+        Log.d("TAG", "Email: " + userEmail);
+
+        TextView emailTextView = headerView.findViewById(R.id.email_nav);
+        emailTextView.setText(userEmail);
+
+        DrawerLayout drawerLayout = findViewById(R.id.drawerLayoutId);
+        NavigationView navView = findViewById(R.id.nav_view);
+        toggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.open, R.string.close);
+        drawerLayout.addDrawerListener(toggle);
+        toggle.syncState();
+//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        navView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+                switch (menuItem.getItemId()) {
+                    case R.id.home:
+                        Intent homeIntent = new Intent(simplexe.this, changePasswrord.class);
+                        startActivity(homeIntent);
+                        return true;
+                    case R.id.sitting:
+                        Intent settingsIntent = new Intent(simplexe.this, changeEmail.class);
+                        startActivity(settingsIntent);
+                        return true;
+                    case R.id.aide:
+                        Intent helpIntent = new Intent(simplexe.this, deleteAccount.class);
+                        startActivity(helpIntent);
+                        return true;
+                    case R.id.recommencer:
+                        Intent restartIntent = new Intent(simplexe.this, IngregientsName.class);
+                        startActivity(restartIntent);
+                        return true;
+                    case R.id.signout:
+                        showSignOutConfirmationDialog();
+                        return true;
+                    default:
+                        return false;
+                }
+            }
+        });
+
+
+
+
+
+
+
         Intent intent = getIntent();
         int resultIng = intent.getIntExtra("resultIng", 0);
         int resultNut = intent.getIntExtra("resultNut", 0);
@@ -297,6 +395,46 @@ public class simplexe extends AppCompatActivity {
 
 
     }
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (toggle.onOptionsItemSelected(item)) {
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void performSignOut() {
+        // Perform sign out logic here
+        // For example, navigate to the login screen or clear user session
+        Intent intent = new Intent(this, SignIn.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+        finish();
+    }
+
+    private void showSignOutConfirmationDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Confirm Sign Out")
+                .setMessage("Are you sure you want to sign out?")
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // Handle sign out
+                        performSignOut();
+                        dialog.dismiss();
+                    }
+                })
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                })
+                .show();
+    }
+
 }
 
 
