@@ -525,7 +525,7 @@ public class simplexe extends AppCompatActivity {
                             if (recipeData != null && recipeData.containsKey("matrix")) {
                                 List<Map<String, Object>> matrixList = (List<Map<String, Object>>) recipeData.get("matrix");
                                 // Pass the matrixList to the target activity
-                                Intent intent = new Intent(simplexe.this, MainRegister.class);
+                                Intent intent = new Intent(simplexe.this, afficheRepas.class);
                                 intent.putExtra("matrixList", (Serializable) matrixList);
                                 startActivity(intent);
                             }
