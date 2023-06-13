@@ -7,6 +7,7 @@ xmlns:tools="http://schemas.android.com/tools"
     <item
         android:id="@+id/home"
         android:title="Update Password"/>
+
     <item
         android:id="@+id/sitting"
         android:title="Update Email"/>
@@ -16,6 +17,9 @@ xmlns:tools="http://schemas.android.com/tools"
     <item
         android:id="@+id/recommencer"
         android:title="Restart"/>
+    <item
+        android:id="@+id/enreg"
+        android:title="enregistrement"/>
     <item
         android:id="@+id/signout"
         android:title="SounOut"/>

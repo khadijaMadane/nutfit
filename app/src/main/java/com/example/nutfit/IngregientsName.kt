@@ -106,7 +106,7 @@ class IngregientsName : AppCompatActivity() {
             supportActionBar?.setDisplayHomeAsUpEnabled(true)
     navView.setNavigationItemSelectedListener { menuItem ->
         when (menuItem.itemId) {
-            R.id.home, R.id.sitting, R.id.aide, R.id.recommencer, R.id.signout -> {
+            R.id.home, R.id.sitting, R.id.aide, R.id.recommencer, R.id.signout,R.id.enreg -> {
                 Toast.makeText(applicationContext, "Clicked ${menuItem.title}", Toast.LENGTH_SHORT).show()
                 menuItem.isChecked = true
                 menuItem.icon?.setTintList(ColorStateList.valueOf(ContextCompat.getColor(applicationContext, R.color.green))) // Change to the desired green color
@@ -139,6 +139,11 @@ class IngregientsName : AppCompatActivity() {
                         val intent = Intent(this, IngregientsName::class.java)
                         startActivity(intent)
                         // Handle "Restart" click
+                        true
+                    }
+                    R.id.enreg -> {
+                        val intent = Intent(this, MainRegister::class.java)
+                        startActivity(intent)
                         true
                     }
                     R.id.signout -> {
