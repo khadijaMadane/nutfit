@@ -13,6 +13,7 @@ import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.content.ContextCompat;
@@ -25,8 +26,14 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.gson.Gson;
 
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeViewHolder> {
 
@@ -115,8 +122,10 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
                     switch (item.getItemId()) {
                         case R.id.afficher:
                             // Handle edit action
-                            Intent intent = new Intent(itemView.getContext(), afficheRepas.class);
-                            itemView.getContext().startActivity(intent);
+                         /*  Intent intent = new Intent(itemView.getContext(), afficheRepas.class);
+                            itemView.getContext().startActivity(intent);*/
+                            String recipeName = recipeNames.get(adapterPosition);
+                            retrieveAndNavigateToTargetActivity(recipeName);
                             return true;
                         case R.id.delete:
                             // Handle delete action
@@ -159,6 +168,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
                     .create()
                     .show();
         }
+
         private void deleteRecipeFromFirestore(String recipeName) {
             FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
             FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -188,6 +198,59 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
             }
         }
 
+        private void retrieveAndNavigateToTargetActivity(String recipeName) {
+            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+            FirebaseFirestore db = FirebaseFirestore.getInstance();
 
+            if (user != null) {
+                String uid = user.getUid();
+                if (uid != null) {
+                    db.collection("users").document(uid).collection("recipes")
+                            .whereEqualTo("name", recipeName)
+                            .get()
+                            .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                                @Override
+                                public void onSuccess(QuerySnapshot querySnapshot) {
+                                    for (QueryDocumentSnapshot document : querySnapshot) {
+                                        if (document.exists()) {
+                                            Map<String, Object> recipeData = document.getData();
+                                            if (recipeData != null && recipeData.containsKey("matrix")) {
+                                                List<List<Object>> matrixList = new ArrayList<>();
+
+                                                // Retrieve the matrix as a list of lists
+                                                List<Map<String, Object>> matrixMapList = (List<Map<String, Object>>) recipeData.get("matrix");
+                                                for (Map<String, Object> rowMap : matrixMapList) {
+                                                    List<Object> rowList = new ArrayList<>();
+                                                    for (Object value : rowMap.values()) {
+                                                        rowList.add(value);
+                                                    }
+                                                    matrixList.add(rowList);
+                                                }
+
+                                                Log.d("Firestore", "Retrieved matrixList: " + matrixList);
+
+                                                // Pass the matrixList to the target activity
+                                                Gson gson = new Gson();
+                                                String matrixListJson = gson.toJson(matrixList);
+                                                Log.d("Firestore", "Serialized matrixList: " + matrixListJson);
+
+                                                Intent intent = new Intent(itemView.getContext(), afficheRepas.class);
+                                                intent.putExtra("matrixList", matrixListJson);
+                                                itemView.getContext().startActivity(intent);
+                                            }
+                                        }
+                                    }
+                                }
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    // Error retrieving recipe from Firestore
+                                    Log.e("Firestore", "Error retrieving recipe: " + e.getMessage());
+                                }
+                            });
+                }
+            }
+        }
     }
 }
