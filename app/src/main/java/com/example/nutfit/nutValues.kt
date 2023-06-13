@@ -212,6 +212,7 @@ class nutValues : AppCompatActivity() {
 
             val intent = Intent(this, simplexe::class.java).apply {
                 putExtra("optArray", optArray)
+                putExtra("nameArray", nameArray)
                 putExtra("nameIngArray", nameIngArray)
                 putExtra("resultNut", resultNut)
                 putExtra("resultIng", resultIng)

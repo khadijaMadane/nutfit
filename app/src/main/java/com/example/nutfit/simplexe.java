@@ -7,7 +7,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 
-import  com.example.nutfit.nutValues;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -15,21 +15,29 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 
+import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.content.Intent;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class simplexe extends AppCompatActivity {
     private ActionBarDrawerToggle toggle;
-    int i,j,cpt1=0,l,c;
+    int i,j,cpt1=0,l,c,resultIngfinal,resultNutfinal;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -120,6 +128,8 @@ public class simplexe extends AppCompatActivity {
         //ArrayList<String> optArray = getIntent().getStringArrayListExtra("optArray");
         String[] optArray = getIntent().getStringArrayListExtra("optArray").toArray(new String[0]);
         String[] nameIngArray = getIntent().getStringArrayListExtra("nameIngArray").toArray(new String[0]);
+        String[] nameArray = getIntent().getStringArrayListExtra("nameArray").toArray(new String[0]);
+
         for (int i = 0; i < resultNut; i++) {
             System.out.print(optArray[i] + "  ");
         }
@@ -391,7 +401,52 @@ public class simplexe extends AppCompatActivity {
             }
         }
 
-        outputTextView.append("\n");
+        resultIngfinal=resultIng+4;
+        resultNutfinal=resultNut+2;
+        Object[][] matrix = new Object[resultNutfinal][resultIngfinal];
+        System.out.println("long est(ing):"+resultIngfinal+"   largeur est(nut):"+resultNutfinal);
+
+//affecter nom nut
+        for(i=1;i<resultNutfinal-1;i++)
+            matrix[i][0]=nameArray[i-1];
+        matrix[resultNutfinal-1][0]="Prix";
+        matrix[0][0]="NutIng";
+
+//affecter nom ing
+        for(i=1;i<resultIngfinal-3;i++)
+            matrix[0][i]=nameIngArray[i-1];
+        matrix[0][resultIngfinal-3]="Objectif";
+        matrix[0][resultIngfinal-2]="Operateur";
+        matrix[0][resultIngfinal-1]="Result";
+//affecter la colonne des operateurs
+        for(i=1;i<resultNutfinal-1;i++)
+            matrix[i][resultIngfinal-2]=optArray[i-1];
+        matrix[resultNutfinal-1][resultIngfinal-2]="_";
+
+//affecter la matrice
+        for(i=1;i<resultNutfinal;i++){
+            for(j=1;j<resultIngfinal-2;j++){
+                matrix[i][j]=nutrientMatrix[i-1][j-1];
+            }
+        }
+//affecter le resultat
+        for (i=1;i<resultNutfinal-2;i++)
+            matrix[i][resultIngfinal-1]=table5[i-1][resultNut + resultIng];
+        matrix[resultNutfinal-1][resultIngfinal-1]=table5[new_l2 - 1][new_c2 - 1];
+
+
+        for (i=0;i<resultNutfinal;i++){
+            for (j=0;j<resultIngfinal;j++){
+                System.out.print(matrix[i][j]+"\t");
+            }
+            System.out.println("\n");
+        }
+        TextView butSave = findViewById(R.id.buttonSave);
+
+        butSave.setOnClickListener(v -> {
+            showSaveDialog(matrix);
+
+        });
 
 
     }
@@ -434,6 +489,133 @@ public class simplexe extends AppCompatActivity {
                 })
                 .show();
     }
+
+    private void showSaveDialog(Object[][] matrix) {
+        AlertDialog.Builder mydialog = new AlertDialog.Builder(simplexe.this);
+        mydialog.setTitle("You want to save Recipe");
+
+        final EditText input = new EditText(simplexe.this);
+        mydialog.setView(input);
+
+        mydialog.setPositiveButton("Save", (dialogInterface, i) -> {
+            String recipeName = input.getText().toString();
+            saveRecipe(recipeName, matrix); // Appeler la méthode pour enregistrer la recette
+            Toast.makeText(simplexe.this, "Recipe saved", Toast.LENGTH_LONG).show();
+        });
+
+        mydialog.setNegativeButton("Cancel", (dialogInterface, i) -> {
+            dialogInterface.dismiss(); // Fermer la boîte de dialogue
+            Toast.makeText(simplexe.this, "Recipe not saved", Toast.LENGTH_LONG).show();
+        });
+
+        mydialog.show();
+    }
+
+
+    private void retrieveAndNavigateToTargetActivity(String uid, String recipeId) {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+        db.collection("users").document(uid).collection("recipes").document(recipeId).get()
+                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                    @Override
+                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                        if (documentSnapshot.exists()) {
+                            Map<String, Object> recipeData = documentSnapshot.getData();
+                            if (recipeData != null && recipeData.containsKey("matrix")) {
+                                List<Map<String, Object>> matrixList = (List<Map<String, Object>>) recipeData.get("matrix");
+                                // Pass the matrixList to the target activity
+                                Intent intent = new Intent(simplexe.this, MainRegister.class);
+                                intent.putExtra("matrixList", (Serializable) matrixList);
+                                startActivity(intent);
+                            }
+                        }
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        // Error retrieving document
+                        Log.e("Firestore", "Error retrieving document: " + e.getMessage());
+                    }
+                });
+    }
+
+
+
+    private void saveRecipe(String recipeName, Object[][] matrix) {
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+        // Check if the recipe name already exists for the user
+        if (user != null) {
+            String uid = user.getUid();
+            if (uid != null) {
+                db.collection("users").document(uid).collection("recipes")
+                        .whereEqualTo("name", recipeName)
+                        .get()
+                        .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                            @Override
+                            public void onSuccess(QuerySnapshot querySnapshot) {
+                                // Check if a recipe with the same name already exists
+                                if (querySnapshot.isEmpty()) {
+                                    // The recipe name is unique, proceed to save the recipe
+                                    saveNewRecipe(uid, recipeName, db,matrix);
+                                } else {
+                                    // A recipe with the same name already exists, show an error message
+                                    Toast.makeText(simplexe.this, "Recipe with the same name already exists", Toast.LENGTH_LONG).show();
+                                }
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                // Error querying recipes collection
+                                Log.e("Firestore", "Error querying recipes collection: " + e.getMessage());
+                            }
+                        });
+            }
+        }
+    }
+
+    private void saveNewRecipe(String uid, String recipeName, FirebaseFirestore db, Object[][] matrix) {
+
+
+        // Convert the matrix into a list of maps
+        List<Map<String, Object>> matrixList = new ArrayList<>();
+        for (Object[] row : matrix) {
+            Map<String, Object> rowMap = new HashMap<>();
+            for (int i = 0; i < row.length; i++) {
+                rowMap.put("col" + i, row[i]);
+            }
+            matrixList.add(rowMap);
+        }
+
+        // Create a new recipe document and save it
+        Map<String, Object> recipeMap = new HashMap<>();
+        recipeMap.put("name", recipeName);
+        recipeMap.put("matrix", matrixList);
+
+        db.collection("users").document(uid).collection("recipes")
+                .add(recipeMap)
+                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                    @Override
+                    public void onSuccess(DocumentReference documentReference) {
+                        // Recipe successfully saved
+                        Log.d("Firestore", "Recipe successfully saved");
+                        // Retrieve the saved recipe and navigate to the target activity
+                        retrieveAndNavigateToTargetActivity(uid, documentReference.getId());
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        // Error saving recipe
+                        Log.e("Firestore", "Error saving recipe: " + e.getMessage());
+                    }
+                });
+    }
+
+
 
 }
 

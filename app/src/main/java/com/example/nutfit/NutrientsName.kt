@@ -208,7 +208,7 @@ class NutrientsName : AppCompatActivity() {
             val nsymbole = nutSym.text.toString()
 
 
-            userList.add(UserDataNut("name: $namenut",nobjectif, nsymbole))
+            userList.add(UserDataNut(namenut,nobjectif, nsymbole))
             nutrientNames.add(namenut)
             nutrientObj.add(nobjectif)
             nutrientSym.add(nsymbole)
