@@ -446,6 +446,7 @@ public class simplexe extends AppCompatActivity {
         butSave.setOnClickListener(v -> {
             showSaveDialog(matrix);
 
+
         });
 
 
