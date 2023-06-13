@@ -3,6 +3,7 @@ package com.example.nutfit;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -16,6 +17,14 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.List;
 
@@ -65,6 +74,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
     public int getItemCount() {
         return recipeNames.size();
     }
+
     public void setSelectedPosition(int position) {
         selectedPosition = position;
         notifyDataSetChanged();
@@ -73,6 +83,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
     public int getSelectedPosition() {
         return selectedPosition;
     }
+
     public class RecipeViewHolder extends RecyclerView.ViewHolder {
         TextView txtRecipeName;
         ImageView saveMenus;
@@ -130,9 +141,11 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             if (adapterPosition != RecyclerView.NO_POSITION) {
+                                String recipeName = recipeNames.get(adapterPosition);
                                 recipeNames.remove(adapterPosition);
                                 notifyItemRemoved(adapterPosition);
                                 Toast.makeText(itemView.getContext(), "Deleted this Information", Toast.LENGTH_SHORT).show();
+                                deleteRecipeFromFirestore(recipeName);
                             }
                             dialog.dismiss();
                         }
@@ -146,7 +159,35 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
                     .create()
                     .show();
         }
+        private void deleteRecipeFromFirestore(String recipeName) {
+            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+            FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+            if (user != null) {
+                String uid = user.getUid();
+                if (uid != null) {
+                    db.collection("users").document(uid).collection("recipes")
+                            .whereEqualTo("name", recipeName)
+                            .get()
+                            .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                                @Override
+                                public void onSuccess(QuerySnapshot querySnapshot) {
+                                    for (QueryDocumentSnapshot document : querySnapshot) {
+                                        document.getReference().delete();
+                                    }
+                                }
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    // Error deleting recipe from Firestore
+                                    Log.e("Firestore", "Error deleting recipe: " + e.getMessage());
+                                }
+                            });
+                }
+            }
+        }
+
+
     }
-
 }
-
