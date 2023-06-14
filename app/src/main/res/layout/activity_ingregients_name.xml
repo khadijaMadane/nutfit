@@ -11,7 +11,22 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        />
+        >
+
+        <Button
+            android:id="@+id/nextButton"
+            android:layout_width="163dp"
+            android:layout_height="71dp"
+            android:layout_marginStart="44dp"
+            android:layout_marginBottom="32dp"
+            android:backgroundTint="@color/green_200"
+            android:text="Next"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -43,25 +58,8 @@
         android:tint="@color/black"
         app:backgroundTint="@color/green_200" />
 
-    <Button
-        android:id="@+id/nextButton"
-        android:layout_width="163dp"
-        android:layout_height="71dp"
-        android:layout_marginStart="30dp"
-        android:layout_marginLeft="15dp"
-        android:layout_marginTop="590dp"
-        android:layout_marginEnd="110dp"
-        android:layout_marginRight="15dp"
-        android:layout_marginBottom="38dp"
-        android:layout_toStartOf="@+id/addingBtn"
-        android:backgroundTint="@color/green_200"
-        android:text="Next"
-        android:textColor="@color/black"
-        android:textSize="20sp"
-        android:textStyle="bold" />
 
-
-</RelativeLayout>
+    </RelativeLayout>
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/nav_view"
         android:layout_width="wrap_content"
