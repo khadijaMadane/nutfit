@@ -17,7 +17,6 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
-import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.content.Intent;
@@ -38,6 +37,8 @@ import java.util.Map;
 public class simplexe extends AppCompatActivity {
     private ActionBarDrawerToggle toggle;
     int i,j,cpt1=0,l,c,resultIngfinal,resultNutfinal;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -123,6 +124,7 @@ public class simplexe extends AppCompatActivity {
 
         Intent intent = getIntent();
         int resultIng = intent.getIntExtra("resultIng", 0);
+        int percentOrNot = intent.getIntExtra("percentOrNot", 0);
         int resultNut = intent.getIntExtra("resultNut", 0);
         Double[][] nutrientMatrix = (Double[][]) intent.getSerializableExtra("nutrientMatrix");
         //ArrayList<String> optArray = getIntent().getStringArrayListExtra("optArray");
@@ -392,18 +394,22 @@ public class simplexe extends AppCompatActivity {
 
 
         TextView outputTextView = findViewById(R.id.outputTextView);
-        outputTextView.setText("value = " + table5[new_l2 - 1][new_c2 - 1] + "\n");
-
+        outputTextView.setText("le prix totale = " + table5[new_l2 - 1][new_c2 - 1] + "\n");
+        String priceTotale="le prix totale =" + table5[new_l2 - 1][new_c2 - 1];
+        System.out.println(priceTotale);
+        List<String> quantiteList = new ArrayList<>();
         for (int i = 0; i < resultNut; i++) {
             if (basi[i] < resultIng) {
                 String message = "la quantité de " + nameIngArray[basi[i]] + " = " + table5[i][resultNut + resultIng] + "\n";
                 outputTextView.append(message);
+                quantiteList.add(message);
+                System.out.println(message);
             }
         }
 
         resultIngfinal=resultIng+4;
         resultNutfinal=resultNut+2;
-        Object[][] matrix = new Object[resultNutfinal][resultIngfinal];
+    /*    Object[][] matrix = new Object[resultNutfinal][resultIngfinal];
         System.out.println("long est(ing):"+resultIngfinal+"   largeur est(nut):"+resultNutfinal);
 
 //affecter nom nut
@@ -444,12 +450,133 @@ public class simplexe extends AppCompatActivity {
         TextView butSave = findViewById(R.id.buttonSave);
 
         butSave.setOnClickListener(v -> {
-            showSaveDialog(matrix);
+            showSaveDialog(matrix, priceTotale, quantiteList);
 
 
-        });
+        });*/
+
+        if(percentOrNot==0) {
+            resultIngfinal = resultIng + 3;
+            resultNutfinal = resultNut + 2;
+            Object[][] matrix = new Object[resultNutfinal][resultIngfinal];
+            System.out.println("long est(ing):" + resultIngfinal + "   largeur est(nut):" + resultNutfinal);
+
+            //affecter nom nut
+            for (i = 1; i < resultNutfinal - 1; i++)
+                matrix[i][0] = nameArray[i - 1];
+            matrix[resultNutfinal - 1][0] = "Prix";
+            matrix[0][0] = "NutIng";
+
+            //affecter nom ing
+            for (i = 1; i < resultIngfinal - 2; i++)
+                matrix[0][i] = nameIngArray[i - 1];
+            matrix[0][resultIngfinal - 2] = "Objectif";
+            matrix[0][resultIngfinal - 1] = "Operateur";
+            //matrix[0][resultIngfinal - 1] = "Result";
+            //affecter la colonne des operateurs
+            for (i = 1; i < resultNutfinal - 1; i++)
+                matrix[i][resultIngfinal - 1] = optArray[i - 1];
+            matrix[resultNutfinal - 1][resultIngfinal - 1] = "_";
+
+            //affecter la matrice
+            for (i = 1; i < resultNutfinal; i++) {
+                for (j = 1; j < resultIngfinal - 1; j++) {
+                    matrix[i][j] = nutrientMatrix[i - 1][j - 1];
+                }
+            }
+    /*//affecter le resultat
+    for (i = 1; i < resultNutfinal - 2; i++)
+        matrix[i][resultIngfinal - 1] = table5[i - 1][resultNut + resultIng];
+    matrix[resultNutfinal - 1][resultIngfinal - 1] = table5[new_l2 - 1][new_c2 - 1];*/
 
 
+            for (i = 0; i < resultNutfinal; i++) {
+                for (j = 0; j < resultIngfinal; j++) {
+                    System.out.print(matrix[i][j] + "\t");
+                }
+                System.out.println("\n");
+            }
+            TextView butSave = findViewById(R.id.buttonSave);
+
+            butSave.setOnClickListener(v -> {
+                showSaveDialog(matrix, priceTotale, quantiteList);
+
+
+            });
+        }else if(percentOrNot==1){
+
+            String[] prixIngArray = getIntent().getStringArrayListExtra("prixIngArray").toArray(new String[0]);
+
+            resultIngfinal = resultIng + 3;
+            resultNutfinal = resultNut ;
+            Object[][] matrix = new Object[resultNutfinal][resultIngfinal];
+
+            //affecter nom nut
+            for (i = 1; i < resultNutfinal - 1; i++)
+                matrix[i][0] = nameArray[i - 1];
+            matrix[resultNutfinal - 1][0] = "Prix";
+            matrix[0][0] = "NutIng";
+
+
+            //affecter nom ing
+            for (i = 1; i < resultIngfinal - 2; i++)
+                matrix[0][i] = nameIngArray[i - 1];
+            matrix[0][resultIngfinal - 2] = "Objectif";
+            matrix[0][resultIngfinal - 1] = "Operateur";
+            //matrix[0][resultIngfinal - 1] = "Result";
+            //affecter la colonne des operateurs
+            for (i = 1; i < resultNutfinal - 1; i++)
+                matrix[i][resultIngfinal - 1] = optArray[i - 1];
+            matrix[resultNutfinal - 1][resultIngfinal - 1] = "_";
+
+            //affecter la matrice
+            for (i = 1; i < resultNutfinal; i++) {
+                for (j = 1; j < resultIngfinal - 1; j++) {
+                    matrix[i][j] = nutrientMatrix[i - 1][j - 1];
+                }
+            }
+    /*//affecter le resultat
+    for (i = 1; i < resultNutfinal - 2; i++)
+        matrix[i][resultIngfinal - 1] = table5[i - 1][resultNut + resultIng];
+    matrix[resultNutfinal - 1][resultIngfinal - 1] = table5[new_l2 - 1][new_c2 - 1];*/
+
+            //convertir le tableau des prix
+            double[] prixDoubleArray = new double[resultIng];
+            if (prixIngArray != null) {
+                prixDoubleArray = new double[prixIngArray.length];
+                int indexPrix = 0;
+                for (String element : prixIngArray) {
+                    try {
+                        prixDoubleArray[indexPrix] = Double.parseDouble(element);
+                    } catch (NumberFormatException e) {
+                        prixDoubleArray[indexPrix] = 0.0;
+                    }
+                    indexPrix++;
+                }
+            }
+
+            //affecter les prix
+            for(i=1;i<resultIngfinal-2;i++)
+                matrix[resultNutfinal - 1][i] = prixDoubleArray[i - 1];
+            matrix[resultNutfinal - 1][resultIngfinal - 2]=0;
+
+
+
+            for (i = 0; i < resultNutfinal; i++) {
+                for (j = 0; j < resultIngfinal; j++) {
+                    System.out.print(matrix[i][j] + "\t");
+                }
+                System.out.println("\n");
+            }
+            TextView butSave = findViewById(R.id.buttonSave);
+
+            butSave.setOnClickListener(v -> {
+                showSaveDialog(matrix, priceTotale, quantiteList);
+
+
+            });
+
+        }
     }
 
 
@@ -491,7 +618,7 @@ public class simplexe extends AppCompatActivity {
                 .show();
     }
 
-    private void showSaveDialog(Object[][] matrix) {
+    private void showSaveDialog(Object[][] matrix, String priceTotale, List<String> quantite ) {
         AlertDialog.Builder mydialog = new AlertDialog.Builder(simplexe.this);
         mydialog.setTitle("You want to save Recipe");
 
@@ -500,7 +627,7 @@ public class simplexe extends AppCompatActivity {
 
         mydialog.setPositiveButton("Save", (dialogInterface, i) -> {
             String recipeName = input.getText().toString();
-            saveRecipe(recipeName, matrix); // Appeler la méthode pour enregistrer la recette
+            saveRecipe(recipeName, matrix, priceTotale, quantite); // Appeler la méthode pour enregistrer la recette
             Toast.makeText(simplexe.this, "Recipe saved", Toast.LENGTH_LONG).show();
         });
 
@@ -524,9 +651,12 @@ public class simplexe extends AppCompatActivity {
                             Map<String, Object> recipeData = documentSnapshot.getData();
                             if (recipeData != null && recipeData.containsKey("matrix")) {
                                 List<Map<String, Object>> matrixList = (List<Map<String, Object>>) recipeData.get("matrix");
+                                List<String> quantiteList = (List<String>) recipeData.get("quantite");
+                                System.out.println("Quantités : " + quantiteList);
                                 // Pass the matrixList to the target activity
                                 Intent intent = new Intent(simplexe.this, afficheRepas.class);
                                 intent.putExtra("matrixList", (Serializable) matrixList);
+                                intent.putExtra("quantiteList", (Serializable) quantiteList);
                                 startActivity(intent);
                             }
                         }
@@ -543,7 +673,7 @@ public class simplexe extends AppCompatActivity {
 
 
 
-    private void saveRecipe(String recipeName, Object[][] matrix) {
+    private void saveRecipe(String recipeName, Object[][] matrix, String priceTotale, List<String> quantite ) {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         FirebaseFirestore db = FirebaseFirestore.getInstance();
 
@@ -560,7 +690,7 @@ public class simplexe extends AppCompatActivity {
                                 // Check if a recipe with the same name already exists
                                 if (querySnapshot.isEmpty()) {
                                     // The recipe name is unique, proceed to save the recipe
-                                    saveNewRecipe(uid, recipeName, db,matrix);
+                                    saveNewRecipe(uid, recipeName, db,matrix, priceTotale, quantite);
                                 } else {
                                     // A recipe with the same name already exists, show an error message
                                     Toast.makeText(simplexe.this, "Recipe with the same name already exists", Toast.LENGTH_LONG).show();
@@ -578,7 +708,7 @@ public class simplexe extends AppCompatActivity {
         }
     }
 
-    private void saveNewRecipe(String uid, String recipeName, FirebaseFirestore db, Object[][] matrix) {
+    private void saveNewRecipe(String uid, String recipeName, FirebaseFirestore db, Object[][] matrix, String priceTotale, List<String> quantite) {
 
 
         // Convert the matrix into a list of maps
@@ -590,12 +720,19 @@ public class simplexe extends AppCompatActivity {
             }
             matrixList.add(rowMap);
         }
+        List<Map<String, Object>> quantiteList = new ArrayList<>();
+        for (String row : quantite) {
+            Map<String, Object> rowMap = new HashMap<>();
+            rowMap.put("quantite", row);
+            quantiteList.add(rowMap);
+        }
 
         // Create a new recipe document and save it
         Map<String, Object> recipeMap = new HashMap<>();
         recipeMap.put("name", recipeName);
         recipeMap.put("matrix", matrixList);
-
+        recipeMap.put("priceTotale", priceTotale);
+        recipeMap.put("quantite", quantiteList);
         db.collection("users").document(uid).collection("recipes")
                 .add(recipeMap)
                 .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {

@@ -198,59 +198,70 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
             }
         }
 
-        private void retrieveAndNavigateToTargetActivity(String recipeName) {
-            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-            FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-            if (user != null) {
-                String uid = user.getUid();
-                if (uid != null) {
-                    db.collection("users").document(uid).collection("recipes")
-                            .whereEqualTo("name", recipeName)
-                            .get()
-                            .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-                                @Override
-                                public void onSuccess(QuerySnapshot querySnapshot) {
-                                    for (QueryDocumentSnapshot document : querySnapshot) {
-                                        if (document.exists()) {
-                                            Map<String, Object> recipeData = document.getData();
-                                            if (recipeData != null && recipeData.containsKey("matrix")) {
-                                                List<List<Object>> matrixList = new ArrayList<>();
+      private void retrieveAndNavigateToTargetActivity(String recipeName) {
+          FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+          FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-                                                // Retrieve the matrix as a list of lists
-                                                List<Map<String, Object>> matrixMapList = (List<Map<String, Object>>) recipeData.get("matrix");
-                                                for (Map<String, Object> rowMap : matrixMapList) {
-                                                    List<Object> rowList = new ArrayList<>();
-                                                    for (Object value : rowMap.values()) {
-                                                        rowList.add(value);
-                                                    }
-                                                    matrixList.add(rowList);
-                                                }
+          if (user != null) {
+              String uid = user.getUid();
+              if (uid != null) {
+                  db.collection("users").document(uid).collection("recipes")
+                          .whereEqualTo("name", recipeName)
+                          .get()
+                          .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                              @Override
+                              public void onSuccess(QuerySnapshot querySnapshot) {
+                                  for (QueryDocumentSnapshot document : querySnapshot) {
+                                      if (document.exists()) {
+                                          Map<String, Object> recipeData = document.getData();
+                                          if (recipeData != null && recipeData.containsKey("matrix")) {
+                                              List<List<Object>> matrixList = new ArrayList<>();
 
-                                                Log.d("Firestore", "Retrieved matrixList: " + matrixList);
+                                              // Retrieve the matrix as a list of lists
+                                              List<Map<String, Object>> matrixMapList = (List<Map<String, Object>>) recipeData.get("matrix");
+                                              for (Map<String, Object> rowMap : matrixMapList) {
+                                                  List<Object> rowList = new ArrayList<>();
+                                                  for (Object value : rowMap.values()) {
+                                                      rowList.add(value);
+                                                  }
+                                                  matrixList.add(rowList);
+                                              }
 
-                                                // Pass the matrixList to the target activity
-                                                Gson gson = new Gson();
-                                                String matrixListJson = gson.toJson(matrixList);
-                                                Log.d("Firestore", "Serialized matrixList: " + matrixListJson);
+                                              Log.d("Firestore", "Retrieved matrixList: " + matrixList);
 
-                                                Intent intent = new Intent(itemView.getContext(), afficheRepas.class);
-                                                intent.putExtra("matrixList", matrixListJson);
-                                                itemView.getContext().startActivity(intent);
-                                            }
-                                        }
-                                    }
-                                }
-                            })
-                            .addOnFailureListener(new OnFailureListener() {
-                                @Override
-                                public void onFailure(@NonNull Exception e) {
-                                    // Error retrieving recipe from Firestore
-                                    Log.e("Firestore", "Error retrieving recipe: " + e.getMessage());
-                                }
-                            });
-                }
-            }
-        }
+                                              // Retrieve quantite and priceTotale
+                                              List<String> quantiteList = (List<String>) recipeData.get("quantite");
+                                              String priceTotale = (String) recipeData.get("priceTotale");
+
+                                              Log.d("Firestore", "QuantiteList: " + quantiteList);
+                                              Log.d("Firestore", "PriceTotale: " + priceTotale);
+
+                                              // Pass the matrixList, quantiteList, and priceTotale to the target activity
+                                              Gson gson = new Gson();
+                                              String matrixListJson = gson.toJson(matrixList);
+                                              Log.d("Firestore", "Serialized matrixList: " + matrixListJson);
+
+                                              Intent intent = new Intent(itemView.getContext(), afficheRepas.class);
+                                              intent.putExtra("matrixList", matrixListJson);
+                                              intent.putExtra("quantiteList", gson.toJson(quantiteList));
+                                              intent.putExtra("priceTotale", priceTotale);
+                                              itemView.getContext().startActivity(intent);
+                                          }
+                                      }
+                                  }
+                              }
+                          })
+                          .addOnFailureListener(new OnFailureListener() {
+                              @Override
+                              public void onFailure(@NonNull Exception e) {
+                                  // Error retrieving recipe from Firestore
+                                  Log.e("Firestore", "Error retrieving recipe: " + e.getMessage());
+                              }
+                          });
+              }
+          }
+      }
+
     }
 }
