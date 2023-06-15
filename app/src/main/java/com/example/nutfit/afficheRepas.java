@@ -99,10 +99,10 @@ public class afficheRepas extends AppCompatActivity {
                 quantiteLayout.addView(quantiteTextView);
             }
         }
-     else {
-        Log.d("affichequantite", "quantiteList is null");
-        // Handle the case when quantiteList is null
-    }
+        else {
+            Log.d("affichequantite", "quantiteList is null");
+            // Handle the case when quantiteList is null
+        }
 
 
 
