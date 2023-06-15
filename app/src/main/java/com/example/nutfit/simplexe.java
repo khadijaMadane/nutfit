@@ -107,6 +107,10 @@ public class simplexe extends AppCompatActivity {
                         Intent restartIntent = new Intent(simplexe.this, IngregientsName.class);
                         startActivity(restartIntent);
                         return true;
+                    case R.id.enreg:
+                        restartIntent = new Intent(simplexe.this, MainRegister.class);
+                        startActivity(restartIntent);
+                        return true;
                     case R.id.signout:
                         showSignOutConfirmationDialog();
                         return true;

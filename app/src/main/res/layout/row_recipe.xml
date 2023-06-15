@@ -7,7 +7,10 @@
     app:cardCornerRadius="10dp"
     app:cardElevation="8dp"
     app:cardMaxElevation="5dp"
-    android:layout_margin="10dp">
+    android:layout_marginTop="10dp"
+    android:layout_marginRight="40dp"
+    android:layout_marginLeft="40dp"
+    >
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"

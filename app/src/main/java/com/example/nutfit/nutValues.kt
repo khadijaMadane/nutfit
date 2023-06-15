@@ -78,27 +78,11 @@ class nutValues : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         navView.setNavigationItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
-                R.id.home, R.id.sitting, R.id.aide, R.id.recommencer, R.id.signout -> {
-                    Toast.makeText(
-                        applicationContext,
-                        "Clicked ${menuItem.title}",
-                        Toast.LENGTH_SHORT
-                    ).show()
+                R.id.home, R.id.sitting, R.id.aide, R.id.recommencer, R.id.signout,R.id.enreg -> {
+                    Toast.makeText(applicationContext, "Clicked ${menuItem.title}", Toast.LENGTH_SHORT).show()
                     menuItem.isChecked = true
-                    menuItem.icon?.setTintList(
-                        ColorStateList.valueOf(
-                            ContextCompat.getColor(
-                                applicationContext,
-                                R.color.green
-                            )
-                        )
-                    ) // Change to the desired green color
-                    navView.setBackgroundColor(
-                        ContextCompat.getColor(
-                            applicationContext,
-                            R.color.green
-                        )
-                    ) // Change to the desired green color
+                    menuItem.icon?.setTintList(ColorStateList.valueOf(ContextCompat.getColor(applicationContext, R.color.green))) // Change to the desired green color
+                    navView.setBackgroundColor(ContextCompat.getColor(applicationContext, R.color.green)) // Change to the desired green color
                     true
                 }
                 else -> false
@@ -129,6 +113,11 @@ class nutValues : AppCompatActivity() {
                     // Handle "Restart" click
                     true
                 }
+                R.id.enreg -> {
+                    val intent = Intent(this, MainRegister::class.java)
+                    startActivity(intent)
+                    true
+                }
                 R.id.signout -> {
                     showSignOutConfirmationDialog()
                     // Handle "Sign Out" click
@@ -138,7 +127,7 @@ class nutValues : AppCompatActivity() {
             }
         }
 
-//
+
 
         val nutrientCount = intent.getIntExtra("nutrientCount", 0)
         val nutrientCountDelete = intent.getIntExtra("nutrientCountDelete", 0)

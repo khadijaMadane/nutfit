@@ -6,11 +6,13 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="16dp"
-    tools:context=".afficheRepas">
+    tools:context=".afficheRepas"
+    android:background="@drawable/enregistrement">
 
     <HorizontalScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="60dp">
 
         <TableLayout
             android:id="@+id/matrixTableLayout"
@@ -21,18 +23,6 @@
         </TableLayout>
 
     </HorizontalScrollView>
-
-    <!-- LinearLayout to hold quantiteList -->
-    <LinearLayout
-        android:id="@+id/quantiteLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-
-        <!-- TextViews for quantiteList will be added dynamically here -->
-
-    </LinearLayout>
-
     <!-- TextView to display priceTotale -->
     <TextView
         android:id="@+id/priceTotaleTextView"
@@ -41,6 +31,16 @@
         android:padding="8dp"
         android:text="Price Totale"
         android:textSize="16sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:textColor="@color/white"/>
+
+    <!-- LinearLayout to hold quantiteList -->
+    <LinearLayout
+        android:id="@+id/quantiteLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <!-- TextViews for quantiteList will be added dynamically here -->
+    </LinearLayout>
 
 </LinearLayout>

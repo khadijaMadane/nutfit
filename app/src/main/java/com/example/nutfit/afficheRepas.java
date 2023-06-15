@@ -3,6 +3,7 @@ package com.example.nutfit;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.LinearLayout;
@@ -57,6 +58,7 @@ public class afficheRepas extends AppCompatActivity {
                         textView.setText("N/A"); // Set a default text if the value is null
                     }
                     textView.setPadding(8, 8, 8, 8);
+                    textView.setTextColor(Color.WHITE);
                     tableRow.addView(textView);
                 }
 
@@ -66,7 +68,9 @@ public class afficheRepas extends AppCompatActivity {
                     TextView textView = new TextView(this);
                     textView.setText("N/A"); // Set a default text for the empty cell
                     textView.setPadding(8, 8, 8, 8);
+                    textView.setTextColor(Color.WHITE);
                     tableRow.addView(textView);
+
                 }
 
                 // Add the TableRow to the TableLayout
@@ -84,8 +88,13 @@ public class afficheRepas extends AppCompatActivity {
 
 // Retrieve priceTotale from the intent
         String priceTotale = getIntent().getStringExtra("priceTotale");
+
+// Get the TextView to display priceTotale
+        TextView priceTotaleTextView = findViewById(R.id.priceTotaleTextView);
+        priceTotaleTextView.setText(priceTotale);
         // Get the LinearLayout to add TextViews
         LinearLayout quantiteLayout = findViewById(R.id.quantiteLayout);
+
 
 // Create TextViews for each quantite value and add them to the LinearLayout
         if (quantiteList != null) {
@@ -96,7 +105,10 @@ public class afficheRepas extends AppCompatActivity {
                 TextView quantiteTextView = new TextView(this);
                 quantiteTextView.setText(quantiteValue);
                 quantiteTextView.setPadding(8, 8, 8, 8);
+                quantiteTextView.setTextColor(Color.WHITE); // Set the text color to white
+
                 quantiteLayout.addView(quantiteTextView);
+
             }
         }
      else {
@@ -104,13 +116,4 @@ public class afficheRepas extends AppCompatActivity {
         // Handle the case when quantiteList is null
     }
 
-
-
-
-
-
-
-// Get the TextView to display priceTotale
-        TextView priceTotaleTextView = findViewById(R.id.priceTotaleTextView);
-        priceTotaleTextView.setText(priceTotale);
     }}
