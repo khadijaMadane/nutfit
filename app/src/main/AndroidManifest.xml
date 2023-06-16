@@ -12,6 +12,15 @@
         android:theme="@style/Theme.NutFit"
         tools:targetApi="31">
         <activity
+            android:name=".Data_activity"
+            android:exported="false" />
+        <activity
+            android:name=".MainInformation"
+            android:exported="false" />
+        <activity
+            android:name=".MainAcceuil"
+            android:exported="false" />
+        <activity
             android:name=".afficheRepas"
             android:exported="false" />
         <activity
