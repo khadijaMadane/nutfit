@@ -390,21 +390,21 @@ public class simplexe extends AppCompatActivity {
 
         //fin////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-        System.out.println("le prix est= " + table5[new_l2 - 1][new_c2 - 1]);
+        System.out.println("Total price= " + table5[new_l2 - 1][new_c2 - 1]);
         for (int i = 0; i < resultNut; i++)
             if (basi[i] < resultIng)
-                System.out.println("la quantité de " + nameIngArray[basi[i]] + " = " + table5[i][resultNut + resultIng]);
+                System.out.println("The quantity of " + nameIngArray[basi[i]] + " = " + table5[i][resultNut + resultIng]);
         System.out.println();
 
 
         TextView outputTextView = findViewById(R.id.outputTextView);
-        outputTextView.setText("le prix totale = " + table5[new_l2 - 1][new_c2 - 1] + "\n");
-        String priceTotale="le prix totale =" + table5[new_l2 - 1][new_c2 - 1];
+        outputTextView.setText("Total price = " + table5[new_l2 - 1][new_c2 - 1] + "\n");
+        String priceTotale="Total price =" + table5[new_l2 - 1][new_c2 - 1];
         System.out.println(priceTotale);
         List<String> quantiteList = new ArrayList<>();
         for (int i = 0; i < resultNut; i++) {
             if (basi[i] < resultIng) {
-                String message = "la quantité de " + nameIngArray[basi[i]] + " = " + table5[i][resultNut + resultIng] + "\n";
+                String message = "The quantity of " + nameIngArray[basi[i]] + " = " + table5[i][resultNut + resultIng] + "\n";
                 outputTextView.append(message);
                 quantiteList.add(message);
                 System.out.println(message);
@@ -521,7 +521,6 @@ public class simplexe extends AppCompatActivity {
             matrix[resultNutfinal - 1][0] = "Prix";
             matrix[0][0] = "NutIng";
 
-
             //affecter nom ing
             for (i = 1; i < resultIngfinal - 2; i++)
                 matrix[0][i] = nameIngArray[i - 1];
@@ -563,8 +562,6 @@ public class simplexe extends AppCompatActivity {
             for(i=1;i<resultIngfinal-2;i++)
                 matrix[resultNutfinal - 1][i] = prixDoubleArray[i - 1];
             matrix[resultNutfinal - 1][resultIngfinal - 2]=0;
-
-
 
             for (i = 0; i < resultNutfinal; i++) {
                 for (j = 0; j < resultIngfinal; j++) {

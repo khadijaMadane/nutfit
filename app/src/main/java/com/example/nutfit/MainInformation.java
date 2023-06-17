@@ -16,7 +16,7 @@ public class MainInformation extends AppCompatActivity {
         setContentView(R.layout.activity_main_information);
 
         Data_Info[] my_data = new Data_Info[]{
-                new Data_Info("     Diabetes       ", "*Limit the consumption of simple carbohydrates such as sweets and sugary drinks.\n" +
+                new Data_Info("Diabetes", "*Limit the consumption of simple carbohydrates such as sweets and sugary drinks.\n" +
                         "*Choose foods with a low glycemic index, such as non-starchy vegetables, whole grains, and legumes.\n" +
                         "*Control portions and avoid excesses.\n" +
                         "*Include sources of lean protein in your meals to help stabilize blood sugar levels.\n" +
@@ -28,7 +28,7 @@ public class MainInformation extends AppCompatActivity {
                         "*Engage in regular exercise to maintain a healthy blood pressure.\n" +
                         "*Manage your weight by adopting a balanced diet and engaging in regular physical activity.", R.drawable.hypertension),
 
-                new Data_Info("High Cholesterol:", "*Limit foods high in saturated fats and cholesterol, such as fatty meats, high-fat dairy products, and fried foods.\n" +
+                new Data_Info("High Cholesterol", "*Limit foods high in saturated fats and cholesterol, such as fatty meats, high-fat dairy products, and fried foods.\n" +
                         "*Choose healthy fats such as monounsaturated and polyunsaturated fats found in avocados, nuts, seeds, and fatty fish.\n" +
                         "*Increase consumption of soluble fibers found in fruits, vegetables, and legumes.\n" +
                         "*Engage in regular exercise to raise good cholesterol (HDL) levels and lower bad cholesterol (LDL) levels.", R.drawable.cholesterol),

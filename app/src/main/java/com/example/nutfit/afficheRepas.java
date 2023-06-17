@@ -78,7 +78,7 @@ public class afficheRepas extends AppCompatActivity {
             }
         } else {
             // Handle the case when the matrixListJson is null
-            Toast.makeText(this, "Matrix data is not available", Toast.LENGTH_SHORT).show();
+       //     Toast.makeText(this, "Matrix data is not available", Toast.LENGTH_SHORT).show();
             finish();
         }
         // Retrieve quantiteList from the intent
