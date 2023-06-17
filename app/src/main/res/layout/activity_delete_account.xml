@@ -18,7 +18,9 @@
             android:layout_marginTop="15dp"
             android:layout_marginEnd="15dp"
             android:layout_marginBottom="15dp"
-            android:background="@color/white"
+            android:background="@drawable/custo_editext"
+android:backgroundTint="@color/white"
+
             android:padding="15dp">
 
             <TextView
@@ -67,7 +69,9 @@
                 android:layout_marginTop="42dp"
                 android:layout_marginRight="70dp"
                 android:text="authenticate"
-                android:background="@color/green"
+
+                android:background="@drawable/custo_editext"
+                android:backgroundTint="@color/green"
                 />
 
             <ProgressBar
@@ -90,7 +94,8 @@
             android:layout_marginTop="15dp"
             android:layout_marginEnd="15dp"
             android:layout_marginBottom="15dp"
-            android:background="@color/white"
+            android:background="@drawable/custo_editext"
+            android:backgroundTint="@color/white"
             android:padding="15dp"
             android:layout_below="@id/RL_delete">
 
@@ -121,6 +126,8 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="70dp"
                 android:text="delete user"
+                android:background="@drawable/custo_editext"
+
 
                 />
         </RelativeLayout>
