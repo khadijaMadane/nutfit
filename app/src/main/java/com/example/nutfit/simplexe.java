@@ -468,14 +468,14 @@ public class simplexe extends AppCompatActivity {
             //affecter nom nut
             for (i = 1; i < resultNutfinal - 1; i++)
                 matrix[i][0] = nameArray[i - 1];
-            matrix[resultNutfinal - 1][0] = "Prix";
-            matrix[0][0] = "NutIng";
+            matrix[resultNutfinal - 1][0] = "Price";
+            matrix[0][0] = "Nut_Ing";
 
             //affecter nom ing
             for (i = 1; i < resultIngfinal - 2; i++)
                 matrix[0][i] = nameIngArray[i - 1];
-            matrix[0][resultIngfinal - 2] = "Objectif";
-            matrix[0][resultIngfinal - 1] = "Operateur";
+            matrix[0][resultIngfinal - 2] = "Objective";
+            matrix[0][resultIngfinal - 1] = "Operator";
             //matrix[0][resultIngfinal - 1] = "Result";
             //affecter la colonne des operateurs
             for (i = 1; i < resultNutfinal - 1; i++)
@@ -518,14 +518,14 @@ public class simplexe extends AppCompatActivity {
             //affecter nom nut
             for (i = 1; i < resultNutfinal - 1; i++)
                 matrix[i][0] = nameArray[i - 1];
-            matrix[resultNutfinal - 1][0] = "Prix";
-            matrix[0][0] = "NutIng";
+            matrix[resultNutfinal - 1][0] = "Price";
+            matrix[0][0] = "Nut_Ing";
 
             //affecter nom ing
             for (i = 1; i < resultIngfinal - 2; i++)
                 matrix[0][i] = nameIngArray[i - 1];
-            matrix[0][resultIngfinal - 2] = "Objectif";
-            matrix[0][resultIngfinal - 1] = "Operateur";
+            matrix[0][resultIngfinal - 2] = "Objective";
+            matrix[0][resultIngfinal - 1] = "Operator";
             //matrix[0][resultIngfinal - 1] = "Result";
             //affecter la colonne des operateurs
             for (i = 1; i < resultNutfinal - 1; i++)
