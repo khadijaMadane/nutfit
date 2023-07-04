@@ -38,7 +38,7 @@
             android:layout_marginTop="16dp"
             android:textSize="20dp"
             android:backgroundTint="@color/green_200"
-            android:text="Submit Normal" />
+            android:text="Submit ABSOLUTE" />
 
         <Button
             android:id="@+id/submitButtonPercent"
@@ -47,7 +47,7 @@
             android:layout_marginTop="16dp"
             android:textSize="20dp"
             android:backgroundTint="@color/green_200"
-            android:text="Submit Percent" />
+            android:text="Submit RELATIVE" />
 
 
 

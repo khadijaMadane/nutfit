@@ -393,7 +393,7 @@ public class simplexe extends AppCompatActivity {
         System.out.println("Total price= " + table5[new_l2 - 1][new_c2 - 1]);
         for (int i = 0; i < resultNut; i++)
             if (basi[i] < resultIng)
-                System.out.println("The quantity of " + nameIngArray[basi[i]] + " = " + table5[i][resultNut + resultIng]);
+                System.out.println("The quantity of " + nameIngArray[basi[i]] + " = " + (table5[i][resultNut + resultIng]*100));
         System.out.println();
 
 
@@ -401,13 +401,25 @@ public class simplexe extends AppCompatActivity {
         outputTextView.setText("Total price = " + table5[new_l2 - 1][new_c2 - 1] + "\n");
         String priceTotale="Total price =" + table5[new_l2 - 1][new_c2 - 1];
         System.out.println(priceTotale);
+
         List<String> quantiteList = new ArrayList<>();
-        for (int i = 0; i < resultNut; i++) {
-            if (basi[i] < resultIng) {
-                String message = "The quantity of " + nameIngArray[basi[i]] + " = " + table5[i][resultNut + resultIng] + "\n";
-                outputTextView.append(message);
-                quantiteList.add(message);
-                System.out.println(message);
+        if(percentOrNot==0) {
+            for (int i = 0; i < resultNut; i++) {
+                if (basi[i] < resultIng) {
+                    String message = "The quantity of " + nameIngArray[basi[i]] + " = " + (table5[i][resultNut + resultIng]) + "\n";
+                    outputTextView.append(message);
+                    quantiteList.add(message);
+                    System.out.println(message);
+                }
+            }
+        }else if(percentOrNot==1){
+            for (int i = 0; i < resultNut; i++) {
+                if (basi[i] < resultIng) {
+                    String message = "The quantity of " + nameIngArray[basi[i]] + " = " + (table5[i][resultNut + resultIng]*100) + "\n";
+                    outputTextView.append(message);
+                    quantiteList.add(message);
+                    System.out.println(message);
+                }
             }
         }
 
@@ -621,7 +633,7 @@ public class simplexe extends AppCompatActivity {
 
     private void showSaveDialog(Object[][] matrix, String priceTotale, List<String> quantite ) {
         AlertDialog.Builder mydialog = new AlertDialog.Builder(simplexe.this);
-        mydialog.setTitle("You want to save Recipe");
+        mydialog.setTitle("You want to save formulation ?");
 
         final EditText input = new EditText(simplexe.this);
         mydialog.setView(input);
