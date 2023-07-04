@@ -93,7 +93,7 @@ public class changePasswrord extends AppCompatActivity {
                                 Toast.makeText(changePasswrord.this,"password has been verified"+"change your password now", Toast.LENGTH_LONG).show();
 
                                 //change color of update button
-                                buttonChangePwd.setBackgroundTintList(ContextCompat.getColorStateList(changePasswrord.this,R.color.green));
+                                buttonChangePwd.setBackgroundTintList(ContextCompat.getColorStateList(changePasswrord.this,R.color.vert));
                                 buttonChangePwd.setOnClickListener(new View.OnClickListener() {
                                     @Override
                                     public void onClick(View v) {

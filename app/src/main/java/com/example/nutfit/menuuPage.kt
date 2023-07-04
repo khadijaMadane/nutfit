@@ -29,8 +29,8 @@ class menuuPage : AppCompatActivity() {
                 R.id.home, R.id.sitting, R.id.aide, R.id.recommencer, R.id.signout,R.id.enreg -> {
                     Toast.makeText(applicationContext, "Clicked ${menuItem.title}", Toast.LENGTH_SHORT).show()
                     menuItem.isChecked = true
-                    menuItem.icon?.setTintList(ColorStateList.valueOf(ContextCompat.getColor(applicationContext, R.color.green))) // Change to the desired green color
-                    navView.setBackgroundColor(ContextCompat.getColor(applicationContext, R.color.green)) // Change to the desired green color
+                    menuItem.icon?.setTintList(ColorStateList.valueOf(ContextCompat.getColor(applicationContext, R.color.vert))) // Change to the desired green color
+                    navView.setBackgroundColor(ContextCompat.getColor(applicationContext, R.color.vert)) // Change to the desired green color
                     true
                 }
                 else -> false

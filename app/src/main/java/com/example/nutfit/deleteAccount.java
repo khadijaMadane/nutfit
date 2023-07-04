@@ -95,7 +95,7 @@ public class deleteAccount extends AppCompatActivity {
                                 Toast.makeText(deleteAccount.this,"password has been verified"+"you can delete now your account,be careful,this action is irreversible", Toast.LENGTH_LONG).show();
 
                                 //change color of update button
-                                buttonDeleteUser.setBackgroundTintList(ContextCompat.getColorStateList(deleteAccount.this,R.color.green));
+                                buttonDeleteUser.setBackgroundTintList(ContextCompat.getColorStateList(deleteAccount.this,R.color.vert));
                                 buttonDeleteUser.setOnClickListener(new View.OnClickListener() {
                                     @Override
                                     public void onClick(View v) {
@@ -155,7 +155,7 @@ public class deleteAccount extends AppCompatActivity {
         alertDialog.setOnShowListener(new DialogInterface.OnShowListener() {
             @Override
             public void onShow(DialogInterface dialog) {
-                alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(getResources().getColor(R.color.green));
+                alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(getResources().getColor(R.color.vert));
             }
         });
 //Show the AlertDialog

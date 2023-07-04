@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/green"
+    android:background="@color/vert"
     tools:context=".deleteAccount">
     <RelativeLayout
         android:layout_width="match_parent"
@@ -18,7 +18,7 @@
             android:layout_marginTop="15dp"
             android:layout_marginEnd="15dp"
             android:layout_marginBottom="15dp"
-            android:background="@drawable/custo_editext"
+            android:background="@drawable/round"
 android:backgroundTint="@color/white"
 
             android:padding="15dp">
@@ -50,7 +50,7 @@ android:backgroundTint="@color/white"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/textView_delete_acc_pwd"
-                android:background="@drawable/custo_editext"
+                android:background="@drawable/round"
                 android:hint="enter your current password"
                 android:inputType="textPassword"
                 android:minHeight="48dp"
@@ -71,7 +71,7 @@ android:backgroundTint="@color/white"
                 android:text="authenticate"
 
                 android:background="@drawable/custo_editext"
-                android:backgroundTint="@color/green"
+                android:backgroundTint="@color/vert"
                 />
 
             <ProgressBar
@@ -94,7 +94,7 @@ android:backgroundTint="@color/white"
             android:layout_marginTop="15dp"
             android:layout_marginEnd="15dp"
             android:layout_marginBottom="15dp"
-            android:background="@drawable/custo_editext"
+            android:background="@drawable/round"
             android:backgroundTint="@color/white"
             android:padding="15dp"
             android:layout_below="@id/RL_delete">
@@ -126,7 +126,7 @@ android:backgroundTint="@color/white"
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="70dp"
                 android:text="delete user"
-                android:background="@drawable/custo_editext"
+                android:background="@drawable/round"
 
 
                 />

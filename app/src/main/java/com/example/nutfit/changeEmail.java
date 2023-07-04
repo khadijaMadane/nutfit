@@ -94,7 +94,7 @@ public class changeEmail extends AppCompatActivity {
                                 buttonVerifyUser.setEnabled(false);
                                 buttonUpdateEmail.setEnabled(true);
                                 //change color of update button
-                                buttonUpdateEmail.setBackgroundTintList(ContextCompat.getColorStateList(changeEmail.this,R.color.green));
+                                buttonUpdateEmail.setBackgroundTintList(ContextCompat.getColorStateList(changeEmail.this,R.color.vert));
                                 buttonUpdateEmail.setOnClickListener(new View.OnClickListener() {
                                     @Override
                                     public void onClick(View v) {
