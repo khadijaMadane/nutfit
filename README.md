@@ -53,7 +53,7 @@ Follow these steps to set up the NutFit project on your local machine using **An
 1. Open **Android Studio** and navigate to **File > New > Project from Version Control**.
 2. Select **Git** and enter the GitHub repository URL:
     ```bash
-    https://github.com/yourusername/NutFit.git
+    https://github.com/KhadijaMadane/NutFit.git
     ```
 3. Click **Clone** and wait for the project files to download to your local machine.
 
@@ -62,7 +62,7 @@ Follow these steps to set up the NutFit project on your local machine using **An
 You can also clone the repository using the command line:
 
 ```bash
-git clone https://github.com/yourusername/NutFit.git  
+git clone https://github.com/KhadijaMadane/NutFit.git  
 ```
 Then, open the project in Android Studio by selecting **File > Open** and navigating to **the NutFit folder**.
 
@@ -142,6 +142,13 @@ Test the main features of the NutFit application:
    - Test the app’s interface for viewing and managing saved rations and user data.
 
 By following these steps, you will have Firebase set up for authentication and data storage, and your NutFit application will be ready to use for generating optimized feed rations.
+## Contributors
+
+This project was developed and maintained by:
+
+- **Khadija Ben Madane**
+- **Imane Ougni**
+
 
 ## Contributions
 
