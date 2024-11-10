@@ -62,10 +62,9 @@ Follow these steps to set up the NutFit project on your local machine using **An
 You can also clone the repository using the command line:
 
 ```bash
-git clone https://github.com/yourusername/NutFit.git
-
+git clone https://github.com/yourusername/NutFit.git  
+```
 Then, open the project in Android Studio by selecting **File > Open** and navigating to **the NutFit folder**.
-
 
 ### Step 2: Set Up Firebase for NutFit (Firestore)
 
